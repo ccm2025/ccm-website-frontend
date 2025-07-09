@@ -4,7 +4,7 @@
 </script>
 
 <svelte:head>
-	<title>{'About Us'}</title>
+	<title>{data.page.heroTitle}</title>
 </svelte:head>
 
 <main>
@@ -26,13 +26,15 @@
 	<!-- Introduction Section -->
 	<section class="bg-white py-16 md:py-24">
 		<div class="container mx-auto max-w-4xl px-4 text-center">
-			<h2 class="text-lg font-semibold text-yellow-600 md:text-xl">Chinese Collegial Ministry</h2>
+			<h2 class="text-lg font-semibold text-yellow-600 md:text-xl">
+				{data.page.introductionSubtitle}
+			</h2>
 			<p class="mt-2 text-3xl font-bold tracking-wider text-gray-800 md:text-4xl">
-				Chinese Collegial Ministry
+				{data.page.introductionTitle}
 			</p>
 
 			<div class="prose mt-8 max-w-none space-y-4 text-left text-lg text-gray-600">
-				{data.page.introduction}
+				{data.page.introductionContent}
 			</div>
 		</div>
 	</section>
@@ -42,8 +44,12 @@
 		<section class="bg-gray-50 py-16 md:py-24">
 			<div class="container mx-auto px-4">
 				<div class="mx-auto max-w-4xl text-center">
-					<h2 class="text-lg font-semibold text-yellow-600 md:text-xl">Learn More About Our</h2>
-					<p class="mt-2 text-3xl font-bold tracking-wider text-gray-800 md:text-4xl">HISTORY</p>
+					<h2 class="text-lg font-semibold text-yellow-600 md:text-xl">
+						{data.page.historySubtitle}
+					</h2>
+					<p class="mt-2 text-3xl font-bold tracking-wider text-gray-800 md:text-4xl">
+						{data.page.historyTitle}
+					</p>
 				</div>
 				<div class="mt-12 grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-12">
 					{#each data.page.historySection as section (section.id)}
@@ -70,8 +76,10 @@
 		<section class="bg-white py-16 md:py-24">
 			<div class="container mx-auto px-4">
 				<div class="mx-auto max-w-4xl text-center">
-					<h2 class="text-lg font-semibold text-yellow-600 md:text-xl">Meet With</h2>
-					<p class="mt-2 text-3xl font-bold tracking-wider text-green-800 md:text-4xl">OUR TEAM</p>
+					<h2 class="text-lg font-semibold text-yellow-600 md:text-xl">{data.page.teamSubtitle}</h2>
+					<p class="mt-2 text-3xl font-bold tracking-wider text-green-800 md:text-4xl">
+						{data.page.teamTitle}
+					</p>
 				</div>
 
 				<div class="mt-12 grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">

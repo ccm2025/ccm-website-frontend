@@ -1,8 +1,8 @@
+import { api, apiUrl } from '$lib';
+import type { StrapiImage, StrapiResponse } from '$lib/types';
 import { error } from '@sveltejs/kit';
 import axios from 'axios';
 import type { PageServerLoad } from './$types';
-
-import type { StrapiImage, StrapiResponse } from '$lib/types';
 
 interface HistoryStory {
 	id: number;
@@ -18,23 +18,20 @@ interface TeamMember {
 }
 
 interface AboutPageAttributes {
+	hero_title: string;
 	hero_image: StrapiImage;
-	introduction: string;
+	introduction_subtitle: string;
+	introduction_title: string;
+	introduction_content: string;
+	history_subtitle: string;
+	history_title: string;
 	history_section?: HistoryStory[];
+	team_subtitle: string;
+	team_title: string;
 	team_section?: TeamMember[];
 }
 
 type AboutPageResponse = StrapiResponse<AboutPageAttributes>;
-
-const STRAPI_URL = import.meta.env.VITE_STRAPI_URL;
-const STRAPI_TOKEN = import.meta.env.VITE_STRAPI_TOKEN;
-
-const api = axios.create({
-	baseURL: STRAPI_URL,
-	headers: {
-		Authorization: `bearer ${STRAPI_TOKEN}`
-	}
-});
 
 export const load: PageServerLoad = async () => {
 	try {
@@ -60,36 +57,44 @@ export const load: PageServerLoad = async () => {
 		const pageData = response.data.data;
 
 		if (!pageData) {
-			throw error(404, 'About page data not found in Strapi.');
+			throw error(404, 'About page data not found.');
 		}
 
 		return {
 			page: {
-				introduction: pageData.introduction,
+				heroTitle: pageData.hero_title,
 				heroImageUrl: pageData.hero_image?.url
-					? `${STRAPI_URL}${pageData.hero_image.url}`
+					? `${apiUrl}${pageData.hero_image.url}`
 					: 'https://placehold.co/1200x600?text=Hero+Image',
+				heroImageAlt: pageData.hero_image?.alternativeText || 'Hero image',
+				introductionSubtitle: pageData.introduction_subtitle,
+				introductionTitle: pageData.introduction_title,
+				introductionContent: pageData.introduction_content,
+				historySubtitle: pageData.history_subtitle,
+				historyTitle: pageData.history_title,
 				historySection: pageData.history_section?.map((story) => ({
 					id: story.id,
 					description: story.description,
 					imageUrl: story.image?.url
-						? `${STRAPI_URL}${story.image.url}`
+						? `${apiUrl}${story.image.url}`
 						: 'https://placehold.co/1200x600?text=History+Image',
 					imageAlt: story.image?.alternativeText || 'History section image'
 				})),
+				teamSubtitle: pageData.team_subtitle,
+				teamTitle: pageData.team_title,
 				teamSection: pageData.team_section?.map((member) => ({
 					id: member.id,
 					name: member.name,
 					description: member.description,
 					avatarUrl: member.avatar?.url
-						? `${STRAPI_URL}${member.avatar.url}`
+						? `${apiUrl}${member.avatar.url}`
 						: 'https://placehold.co/600x600?text=Avatar',
 					avatarAlt: member.avatar?.alternativeText || member.name
 				}))
 			}
 		};
 	} catch (e) {
-		console.error('Error fetching from Strapi via axios:', e);
+		console.error('Error fetching:', e);
 		if (axios.isAxiosError(e)) {
 			const status = e.response?.status || 500;
 			const message = e.response?.data?.error?.message || 'Failed to load page data.';
