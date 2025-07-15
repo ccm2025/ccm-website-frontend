@@ -1,4 +1,6 @@
 <script>
+	/** @type {import('./$types').PageData} */
+	export let data;
 	// =================================================
 	// All shared components and styles
 	// =================================================
@@ -7,12 +9,7 @@
 	import { fly } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 	import logoImage from '$lib/assets/logo.png';
-
-	let isMenuOpen = false;
-
-	function toggleMenu() {
-		isMenuOpen = !isMenuOpen;
-	}
+	import { isMenuOpen, toggleMenu } from '$lib/store/SideMenu';
 </script>
 
 <svelte:head>
@@ -21,16 +18,14 @@
 		href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
 		rel="stylesheet"
 	/>
-	<link rel="icon" type="image/svg" href={logoImage} />
+	<link rel="icon" type="image/svg" href={'/favicon.svg'} />
 	<style>
 		body {
 			font-family: 'Inter', sans-serif;
 		}
 		:root {
-			--hero-title-color: #ffffff;
-			--hero-subtitle-color: #a7f3d0;
-			--hero-text-color: #ffffff;
-			--quote-text-color: #ca8a04;
+			--website-theme-color1: #154e30; /* 深绿色 */
+			--website-theme-color2: #e9aa1c; /* 金色 */
 		}
 	</style>
 </svelte:head>
@@ -50,13 +45,13 @@
 							class="text-2xl font-medium tracking-wider"
 							style="color: var(--website-theme-color1)"
 						>
-							华人校园事工
+							{data.global?.websiteTitleCn}
 						</div>
 						<div
 							class="text-xs font-medium tracking-wider"
 							style="color: var(--website-theme-color1)"
 						>
-							CHINESE COLLEGIAL MINISTRY
+							{data.global?.websiteTitleEn}
 						</div>
 					</div>
 				</a>
@@ -99,20 +94,22 @@
 					<a href="/" class="flex items-center space-x-3">
 						<img
 							src={logoImage}
-							alt="Chinese Collegian Ministry Logo"
+							alt={data.global?.websiteTitleEn}
 							class="h-10 w-auto rounded-full bg-white p-1"
 						/>
 						<div>
-							<div class="text-lg leading-tight font-bold text-white">华人家园事工</div>
+							<div class="text-lg leading-tight font-bold text-white">
+								{data.global?.websiteTitleCn}
+							</div>
 							<div class="text-xs font-medium tracking-wider text-gray-400">
-								CHINESE COLLEGIAN MINISTRY
+								{data.global?.websiteTitleEn}
 							</div>
 						</div>
 					</a>
 					<div class="mt-4 mb-6 h-1 w-24 rounded bg-[#d4af37]"></div>
 					<div class="flex space-x-4">
 						<a
-							href="/"
+							href={data.global?.socialLinks.instagram || '/'}
 							aria-label="Instagram"
 							class="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-yellow-400 via-red-500 to-purple-600 text-white transition-opacity hover:opacity-90"
 							><svg
@@ -131,22 +128,7 @@
 							></a
 						>
 						<a
-							href="/"
-							aria-label="WeChat"
-							class="flex h-12 w-12 items-center justify-center rounded-full bg-green-500 text-white transition-opacity hover:opacity-90"
-							><svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								fill="currentColor"
-								><path
-									d="M11.944 16.944c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm-6.23-6.425c-.012.13-.02.26-.02.395 0 3.313 2.686 6 6 6 .14 0 .27-.01.405-.022-2.934 1.63-6.37 1.49-6.385 1.49-.11 0-.17-.09-.13-.19.41-.97.23-2.12-.49-3.25-.19-.3-.02-.7.29-.7.89.02 1.83-.16 2.33-.815zM18.39 9.335c.18-.93-.16-1.9-1.03-2.39-.87-.49-1.93-.15-2.39 1.02-.46 1.18.15 2.44 1.02 2.89.87.46 1.93.12 2.4-1.52zM12 2C6.477 2 2 6.477 2 12c0 4.414 2.863 8.163 6.707 9.494.09.016.19.03.293.03.26 0 .5-.16.59-.41.52-1.42.48-2.99-.12-4.395-.12-.28.05-.58.33-.68.6-.2 1.25-.33 1.95-.33.68 0 1.33.12 1.92.32.28.1.45.4.33.68-.6 1.405-.64 2.975-.12 4.395.09.25.33.41.59.41.1 0 .2-.014.29-.03C19.137 20.163 22 16.414 22 12c0-5.523-4.477-10-10-10z"
-								/></svg
-							></a
-						>
-						<a
-							href="/"
+							href={data.global?.socialLinks.youtube || '/'}
 							aria-label="YouTube"
 							class="flex h-12 w-12 items-center justify-center rounded-full bg-red-600 text-white transition-opacity hover:opacity-90"
 							><svg
@@ -163,11 +145,11 @@
 					</div>
 				</div>
 				<div>
-					<h3 class="mb-4 text-xl font-bold text-white">Contact Info</h3>
+					<h3 class="mb-4 text-xl font-bold text-white">{data.global?.contactTitle}</h3>
 					<div class="space-y-2 text-gray-300">
-						<p>Location: address sclnsdbfabk.<br />Gainesville, Fl 32607</p>
-						<p>Email: email@address.com</p>
-						<p>TEL: (xxx) xxx-xxxx</p>
+						<p>Location: {data.global?.address}</p>
+						<p>Email: {data.global?.email}</p>
+						<p>TEL: {data.global?.phone}</p>
 					</div>
 				</div>
 				<div>
@@ -188,7 +170,7 @@
 				<div>
 					<h3 class="mb-4 text-xl font-bold text-white">Get Involved</h3>
 					<nav class="space-y-2">
-						<a href="/plan-visit" class="block text-gray-300 underline hover:text-white"
+						<a href="/plan-your-visit" class="block text-gray-300 hover:text-white hover:underline"
 							>Plan Your Visit</a
 						>
 						<a href="/give" class="block text-gray-300 hover:text-white hover:underline">Give</a>
@@ -205,7 +187,7 @@
 	</footer>
 
 	<!-- Side Menu -->
-	{#if isMenuOpen}
+	{#if $isMenuOpen}
 		<div
 			class="fixed top-0 right-0 z-50 h-full w-1/5 max-w-sm"
 			style="background-color: var(--website-theme-color2);"
@@ -219,14 +201,14 @@
 					</button>
 				</div>
 				<nav class="flex flex-col space-y-4 text-2xl text-white">
-					<a href="/">Home</a>
-					<a href="/about">About Us</a>
-					<a href="/activities">Gatherings</a>
-					<a href="/contact">Freshman Zone</a>
-					<a href="/contact">Support</a>
-					<a href="/contact">Give</a>
-					<a href="/contact">Volunteer</a>
-					<a href="/contact">Plan Your Visit</a>
+					<a href="/" on:click={toggleMenu}>Home</a>
+					<a href="/about" on:click={toggleMenu}>About Us</a>
+					<a href="/gatherings" on:click={toggleMenu}>Gatherings</a>
+					<a href="/freshman" on:click={toggleMenu}>Freshman Zone</a>
+					<a href="/support" on:click={toggleMenu}>Support</a>
+					<a href="/give" on:click={toggleMenu}>Give</a>
+					<a href="/volunteer" on:click={toggleMenu}>Volunteer</a>
+					<a href="/plan-your-visit" on:click={toggleMenu}>Plan Your Visit</a>
 					<hr class="my-4" />
 				</nav>
 			</div>
