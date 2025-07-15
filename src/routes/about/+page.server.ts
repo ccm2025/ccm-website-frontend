@@ -73,8 +73,7 @@ export const load: PageServerLoad = async () => {
 				historySubtitle: pageData.history_subtitle,
 				historyTitle: pageData.history_title,
 				historySection: pageData.history_section?.map((story) => ({
-					id: story.id,
-					description: story.description,
+					...story,
 					imageUrl: story.image?.url
 						? `${apiUrl}${story.image.url}`
 						: 'https://placehold.co/1200x600?text=History+Image',
@@ -83,9 +82,7 @@ export const load: PageServerLoad = async () => {
 				teamSubtitle: pageData.team_subtitle,
 				teamTitle: pageData.team_title,
 				teamSection: pageData.team_section?.map((member) => ({
-					id: member.id,
-					name: member.name,
-					description: member.description,
+					...member,
 					avatarUrl: member.avatar?.url
 						? `${apiUrl}${member.avatar.url}`
 						: 'https://placehold.co/600x600?text=Avatar',
