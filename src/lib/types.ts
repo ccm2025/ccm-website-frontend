@@ -3,6 +3,11 @@ export interface StrapiImage {
 	alternativeText?: string;
 }
 
+export interface StrapiFile {
+	url: string;
+	alternativeText?: string;
+}
+
 export interface StrapiResponse<T> {
 	data: (T & { publishedAt: string }) | null;
 	meta?: object;
