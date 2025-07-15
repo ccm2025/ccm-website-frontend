@@ -46,8 +46,8 @@
 						>
 							<div class="h-48 overflow-hidden">
 								<img
-									src={category.coverImageUrl}
-									alt={category.coverImageAlt}
+									src={category.imageUrl}
+									alt={category.imageAlt}
 									class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
 								/>
 							</div>

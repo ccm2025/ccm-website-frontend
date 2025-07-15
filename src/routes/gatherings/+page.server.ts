@@ -7,7 +7,7 @@ import type { PageServerLoad } from './$types';
 interface Category {
 	id: number;
 	name: string;
-	cover_image: StrapiImage;
+	image: StrapiImage;
 }
 
 interface Event {
@@ -41,7 +41,7 @@ export const load: PageServerLoad = async () => {
 			api.get<GatheringsPageResponse>('/api/gatherings-page', {
 				params: {
 					locale: 'en',
-					populate: { hero_image: true, categories: { populate: { cover_image: true } } }
+					populate: { hero_image: true, categories: { populate: { image: true } } }
 				}
 			}),
 			api.get<{ data: Event[] }>('/api/events', {
@@ -69,15 +69,12 @@ export const load: PageServerLoad = async () => {
 		}
 
 		const mapEvent = (event: Event) => ({
-			id: event.id,
-			title: event.title,
+			...event,
 			date: new Date(event.date).toLocaleDateString('en-US', {
 				year: 'numeric',
 				month: 'long',
 				day: 'numeric'
 			}),
-			location: event.location,
-			description: event.description,
 			imageUrl: event.image?.url
 				? `${apiUrl}${event.image.url}`
 				: 'https://placehold.co/600x400?text=Event',
@@ -94,12 +91,11 @@ export const load: PageServerLoad = async () => {
 				categoriesSubtitle: pageData.categories_subtitle,
 				categoriesTitle: pageData.categories_title,
 				categories: pageData.categories?.map((category) => ({
-					id: category.id,
-					name: category.name,
-					coverImageUrl: category.cover_image?.url
-						? `${apiUrl}${category.cover_image.url}`
+					...category,
+					imageUrl: category.image?.url
+						? `${apiUrl}${category.image.url}`
 						: 'https://placehold.co/600x400?text=Category',
-					coverImageAlt: category.cover_image?.alternativeText || category.name
+					imageAlt: category.image?.alternativeText || category.name
 				})),
 				eventsSubtitle: pageData.events_subtitle,
 				eventsTitle: pageData.events_title,
