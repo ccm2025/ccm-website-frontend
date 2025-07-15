@@ -1,0 +1,11 @@
+{
+  "name": "ccm-website-frontend",
+
+  "compatibility_date": "2025-07-14",
+
+  "pages_build_output_dir": ".svelte-kit/cloudflare",
+
+  "build": {
+    "command": "npm run build"
+  }
+}
