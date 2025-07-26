@@ -1,7 +1,8 @@
 <script>
 	/** @type {import('./$types').PageData} */
 	export let data;
-	import { toggleMenu } from '$lib/store/SideMenu';
+	import StyledText from '$lib/components/StyledText.svelte';
+	import { toggleMenu } from '$lib/stores/SideMenu';
 </script>
 
 <svelte:head>
@@ -22,21 +23,13 @@
 			<div class="absolute inset-0 bg-black/50"></div>
 		</div>
 		<div class="relative z-10 px-4 text-left">
-			<h1
-				class="text-4xl font-bold tracking-tight uppercase md:text-6xl"
-				style="color: var(--hero-title-color)"
-			>
+			<h1 class="mb-8 text-4xl font-bold tracking-tight uppercase md:text-6xl">
 				{data.page.hero.title}
 			</h1>
-			<p
-				class="prose mt-4 text-lg font-medium md:text-2xl"
-				style="color: var(--hero-subtitle-color)"
-			>
-				{@html data.page.hero.subtitle}
-			</p>
+			<StyledText data={data.page.hero.subtitle} as="h2" />
 			<button
 				type="button"
-				class="mt-10 inline-block rounded-full border-2 border-white px-8 py-3 text-lg font-semibold transition-all duration-300 hover:bg-white hover:text-green-700"
+				class="mt-14 inline-block rounded-full border-2 border-white px-8 py-3 text-lg font-semibold transition-all duration-300 hover:bg-white hover:text-green-700"
 				on:click={toggleMenu}
 				aria-label={data.page.hero.button_text}
 			>
@@ -48,9 +41,7 @@
 	<!-- Intro Section Part 1 -->
 	<section class="bg-white py-16 md:py-24">
 		<div class="container mx-auto max-w-4xl px-4 text-center">
-			<div class="prose mt-8 max-w-none text-gray-600">
-				{@html data.page.intro.part1}
-			</div>
+			<StyledText data={data.page.intro.part1} as="p" gap={10} />
 		</div>
 	</section>
 
@@ -79,17 +70,15 @@
 
 	<!-- Intro Section Part 2 -->
 	<section class="bg-white py-16 md:py-24">
-		<div class="container mx-auto max-w-4xl px-4 text-center">
-			<div class="prose mt-8 max-w-none text-gray-600">
-				{@html data.page.intro.part2}
-			</div>
+		<div class="container mx-auto max-w-5xl px-4 text-center">
+			<StyledText data={data.page.intro.part2} as="p" gap={12} />
 		</div>
 	</section>
 
 	<!-- Meet With Us Section -->
 	<section class="bg-white py-16 md:py-24">
 		<div class="container mx-auto px-4">
-			<h2 class="text-center text-3xl font-bold tracking-wider text-green-800 md:text-4xl">
+			<h2 class="text-center text-3xl font-bold tracking-wider md:text-4xl">
 				{data.page.meet.title}
 			</h2>
 			<div class="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
@@ -119,8 +108,8 @@
 					</a>
 				{/each}
 			</div>
-			<div class="mt-16 text-center text-xl text-gray-700 md:text-2xl">
-				<p>{data.page.meet.conclusion}</p>
+			<div class="mt-16 text-center text-xl md:text-2xl">
+				<StyledText data={data.page.conclusion} />
 			</div>
 		</div>
 	</section>

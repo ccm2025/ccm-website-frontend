@@ -1,8 +1,7 @@
 import { api, apiUrl } from '$lib';
-import type { StrapiImage, StrapiResponse } from '$lib/types';
+import type { StrapiImage, StrapiResponse, StyledTextProps } from '$lib/types';
 import { error } from '@sveltejs/kit';
 import axios from 'axios';
-import { marked } from 'marked';
 import type { PageServerLoad } from './$types';
 
 interface MeetCard {
@@ -14,17 +13,18 @@ interface MeetCard {
 
 interface HomePageAttributes {
 	hero_title: string;
-	hero_subtitle: string;
+	hero_subtitle: StyledTextProps[];
 	hero_button_text: string;
 	hero_background_image: StrapiImage;
 
-	introduction_part1: string;
+	introduction_part1: StyledTextProps[];
 	introduction_video_url: string;
-	introduction_part2: string;
+	introduction_part2: StyledTextProps[];
 
 	meet_title: string;
 	meet_cards: MeetCard[];
-	meet_conclusion: string;
+
+	conclusion: StyledTextProps[];
 }
 
 type HomePageResponse = StrapiResponse<HomePageAttributes>;
@@ -34,7 +34,11 @@ export const load: PageServerLoad = async () => {
 		const response = await api.get<HomePageResponse>('/api/home-page', {
 			params: {
 				populate: {
+					hero_subtitle: true,
 					hero_background_image: true,
+					introduction_part1: true,
+					introduction_part2: true,
+					conclusion: true,
 					meet_cards: {
 						populate: 'image'
 					}
@@ -53,7 +57,7 @@ export const load: PageServerLoad = async () => {
 			page: {
 				hero: {
 					title: pageData.hero_title,
-					subtitle: marked.parse(pageData.hero_subtitle),
+					subtitle: pageData.hero_subtitle,
 					button_text: pageData.hero_button_text,
 					backgroundImageUrl: pageData.hero_background_image?.url
 						? `${apiUrl}${pageData.hero_background_image.url}`
@@ -61,21 +65,22 @@ export const load: PageServerLoad = async () => {
 					backgroundImageAlt: pageData.hero_background_image?.alternativeText || 'Hero Background'
 				},
 				intro: {
-					part1: marked.parse(pageData.introduction_part1),
+					part1: pageData.introduction_part1,
 					videoUrl: pageData.introduction_video_url || '',
-					part2: marked.parse(pageData.introduction_part2)
+					part2: pageData.introduction_part2
 				},
 				meet: {
 					title: pageData.meet_title,
 					cards: pageData.meet_cards.map((card) => ({
 						...card,
+						link: card.link || '#',
 						imageUrl: card.image?.url
 							? `${apiUrl}${card.image.url}`
 							: 'https://placehold.co/600x400?text=Meet+Card',
 						imageAlt: card.image?.alternativeText || card.name
-					})),
-					conclusion: pageData.meet_conclusion
-				}
+					}))
+				},
+				conclusion: pageData.conclusion
 			}
 		};
 	} catch (e) {
