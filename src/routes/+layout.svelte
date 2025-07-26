@@ -9,7 +9,7 @@
 	import { fly } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 	import logoImage from '$lib/assets/logo.png';
-	import { isMenuOpen, toggleMenu } from '$lib/store/SideMenu';
+	import { isMenuOpen, toggleMenu } from '$lib/stores/SideMenu';
 </script>
 
 <svelte:head>
@@ -147,9 +147,8 @@
 				<div>
 					<h3 class="mb-4 text-xl font-bold text-white">{data.global?.contactTitle}</h3>
 					<div class="space-y-2 text-gray-300">
-						<p>Location: {data.global?.address}</p>
-						<p>Email: {data.global?.email}</p>
-						<p>TEL: {data.global?.phone}</p>
+						<p>{data.global?.address}</p>
+						<p>{data.global?.email}</p>
 					</div>
 				</div>
 				<div>

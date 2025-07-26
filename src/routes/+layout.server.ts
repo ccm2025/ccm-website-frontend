@@ -1,4 +1,4 @@
-import { api } from '$lib/server/strapi';
+import { api } from '$lib';
 import type { StrapiResponse } from '$lib/types';
 import type { LayoutServerLoad } from './$types';
 
@@ -8,7 +8,6 @@ interface GlobalAttributes {
 	contact_title: string;
 	address: string;
 	email: string;
-	phone: string;
 	instagram_url: string;
 	youtube_url: string;
 }
@@ -37,7 +36,6 @@ export const load: LayoutServerLoad = async () => {
 				contactTitle: globalData.contact_title,
 				address: globalData.address,
 				email: globalData.email,
-				phone: globalData.phone,
 				socialLinks: {
 					instagram: globalData.instagram_url || '',
 					youtube: globalData.youtube_url || ''

@@ -1,4 +1,6 @@
 <script>
+	import StyledText from '$lib/components/StyledText.svelte';
+
 	/** @type {import('./$types').PageData} */
 	export let data;
 </script>
@@ -8,7 +10,7 @@
 </svelte:head>
 
 <main>
-	<!-- Hero Section for About Page -->
+	<!-- Hero Section -->
 	<section class="relative flex h-64 items-center justify-center text-center text-white md:h-80">
 		<div class="absolute inset-0">
 			<img
@@ -26,16 +28,16 @@
 	<!-- Introduction Section -->
 	<section class="bg-white py-16 md:py-24">
 		<div class="container mx-auto max-w-4xl px-4 text-center">
-			<h2 class="text-lg font-semibold text-yellow-600 md:text-xl">
+			<h2 class="text-lg font-semibold md:text-xl" style="color: var(--website-theme-color2)">
 				{data.page.introductionSubtitle}
 			</h2>
-			<p class="mt-2 text-3xl font-bold tracking-wider text-gray-800 md:text-4xl">
+			<p
+				class="mt-2 mb-6 text-3xl font-bold tracking-wide md:text-4xl"
+				style="color: var(--website-theme-color1)"
+			>
 				{data.page.introductionTitle}
 			</p>
-
-			<div class="prose mt-8 max-w-none space-y-4 text-left text-lg text-gray-600">
-				{data.page.introductionContent}
-			</div>
+			<StyledText data={data.page.introductionContent} />
 		</div>
 	</section>
 
@@ -44,10 +46,13 @@
 		<section class="bg-gray-50 py-16 md:py-24">
 			<div class="container mx-auto px-4">
 				<div class="mx-auto max-w-4xl text-center">
-					<h2 class="text-lg font-semibold text-yellow-600 md:text-xl">
+					<h2 class="text-lg font-semibold md:text-xl" style="color: var(--website-theme-color2)">
 						{data.page.historySubtitle}
 					</h2>
-					<p class="mt-2 text-3xl font-bold tracking-wider text-gray-800 md:text-4xl">
+					<p
+						class="mt-2 text-3xl font-bold tracking-wider md:text-4xl"
+						style="color: var(--website-theme-color1)"
+					>
 						{data.page.historyTitle}
 					</p>
 				</div>
@@ -61,9 +66,7 @@
 							/>
 						</div>
 						<div class="rounded-lg bg-yellow-50 p-6 md:p-8">
-							<div class="prose max-w-none space-y-4 text-lg text-gray-700">
-								{section.description}
-							</div>
+							<StyledText data={section.content} />
 						</div>
 					{/each}
 				</div>
@@ -76,8 +79,13 @@
 		<section class="bg-white py-16 md:py-24">
 			<div class="container mx-auto px-4">
 				<div class="mx-auto max-w-4xl text-center">
-					<h2 class="text-lg font-semibold text-yellow-600 md:text-xl">{data.page.teamSubtitle}</h2>
-					<p class="mt-2 text-3xl font-bold tracking-wider text-green-800 md:text-4xl">
+					<h2 class="text-lg font-semibold md:text-xl" style="color: var(--website-theme-color2)">
+						{data.page.teamSubtitle}
+					</h2>
+					<p
+						class="mt-2 text-3xl font-bold tracking-wider md:text-4xl"
+						style="color: var(--website-theme-color1)"
+					>
 						{data.page.teamTitle}
 					</p>
 				</div>
@@ -90,8 +98,10 @@
 								alt={member.avatarAlt}
 								class="mx-auto h-40 w-40 rounded-full border-4 border-white object-cover shadow-lg"
 							/>
-							<h3 class="mt-6 text-xl font-bold text-yellow-600">{member.name}</h3>
-							<p class="mt-2 text-gray-600">{member.description}</p>
+							<h3 class="mt-6 text-xl font-bold" style="color: var(--website-theme-color1)">
+								{member.name}
+							</h3>
+							<p class="mt-2" style="color: var(--website-theme-color2)">{member.description}</p>
 						</div>
 					{/each}
 				</div>

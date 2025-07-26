@@ -1,12 +1,12 @@
 import { api, apiUrl } from '$lib';
-import type { StrapiImage, StrapiResponse } from '$lib/types';
+import type { StrapiImage, StrapiResponse, StyledTextProps } from '$lib/types';
 import { error } from '@sveltejs/kit';
 import axios from 'axios';
 import type { PageServerLoad } from './$types';
 
 interface HistoryStory {
 	id: number;
-	description: string;
+	content: StyledTextProps[];
 	image: StrapiImage;
 }
 
@@ -22,7 +22,7 @@ interface AboutPageAttributes {
 	hero_image: StrapiImage;
 	introduction_subtitle: string;
 	introduction_title: string;
-	introduction_content: string;
+	introduction_content: StyledTextProps[];
 	history_subtitle: string;
 	history_title: string;
 	history_section?: HistoryStory[];
@@ -40,8 +40,10 @@ export const load: PageServerLoad = async () => {
 				locale: 'en',
 				populate: {
 					hero_image: true,
+					introduction_content: true,
 					history_section: {
 						populate: {
+							content: true,
 							image: true
 						}
 					},
