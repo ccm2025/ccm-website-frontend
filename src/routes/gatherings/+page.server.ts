@@ -1,21 +1,22 @@
 import { api, apiUrl } from '$lib';
-import type { StrapiImage, StrapiResponse } from '$lib/types';
+import type { StrapiImage, StrapiResponse, StyledTextProps } from '$lib/types';
 import { error } from '@sveltejs/kit';
 import axios from 'axios';
 import type { PageServerLoad } from './$types';
 
 interface Category {
 	id: number;
-	name: string;
+	title: string;
 	image: StrapiImage;
+	slug: string;
 }
 
 interface Event {
 	id: number;
 	title: string;
 	date: string;
-	location: string;
-	description: string;
+	slug: string;
+	content: StyledTextProps[];
 	image: StrapiImage;
 }
 
@@ -28,7 +29,7 @@ interface GatheringsPageAttributes {
 	events_title: string;
 	past_events_subtitle: string;
 	past_events_title: string;
-	categories?: Category[];
+	categories: Category[];
 }
 
 type GatheringsPageResponse = StrapiResponse<GatheringsPageAttributes>;
@@ -95,7 +96,7 @@ export const load: PageServerLoad = async () => {
 					imageUrl: category.image?.url
 						? `${apiUrl}${category.image.url}`
 						: 'https://placehold.co/600x400?text=Category',
-					imageAlt: category.image?.alternativeText || category.name
+					imageAlt: category.image?.alternativeText || category.title
 				})),
 				eventsSubtitle: pageData.events_subtitle,
 				eventsTitle: pageData.events_title,
