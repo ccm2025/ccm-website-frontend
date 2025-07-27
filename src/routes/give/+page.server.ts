@@ -1,8 +1,7 @@
 import { api, apiUrl } from '$lib';
-import type { StrapiFile, StrapiImage, StrapiResponse } from '$lib/types';
+import type { StrapiFile, StrapiImage, StrapiResponse, StyledTextProps } from '$lib/types';
 import { error } from '@sveltejs/kit';
 import axios from 'axios';
-import { marked } from 'marked';
 import type { PageServerLoad } from './$types';
 
 interface PdfLink {
@@ -15,11 +14,11 @@ interface GivePageAttributes {
 	hero_image: StrapiImage;
 	introduction_subtitle: string;
 	introduction_title: string;
-	introduction_content: string;
+	introduction_content: StyledTextProps[];
 	zelle_title: string;
-	zelle_content: string;
+	zelle_content: StyledTextProps[];
 	check_title: string;
-	check_content: string;
+	check_content: StyledTextProps[];
 	letter_images?: StrapiImage[];
 	pdf_links?: PdfLink[];
 }
@@ -33,6 +32,9 @@ export const load: PageServerLoad = async () => {
 				populate: {
 					hero_image: true,
 					letter_images: true,
+					introduction_content: true,
+					zelle_content: true,
+					check_content: true,
 					pdf_links: {
 						populate: 'pdf'
 					}
@@ -55,11 +57,11 @@ export const load: PageServerLoad = async () => {
 					: 'https://placehold.co/1200x600?text=Give+Background',
 				introductionSubtitle: pageData.introduction_subtitle,
 				introductionTitle: pageData.introduction_title,
-				introductionContent: marked.parse(pageData.introduction_content),
+				introductionContent: pageData.introduction_content,
 				zelleTitle: pageData.zelle_title,
-				zelleContent: marked.parse(pageData.zelle_content),
+				zelleContent: pageData.zelle_content,
 				checkTitle: pageData.check_title,
-				checkContent: marked.parse(pageData.check_content),
+				checkContent: pageData.check_content,
 				letterImages:
 					pageData.letter_images?.map((img) => ({
 						url: img.url ? `${apiUrl}${img.url}` : 'https://placehold.co/400x300?text=Letter+Image',

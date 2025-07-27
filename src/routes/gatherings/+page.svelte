@@ -29,12 +29,11 @@
 	<section class="bg-white py-16 md:py-20">
 		<div class="container mx-auto px-4">
 			<div class="mx-auto max-w-4xl text-center">
-				<h2 class="text-lg font-semibold md:text-xl" style="color: var(--website-theme-color2)">
+				<h2 class="text-lg font-semibold text-[rgb(var(--website-theme-color2))] md:text-xl">
 					{data.page.categoriesSubtitle}
 				</h2>
 				<p
-					class="mt-2 text-3xl font-bold tracking-wide md:text-4xl"
-					style="color: var(--website-theme-color1)"
+					class="mt-2 text-3xl font-bold tracking-wide text-[rgb(var(--website-theme-color1))] md:text-4xl"
 				>
 					{data.page.categoriesTitle}
 				</p>
@@ -54,7 +53,7 @@
 							/>
 						</div>
 						<div class="p-6">
-							<h3 class="text-xl font-bold" style="color: var(--website-theme-color1)">
+							<h3 class="text-xl font-bold text-[rgb(var(--website-theme-color1))]">
 								{category.title}
 							</h3>
 						</div>
@@ -68,12 +67,11 @@
 	<section class="bg-gray-50 py-16 md:py-20">
 		<div class="container mx-auto px-4">
 			<div class="mx-auto max-w-4xl text-center">
-				<h2 class="font-semibol text-lg md:text-xl" style="color: var(--website-theme-color2)">
+				<h2 class="text-lg font-semibold text-[rgb(var(--website-theme-color2))] md:text-xl">
 					{data.page.eventsSubtitle}
 				</h2>
 				<p
-					class="mt-2 text-3xl font-bold tracking-wider md:text-4xl"
-					style="color: var(--website-theme-color1)"
+					class="mt-2 text-3xl font-bold tracking-wider text-[rgb(var(--website-theme-color1))] md:text-4xl"
 				>
 					{data.page.eventsTitle}
 				</p>
@@ -94,10 +92,10 @@
 									/>
 								</div>
 								<div class="md:col-span-2">
-									<h3 class="text-2xl font-bold" style="color: var(--website-theme-color1)">
+									<h3 class="text-2xl font-bold text-[rgb(var(--website-theme-color1))]">
 										{event.title}
 									</h3>
-									<p class="mt-2 font-semibold" style="color: var(--website-theme-color2)">
+									<p class="mt-2 font-semibold text-[rgb(var(--website-theme-color2))]">
 										{event.date}
 									</p>
 								</div>
@@ -115,12 +113,11 @@
 	<section class="bg-white py-16 md:py-20">
 		<div class="container mx-auto px-4">
 			<div class="mx-auto max-w-4xl text-center">
-				<h2 class="text-lg font-semibold md:text-xl" style="color: var(--website-theme-color2)">
+				<h2 class="text-lg font-semibold text-[rgb(var(--website-theme-color2))] md:text-xl">
 					{data.page.pastEventsSubtitle}
 				</h2>
 				<p
-					class="mt-2 text-3xl font-bold tracking-wider md:text-4xl"
-					style="color: var(--website-theme-color1)"
+					class="mt-2 text-3xl font-bold tracking-wider text-[rgb(var(--website-theme-color1))] md:text-4xl"
 				>
 					{data.page.pastEventsTitle}
 				</p>
@@ -142,8 +139,10 @@
 								<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
 							</div>
 							<div class="relative flex h-full flex-col items-start justify-end p-4 text-white">
-								<h3 class="text-xl font-bold">{event.title}</h3>
-								<p class="text-sm">{event.date}</p>
+								<h3 class="text-xl font-bold text-[rgb(var(--website-theme-color1))]">
+									{event.title}
+								</h3>
+								<p class="text-sm text-[rgb(var(--website-theme-color2))]">{event.date}</p>
 							</div>
 						</a>
 					{/each}

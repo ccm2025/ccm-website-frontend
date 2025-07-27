@@ -1,8 +1,7 @@
 import { api, apiUrl } from '$lib';
-import type { StrapiImage, StrapiResponse } from '$lib/types';
+import type { StrapiImage, StrapiResponse, StyledTextProps } from '$lib/types';
 import { error } from '@sveltejs/kit';
 import axios from 'axios';
-import { marked } from 'marked';
 import type { PageServerLoad } from './$types';
 
 interface VolunteerPageAttributes {
@@ -10,11 +9,11 @@ interface VolunteerPageAttributes {
 	hero_image: StrapiImage;
 	introduction_subtitle: string;
 	introduction_title: string;
-	introduction_content: string;
+	introduction_content: StyledTextProps[];
 	application_button_text: string;
 	application_button_url: string;
-	volunteer_section_title: string;
-	volunteer_section_content: string;
+	volunteer_title: string;
+	volunteer_content: StyledTextProps[];
 }
 
 type VolunteerPageResponse = StrapiResponse<VolunteerPageAttributes>;
@@ -24,7 +23,9 @@ export const load: PageServerLoad = async () => {
 		const response = await api.get<VolunteerPageResponse>('/api/volunteer-page', {
 			params: {
 				populate: {
-					hero_image: true
+					hero_image: true,
+					introduction_content: true,
+					volunteer_content: true
 				},
 				locale: 'en'
 			}
@@ -44,11 +45,11 @@ export const load: PageServerLoad = async () => {
 					: 'https://placehold.co/1200x600?text=Volunteer+Background',
 				introductionSubtitle: pageData.introduction_subtitle,
 				introductionTitle: pageData.introduction_title,
-				introductionContent: marked.parse(pageData.introduction_content),
+				introductionContent: pageData.introduction_content,
 				applicationButtonText: pageData.application_button_text,
 				applicationButtonUrl: pageData.application_button_url,
-				volunteerSectionTitle: pageData.volunteer_section_title,
-				volunteerSectionContent: marked.parse(pageData.volunteer_section_content)
+				volunteerTitle: pageData.volunteer_title,
+				volunteerContent: pageData.volunteer_content
 			}
 		};
 	} catch (e) {

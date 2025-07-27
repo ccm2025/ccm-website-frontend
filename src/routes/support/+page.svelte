@@ -1,4 +1,6 @@
 <script>
+	import StyledText from '$lib/components/StyledText.svelte';
+
 	/** @type {import('./$types').PageData} */
 	export let data;
 </script>
@@ -28,7 +30,7 @@
 	<!-- Info Sections -->
 	<div class="bg-white">
 		{#each data.page.infoSections as section, i (section.id)}
-			<section class="py-16 md:py-20">
+			<section class="py-8 md:py-12">
 				<div class="container mx-auto px-4">
 					<div class="grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-16">
 						<div class="w-full" class:md:order-last={i % 2 !== 0}>
@@ -40,22 +42,15 @@
 						</div>
 
 						<div class="text-center md:text-left">
-							<h3 class="text-lg font-semibold text-yellow-600">{section.subtitle}</h3>
-							<h2 class="mt-1 text-3xl font-bold text-green-800 md:text-4xl">{section.title}</h2>
-							<div class="prose mt-4 max-w-none text-gray-600">
-								{@html section.content}
-							</div>
-
-							{#if section.buttonText && section.buttonUrl}
-								<a
-									href={section.buttonUrl}
-									target="_blank"
-									rel="noopener noreferrer"
-									class="mt-6 inline-block rounded-lg bg-green-700 px-8 py-3 font-semibold text-white transition-colors duration-300 hover:bg-green-800"
-								>
-									{section.buttonText}
-								</a>
-							{/if}
+							<h3 class="text-lg font-semibold text-[rgb(var(--website-theme-color2))]">
+								{section.subtitle}
+							</h3>
+							<h2
+								class="mt-1 mb-6 text-3xl font-bold text-[rgb(var(--website-theme-color1))] md:text-4xl"
+							>
+								{section.title}
+							</h2>
+							<StyledText data={section.content} />
 						</div>
 					</div>
 				</div>

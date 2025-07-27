@@ -1,4 +1,6 @@
 <script>
+	import StyledText from '$lib/components/StyledText.svelte';
+
 	/** @type {import('./$types').PageData} */
 	export let data;
 </script>
@@ -26,46 +28,39 @@
 	</section>
 
 	<!-- Content Section -->
-	<section class="bg-white py-16 md:py-24">
+	<section class="bg-white py-16 md:py-20">
 		<div class="container mx-auto max-w-4xl px-4 text-center">
-			<h2 class="text-lg font-semibold text-yellow-600 md:text-xl">
+			<h2 class="text-lg font-semibold text-[rgb(var(--website-theme-color2))] md:text-xl">
 				{data.page.introductionSubtitle}
 			</h2>
-			<p class="mt-2 text-3xl font-bold tracking-wider text-green-800 md:text-4xl">
+			<p
+				class="mt-2 mb-6 text-3xl font-bold tracking-wider text-[rgb(var(--website-theme-color1))] md:text-4xl"
+			>
 				{data.page.introductionTitle}
 			</p>
 
-			<div class="prose mt-8 max-w-none space-y-4 text-center text-lg text-gray-600">
-				{@html data.page.introductionContent}
-			</div>
-		</div>
-	</section>
+			<StyledText data={data.page.introductionContent} />
 
-	<section class="bg-white pb-16 md:pb-24">
-		<div class="container mx-auto max-w-4xl px-4 text-center">
 			<!-- Buttons -->
 			{#if data.page.applicationButtonUrl}
-				<div class="flex flex-col items-center space-y-4">
+				<div class="mt-10 flex flex-col items-center space-y-4">
 					<a
 						href={data.page.applicationButtonUrl}
 						target="_blank"
 						rel="noopener noreferrer"
-						class="inline-block rounded-lg bg-green-800 px-12 py-4 text-xl font-semibold text-white shadow-lg transition-colors hover:bg-green-900"
+						class="inline-block rounded-lg bg-[rgb(var(--website-theme-color1))] px-12 py-4 text-xl font-semibold text-white shadow-lg transition-colors hover:bg-[rgb(var(--website-theme-color2))]"
 					>
 						{data.page.applicationButtonText}
 					</a>
 				</div>
 			{/if}
+
 			<!-- Positions List -->
-			<div class="mt-16">
-				<p class="text-lg font-semibold text-gray-800">
-					{data.page.volunteerSectionTitle}
-				</p>
-				<div
-					class="prose-p:my-0 prose-ul:list-none prose-ul:p-0 mt-6 max-w-none space-y-3 text-xl text-gray-700"
-				>
-					{@html data.page.volunteerSectionContent}
-				</div>
+			<div class="mt-10">
+				<h2 class="mb-6 text-2xl font-semibold text-gray-800">
+					{data.page.volunteerTitle}
+				</h2>
+				<StyledText data={data.page.volunteerContent} />
 			</div>
 		</div>
 	</section>

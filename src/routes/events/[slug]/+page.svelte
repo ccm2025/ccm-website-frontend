@@ -32,7 +32,7 @@
 			<div class="mb-8">
 				<a
 					href="/gatherings"
-					class="inline-flex items-center gap-2 rounded-lg bg-green-700 px-4 py-2 font-semibold text-white transition-colors duration-300 hover:bg-green-800"
+					class="inline-flex items-center gap-2 rounded-lg bg-[rgb(var(--website-theme-color1))] px-4 py-2 font-semibold text-white transition-colors duration-300 hover:bg-[rgb(var(--website-theme-color2))]"
 				>
 					<ArrowLeft size={20} />
 					Back to Gatherings

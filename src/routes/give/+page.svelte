@@ -1,4 +1,6 @@
 <script>
+	import StyledText from '$lib/components/StyledText.svelte';
+
 	/** @type {import('./$types').PageData} */
 	export let data;
 
@@ -22,68 +24,62 @@
 	</section>
 
 	<!-- Content Section -->
-	<section class="bg-white py-16 md:py-24">
+	<section class="bg-white py-16 md:py-20">
 		<div class="container mx-auto max-w-4xl px-4 text-center">
-			<div class="prose mt-8 max-w-none space-y-4 text-center text-lg text-gray-600">
-				<h2 class="text-lg font-semibold text-yellow-600 md:text-xl">
+			<div class="max-w-none space-y-4 text-center text-lg">
+				<h2 class="text-lg font-semibold text-[rgb(var(--website-theme-color2))] md:text-xl">
 					{data.page.introductionSubtitle}
 				</h2>
-				<p class="mt-2 text-3xl font-bold tracking-wider text-green-800 md:text-4xl">
+				<h1
+					class="text-3xl font-bold tracking-wider text-[rgb(var(--website-theme-color1))] md:text-4xl"
+				>
 					{data.page.introductionTitle}
-				</p>
-				{@html data.page.introductionContent}
+				</h1>
+				<StyledText data={data.page.introductionContent} />
 			</div>
 		</div>
 	</section>
 
 	<!-- Donation Options Section -->
-	<section class="bg-white pb-16 md:pb-24">
+	<section class="bg-white pb-16 md:pb-20">
 		<div class="container mx-auto max-w-4xl px-4">
 			<div class="grid grid-cols-1 gap-12 md:grid-cols-2">
 				<div class="space-y-10">
 					<div>
-						<h3 class="text-2xl font-bold text-gray-800">
+						<h3 class="mb-3 text-2xl font-bold text-[rgb(var(--website-theme-color1))]">
 							{data.page.zelleTitle}
 						</h3>
-						<dl class="mt-4 space-y-2 text-gray-600">
-							{@html data.page.zelleContent}
-						</dl>
+						<StyledText data={data.page.zelleContent} />
 					</div>
 					<div>
-						<h3 class="text-2xl font-bold text-gray-800">
+						<h3 class="mb-3 text-2xl font-bold text-[rgb(var(--website-theme-color1))]">
 							{data.page.checkTitle}
 						</h3>
-						<dl class="mt-4 space-y-2 text-gray-600">
-							{@html data.page.checkContent}
-						</dl>
+						<StyledText data={data.page.checkContent} />
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	{#if data.page.letterImages.length > 0}
-		<section class="bg-gray-50 py-16 pb-16 md:pb-24">
+	{#if data.page.pdfLinks.length > 0}
+		<section class="bg-gray-50 py-16 pb-16 md:pb-20">
 			<div class="container mx-auto max-w-6xl px-4">
-				<div class="grid grid-cols-1 gap-8 md:grid-cols-2">
-					{#each data.page.letterImages as image, i}
-						<div class="flex items-center justify-center">
-							<img
-								src={image.url}
-								alt={image.alt || `Letter image ${i + 1}`}
-								class="h-auto w-full max-w-md rounded-lg shadow-lg"
-							/>
-						</div>
-					{/each}
+				<div class="aspect-video overflow-hidden rounded-lg shadow-lg md:aspect-[17/11]">
+					<iframe
+						src={data.page.pdfLinks[0].url}
+						title="Featured PDF"
+						class="h-full w-full border-0"
+					></iframe>
 				</div>
 			</div>
 		</section>
 	{/if}
 
 	{#if data.page.pdfLinks.length > 0}
-		<section class="bg-white pb-16 md:pb-24">
+		<section class="bg-white pb-16 md:pb-20">
 			<div class="container mx-auto max-w-4xl px-4">
-				<ul class="border-t border-gray-200">
+				<ul>
 					{#each data.page.pdfLinks as link}
 						<li>
 							<a
@@ -92,11 +88,13 @@
 								rel="noopener noreferrer"
 								class="group flex items-center justify-between border-b border-gray-200 py-4"
 							>
-								<span class="text-lg text-gray-700 transition-colors group-hover:text-green-700"
-									>{link.title}</span
+								<span
+									class="text-lg text-gray-700 transition-colors group-hover:text-[rgb(var(--website-theme-color2))]"
+								>
+									{link.title}</span
 								>
 								<Download
-									class="h-5 w-5 text-gray-400 transition-colors group-hover:text-green-700"
+									class="h-5 w-5 text-gray-500 transition-colors group-hover:text-[rgb(var(--website-theme-color2))]"
 								/>
 							</a>
 						</li>

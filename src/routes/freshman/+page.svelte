@@ -30,7 +30,7 @@
 	<!-- Info Sections -->
 	<div class="bg-white">
 		{#each data.page.infoSections as section, i (section.id)}
-			<section class="py-16 md:py-20">
+			<section class="py-8 md:py-12">
 				<div class="container mx-auto px-4">
 					<div class="grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-16">
 						<div class="w-full" class:md:order-last={i % 2 !== 0}>
@@ -42,12 +42,11 @@
 						</div>
 
 						<div class="text-center md:text-left">
-							<h3 class="text-lg font-semibold" style="color: var(--website-theme-color2)">
+							<h3 class="text-lg font-semibold text-[rgb(var(--website-theme-color2))]">
 								{section.subtitle}
 							</h3>
 							<h2
-								class="mt-1 mb-4 text-3xl font-bold md:text-4xl"
-								style="color: var(--website-theme-color1)"
+								class="md:text-4x mt-1 mb-4 text-3xl font-bold text-[rgb(var(--website-theme-color1))]"
 							>
 								{section.title}
 							</h2>
@@ -58,7 +57,7 @@
 									href={section.buttonUrl}
 									target="_blank"
 									rel="noopener noreferrer"
-									class="mt-6 inline-block rounded-lg bg-green-700 px-8 py-3 font-semibold text-white transition-colors duration-300 hover:bg-green-800"
+									class="mt-6 inline-block rounded-lg bg-[rgb(var(--website-theme-color1))] px-8 py-3 font-semibold text-white transition-colors duration-300 hover:bg-[rgb(var(--website-theme-color2))]"
 								>
 									{section.buttonText}
 								</a>
