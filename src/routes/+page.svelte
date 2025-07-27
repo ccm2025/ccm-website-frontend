@@ -84,7 +84,7 @@
 			<div class="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
 				{#each data.page.meet.cards as card (card.id)}
 					<a
-						href={card.link}
+						href={`/${card.slug}`}
 						class="group relative block h-64 overflow-hidden rounded-lg shadow-lg"
 					>
 						<div class="absolute inset-0">
@@ -98,7 +98,7 @@
 						<div
 							class="relative flex h-full flex-col items-center justify-center p-4 text-center text-white"
 						>
-							<h3 class="text-3xl font-bold tracking-widest uppercase">{card.name}</h3>
+							<h3 class="text-3xl font-bold tracking-widest">{card.title}</h3>
 							<div
 								class="text-md mt-4 rounded-full border-2 border-white px-6 py-2 font-semibold opacity-0 transition-opacity duration-300 group-hover:opacity-100"
 							>

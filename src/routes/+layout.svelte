@@ -87,7 +87,7 @@
 	<!-- =================================================
   // Shared Footer
   // ================================================= -->
-	<footer class="bg-[#164e32] text-gray-200">
+	<footer class="text-gray-200" style="background-color: var(--website-theme-color1)">
 		<div class="container mx-auto px-4 py-16">
 			<div class="grid grid-cols-1 gap-12 text-center md:grid-cols-2 md:text-left lg:grid-cols-4">
 				<div class="flex flex-col items-center md:items-start">
