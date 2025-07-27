@@ -63,7 +63,7 @@ export const load: PageServerLoad = async () => {
 				pdfLinks:
 					pageData.pdf_links?.map((link) => ({
 						title: link.title,
-						url: link.pdf
+						url: link.pdf.url
 					})) || []
 			}
 		};
