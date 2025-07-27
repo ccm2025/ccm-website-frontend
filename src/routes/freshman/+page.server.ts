@@ -1,5 +1,5 @@
 import { api, apiUrl } from '$lib';
-import type { StrapiImage, StrapiResponse } from '$lib/types';
+import type { StrapiImage, StrapiResponse, StyledTextProps } from '$lib/types';
 import { error } from '@sveltejs/kit';
 import axios from 'axios';
 import type { PageServerLoad } from './$types';
@@ -8,7 +8,7 @@ interface InfoSection {
 	id: number;
 	subtitle: string;
 	title: string;
-	content: string;
+	content: StyledTextProps[];
 	image: StrapiImage;
 	button_text?: string;
 	button_url?: string;
@@ -30,7 +30,10 @@ export const load: PageServerLoad = async () => {
 				populate: {
 					hero_image: true,
 					info_sections: {
-						populate: 'image'
+						populate: {
+							image: true,
+							content: true
+						}
 					}
 				}
 			}
@@ -49,10 +52,7 @@ export const load: PageServerLoad = async () => {
 					? `${apiUrl}${pageData.hero_image.url}`
 					: 'https://placehold.co/600x400?text=Freshman',
 				infoSections: pageData.info_sections.map((section) => ({
-					id: section.id,
-					subtitle: section.subtitle,
-					title: section.title,
-					content: section.content,
+					...section,
 					buttonText: section.button_text,
 					buttonUrl: section.button_url,
 					imageUrl: section.image?.url

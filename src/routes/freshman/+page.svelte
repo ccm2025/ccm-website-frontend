@@ -1,4 +1,6 @@
 <script>
+	import StyledText from '$lib/components/StyledText.svelte';
+
 	/** @type {import('./$types').PageData} */
 	export let data;
 </script>
@@ -40,11 +42,16 @@
 						</div>
 
 						<div class="text-center md:text-left">
-							<h3 class="text-lg font-semibold text-yellow-600">{section.subtitle}</h3>
-							<h2 class="mt-1 text-3xl font-bold text-green-800 md:text-4xl">{section.title}</h2>
-							<div class="prose mt-4 max-w-none text-gray-600">
-								{@html section.content}
-							</div>
+							<h3 class="text-lg font-semibold" style="color: var(--website-theme-color2)">
+								{section.subtitle}
+							</h3>
+							<h2
+								class="mt-1 mb-4 text-3xl font-bold md:text-4xl"
+								style="color: var(--website-theme-color1)"
+							>
+								{section.title}
+							</h2>
+							<StyledText data={section.content} />
 
 							{#if section.buttonText && section.buttonUrl}
 								<a
