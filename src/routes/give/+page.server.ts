@@ -19,7 +19,6 @@ interface GivePageAttributes {
 	zelle_content: StyledTextProps[];
 	check_title: string;
 	check_content: StyledTextProps[];
-	letter_images?: StrapiImage[];
 	pdf_links?: PdfLink[];
 }
 
@@ -31,7 +30,6 @@ export const load: PageServerLoad = async () => {
 			params: {
 				populate: {
 					hero_image: true,
-					letter_images: true,
 					introduction_content: true,
 					zelle_content: true,
 					check_content: true,
@@ -62,11 +60,6 @@ export const load: PageServerLoad = async () => {
 				zelleContent: pageData.zelle_content,
 				checkTitle: pageData.check_title,
 				checkContent: pageData.check_content,
-				letterImages:
-					pageData.letter_images?.map((img) => ({
-						url: img.url ? `${apiUrl}${img.url}` : 'https://placehold.co/400x300?text=Letter+Image',
-						alt: img.alternativeText || 'Letter Image'
-					})) || [],
 				pdfLinks:
 					pageData.pdf_links?.map((link) => ({
 						title: link.title,
