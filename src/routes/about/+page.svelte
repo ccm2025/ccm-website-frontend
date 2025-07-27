@@ -26,14 +26,13 @@
 	</section>
 
 	<!-- Introduction Section -->
-	<section class="bg-white py-16 md:py-24">
+	<section class="bg-white py-16 md:py-20">
 		<div class="container mx-auto max-w-4xl px-4 text-center">
-			<h2 class="text-lg font-semibold md:text-xl" style="color: var(--website-theme-color2)">
+			<h2 class="text-lg font-semibold text-[rgb(var(--website-theme-color2))] md:text-xl">
 				{data.page.introductionSubtitle}
 			</h2>
 			<p
-				class="mt-2 mb-6 text-3xl font-bold tracking-wide md:text-4xl"
-				style="color: var(--website-theme-color1)"
+				class="mt-2 mb-6 text-3xl font-bold tracking-wide text-[rgb(var(--website-theme-color1))] md:text-4xl"
 			>
 				{data.page.introductionTitle}
 			</p>
@@ -43,15 +42,14 @@
 
 	<!-- History Section -->
 	{#if data.page.historySection && data.page.historySection.length}
-		<section class="bg-gray-50 py-16 md:py-24">
+		<section class="bg-gray-50 py-16 md:py-20">
 			<div class="container mx-auto px-4">
 				<div class="mx-auto max-w-4xl text-center">
-					<h2 class="text-lg font-semibold md:text-xl" style="color: var(--website-theme-color2)">
+					<h2 class="text-lg font-semibold text-[rgb(var(--website-theme-color2))] md:text-xl">
 						{data.page.historySubtitle}
 					</h2>
 					<p
-						class="mt-2 text-3xl font-bold tracking-wider md:text-4xl"
-						style="color: var(--website-theme-color1)"
+						class="mt-2 text-3xl font-bold tracking-wider text-[rgb(var(--website-theme-color1))] md:text-4xl"
 					>
 						{data.page.historyTitle}
 					</p>
@@ -76,15 +74,14 @@
 
 	<!-- Team Section -->
 	{#if data.page.teamSection}
-		<section class="bg-white py-16 md:py-24">
+		<section class="bg-white py-16 md:py-20">
 			<div class="container mx-auto px-4">
 				<div class="mx-auto max-w-4xl text-center">
-					<h2 class="text-lg font-semibold md:text-xl" style="color: var(--website-theme-color2)">
+					<h2 class="text-lg font-semibold text-[rgb(var(--website-theme-color2))] md:text-xl">
 						{data.page.teamSubtitle}
 					</h2>
 					<p
-						class="mt-2 text-3xl font-bold tracking-wider md:text-4xl"
-						style="color: var(--website-theme-color1)"
+						class="mt-2 text-3xl font-bold tracking-wider text-[rgb(var(--website-theme-color1))] md:text-4xl"
 					>
 						{data.page.teamTitle}
 					</p>
@@ -98,10 +95,12 @@
 								alt={member.avatarAlt}
 								class="mx-auto h-40 w-40 rounded-full border-4 border-white object-cover shadow-lg"
 							/>
-							<h3 class="mt-6 text-xl font-bold" style="color: var(--website-theme-color1)">
+							<h3
+								class="mt-6 text-xl font-bold tracking-tight text-[rgb(var(--website-theme-color1))] md:text-2xl"
+							>
 								{member.name}
 							</h3>
-							<p class="mt-2" style="color: var(--website-theme-color2)">{member.description}</p>
+							<p class="mt-2 text-[rgb(var(--website-theme-color2))]">{member.description}</p>
 						</div>
 					{/each}
 				</div>

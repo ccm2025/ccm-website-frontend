@@ -2,7 +2,6 @@
 	/** @type {import('./$types').PageData} */
 	export let data;
 	import StyledText from '$lib/components/StyledText.svelte';
-	import { toggleMenu } from '$lib/stores/SideMenu';
 </script>
 
 <svelte:head>
@@ -27,19 +26,18 @@
 				{data.page.hero.title}
 			</h1>
 			<StyledText data={data.page.hero.subtitle} as="h2" />
-			<button
-				type="button"
+			<a
 				class="mt-14 inline-block rounded-full border-2 border-white px-8 py-3 text-lg font-semibold transition-all duration-300 hover:bg-white hover:text-green-700"
-				on:click={toggleMenu}
+				href="/plan-your-visit"
 				aria-label={data.page.hero.button_text}
 			>
 				{data.page.hero.button_text}
-			</button>
+			</a>
 		</div>
 	</section>
 
 	<!-- Intro Section Part 1 -->
-	<section class="bg-white py-16 md:py-24">
+	<section class="bg-white py-16 md:py-20">
 		<div class="container mx-auto max-w-4xl px-4 text-center">
 			<StyledText data={data.page.intro.part1} as="p" gap={10} />
 		</div>
@@ -47,7 +45,7 @@
 
 	<!-- Video Section -->
 	{#if data.page.intro.videoUrl}
-		<section class="bg-[#164e32] py-16 md:py-24">
+		<section class="bg-[rgb(var(--website-theme-color1))] py-16 md:py-20">
 			<div class="container mx-auto px-4">
 				<div
 					class="mx-auto max-w-4xl rounded-lg border border-gray-700 bg-gray-900/80 p-3 shadow-2xl backdrop-blur-sm md:p-4"
@@ -69,14 +67,14 @@
 	{/if}
 
 	<!-- Intro Section Part 2 -->
-	<section class="bg-white py-16 md:py-24">
+	<section class="bg-white py-16 md:py-20">
 		<div class="container mx-auto max-w-5xl px-4 text-center">
 			<StyledText data={data.page.intro.part2} as="p" gap={12} />
 		</div>
 	</section>
 
 	<!-- Meet With Us Section -->
-	<section class="bg-white py-16 md:py-24">
+	<section class="bg-white py-16 md:py-20">
 		<div class="container mx-auto px-4">
 			<h2 class="text-center text-3xl font-bold tracking-wider md:text-4xl">
 				{data.page.meet.title}
@@ -84,7 +82,7 @@
 			<div class="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
 				{#each data.page.meet.cards as card (card.id)}
 					<a
-						href={card.link}
+						href={`/${card.slug}`}
 						class="group relative block h-64 overflow-hidden rounded-lg shadow-lg"
 					>
 						<div class="absolute inset-0">
@@ -98,7 +96,7 @@
 						<div
 							class="relative flex h-full flex-col items-center justify-center p-4 text-center text-white"
 						>
-							<h3 class="text-3xl font-bold tracking-widest uppercase">{card.name}</h3>
+							<h3 class="text-3xl font-bold tracking-widest">{card.title}</h3>
 							<div
 								class="text-md mt-4 rounded-full border-2 border-white px-6 py-2 font-semibold opacity-0 transition-opacity duration-300 group-hover:opacity-100"
 							>

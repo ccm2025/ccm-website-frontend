@@ -7,8 +7,7 @@
 	import '../app.css';
 	import { ChevronRight, Globe, Menu, X } from 'lucide-svelte';
 	import { fly } from 'svelte/transition';
-	import { quintOut } from 'svelte/easing';
-	import logoImage from '$lib/assets/logo.png';
+	import logoImage from '$lib/assets/logo.jpg';
 	import { isMenuOpen, toggleMenu } from '$lib/stores/SideMenu';
 </script>
 
@@ -24,8 +23,8 @@
 			font-family: 'Inter', sans-serif;
 		}
 		:root {
-			--website-theme-color1: #154e30; /* 深绿色 */
-			--website-theme-color2: #e9aa1c; /* 金色 */
+			--website-theme-color1: 21 78 48; /* 深绿色 */
+			--website-theme-color2: 233 170 28; /* 金色 */
 		}
 	</style>
 </svelte:head>
@@ -42,15 +41,11 @@
 					<img src={logoImage} alt="Logo" class="h-30 w-30 rounded-full" />
 					<div>
 						<div
-							class="text-2xl font-medium tracking-wider"
-							style="color: var(--website-theme-color1)"
+							class="text-2xl font-medium tracking-wider text-[rgb(var(--website-theme-color1))]"
 						>
 							{data.global?.websiteTitleCn}
 						</div>
-						<div
-							class="text-xs font-medium tracking-wider"
-							style="color: var(--website-theme-color1)"
-						>
+						<div class="text-xs font-medium tracking-wider text-[rgb(var(--website-theme-color1))]">
 							{data.global?.websiteTitleEn}
 						</div>
 					</div>
@@ -59,19 +54,27 @@
 				<!-- Navigation -->
 				<nav class="hidden items-center space-x-16 md:flex">
 					<button
-						class="flex items-center space-x-1 rounded-full border-2 px-2 py-2 font-medium"
-						style="color: var(--website-theme-color1) ; border-color: var(--website-theme-color1)"
+						class="flex items-center space-x-1 rounded-full border-2 border-[rgb(var(--website-theme-color1))] px-2 py-2 font-medium text-[rgb(var(--website-theme-color1))] transition-colors duration-300 hover:bg-[rgb(var(--website-theme-color1)/0.9)] hover:text-white"
 					>
 						<Globe size="22" />
 						<span>English</span>
 						<ChevronRight size="22" />
 					</button>
 					<button
-						class="flex items-center space-x-2 text-2xl font-bold"
-						style="color: var(--website-theme-color1)"
+						class="flex items-center space-x-2 text-2xl font-bold text-[rgb(var(--website-theme-color1))] transition-colors duration-300 hover:text-[rgb(var(--website-theme-color1)/0.8)]"
 						on:click={toggleMenu}
 					>
 						<span>Menu</span>
+						<Menu size="46" />
+					</button>
+				</nav>
+
+				<!-- Mobile Menu Button -->
+				<nav class="items-center space-x-16 md:hidden">
+					<button
+						class="flex items-center space-x-2 text-2xl font-bold text-[rgb(var(--website-theme-color1))] transition-colors duration-300 hover:text-[rgb(var(--website-theme-color1)/0.8)]"
+						on:click={toggleMenu}
+					>
 						<Menu size="46" />
 					</button>
 				</nav>
@@ -87,7 +90,7 @@
 	<!-- =================================================
   // Shared Footer
   // ================================================= -->
-	<footer class="bg-[#164e32] text-gray-200">
+	<footer class="bg-[rgb(var(--website-theme-color1))] text-gray-200">
 		<div class="container mx-auto px-4 py-16">
 			<div class="grid grid-cols-1 gap-12 text-center md:grid-cols-2 md:text-left lg:grid-cols-4">
 				<div class="flex flex-col items-center md:items-start">
@@ -95,18 +98,18 @@
 						<img
 							src={logoImage}
 							alt={data.global?.websiteTitleEn}
-							class="h-10 w-auto rounded-full bg-white p-1"
+							class="h-10 w-auto rounded-full bg-white"
 						/>
 						<div>
 							<div class="text-lg leading-tight font-bold text-white">
 								{data.global?.websiteTitleCn}
 							</div>
-							<div class="text-xs font-medium tracking-wider text-gray-400">
+							<div class="text-xs font-medium tracking-wider text-gray-200">
 								{data.global?.websiteTitleEn}
 							</div>
 						</div>
 					</a>
-					<div class="mt-4 mb-6 h-1 w-24 rounded bg-[#d4af37]"></div>
+					<div class="mt-4 mb-6 h-1 w-24 rounded bg-[rgb(var(--website-theme-color2))]"></div>
 					<div class="flex space-x-4">
 						<a
 							href={data.global?.socialLinks.instagram || '/'}
@@ -187,28 +190,128 @@
 
 	<!-- Side Menu -->
 	{#if $isMenuOpen}
-		<div
-			class="fixed top-0 right-0 z-50 h-full w-1/5 max-w-sm"
-			style="background-color: var(--website-theme-color2);"
-			in:fly={{ x: '100%', duration: 300, easing: quintOut }}
-			out:fly={{ x: '100%', duration: 300, easing: quintOut }}
+		<button
+			type="button"
+			aria-label="Close menu overlay"
+			class="fixed inset-0 z-40 cursor-default"
+			on:click={toggleMenu}
+			tabindex="0"
 		>
-			<div class="p-8">
-				<div class="mb-8 flex items-center justify-end">
-					<button on:click={toggleMenu} class="p-2">
-						<X size="40" />
-					</button>
+			<div class="pointer-events-none absolute inset-0 bg-black/40"></div>
+		</button>
+
+		<!-- 窄屏 (移动端) 菜单：从上方滑下 -->
+		<div
+			class="fixed top-0 right-0 left-0 z-50 transform bg-[rgb(var(--website-theme-color2))] shadow-lg transition-transform duration-300 ease-in-out md:hidden"
+			in:fly={{ y: '-100%', duration: 300 }}
+			out:fly={{ y: '-100%', duration: 300 }}
+		>
+			<div class="p-12">
+				<div class="flex items-center justify-end">
+					<button on:click={toggleMenu} class="p-2"><X size="46" /></button>
+				</div>
+				<button
+					class="flex items-center space-x-1 rounded-full border-2 border-white px-2 py-2 font-medium text-white transition-colors duration-300 hover:bg-[rgb(var(--website-theme-color1))] hover:text-white"
+				>
+					<Globe size="22" />
+					<span>English</span>
+					<ChevronRight size="22" />
+				</button>
+
+				<hr class="my-5" />
+
+				<nav class="flex flex-col space-y-4 text-2xl text-white">
+					<a href="/" on:click={toggleMenu} class="hover:text-[rgb(var(--website-theme-color1))]"
+						>Home</a
+					>
+					<a
+						href="/about"
+						on:click={toggleMenu}
+						class="hover:text-[rgb(var(--website-theme-color1))]">About Us</a
+					>
+					<a
+						href="/gatherings"
+						on:click={toggleMenu}
+						class="hover:text-[rgb(var(--website-theme-color1))]">Gatherings</a
+					>
+					<a
+						href="/freshman"
+						on:click={toggleMenu}
+						class="hover:text-[rgb(var(--website-theme-color1))]">Freshman Zone</a
+					>
+					<a
+						href="/support"
+						on:click={toggleMenu}
+						class="hover:text-[rgb(var(--website-theme-color1))]">Support</a
+					>
+					<a
+						href="/give"
+						on:click={toggleMenu}
+						class="hover:text-[rgb(var(--website-theme-color1))]">Give</a
+					>
+					<a
+						href="/volunteer"
+						on:click={toggleMenu}
+						class="hover:text-[rgb(var(--website-theme-color1))]">Volunteer</a
+					>
+					<a
+						href="/plan-your-visit"
+						on:click={toggleMenu}
+						class="hover:text-[rgb(var(--website-theme-color1))]">Plan Your Visit</a
+					>
+				</nav>
+			</div>
+		</div>
+
+		<!-- 宽屏 (桌面端) 菜单：从右侧滑入 -->
+		<div
+			class="fixed top-0 right-0 z-50 hidden h-full w-1/4 max-w-sm bg-[rgb(var(--website-theme-color2))] md:block"
+			in:fly={{ x: '100%', duration: 300 }}
+			out:fly={{ x: '100%', duration: 300 }}
+		>
+			<div class="p-16">
+				<div class="mb-2 flex items-center justify-end">
+					<button on:click={toggleMenu} class="p-2"><X size="46" /></button>
 				</div>
 				<nav class="flex flex-col space-y-4 text-2xl text-white">
-					<a href="/" on:click={toggleMenu}>Home</a>
-					<a href="/about" on:click={toggleMenu}>About Us</a>
-					<a href="/gatherings" on:click={toggleMenu}>Gatherings</a>
-					<a href="/freshman" on:click={toggleMenu}>Freshman Zone</a>
-					<a href="/support" on:click={toggleMenu}>Support</a>
-					<a href="/give" on:click={toggleMenu}>Give</a>
-					<a href="/volunteer" on:click={toggleMenu}>Volunteer</a>
-					<a href="/plan-your-visit" on:click={toggleMenu}>Plan Your Visit</a>
-					<hr class="my-4" />
+					<a href="/" on:click={toggleMenu} class="hover:text-[rgb(var(--website-theme-color1))]"
+						>Home</a
+					>
+					<a
+						href="/about"
+						on:click={toggleMenu}
+						class="hover:text-[rgb(var(--website-theme-color1))]">About Us</a
+					>
+					<a
+						href="/gatherings"
+						on:click={toggleMenu}
+						class="hover:text-[rgb(var(--website-theme-color1))]">Gatherings</a
+					>
+					<a
+						href="/freshman"
+						on:click={toggleMenu}
+						class="hover:text-[rgb(var(--website-theme-color1))]">Freshman Zone</a
+					>
+					<a
+						href="/support"
+						on:click={toggleMenu}
+						class="hover:text-[rgb(var(--website-theme-color1))]">Support</a
+					>
+					<a
+						href="/give"
+						on:click={toggleMenu}
+						class="hover:text-[rgb(var(--website-theme-color1))]">Give</a
+					>
+					<a
+						href="/volunteer"
+						on:click={toggleMenu}
+						class="hover:text-[rgb(var(--website-theme-color1))]">Volunteer</a
+					>
+					<a
+						href="/plan-your-visit"
+						on:click={toggleMenu}
+						class="hover:text-[rgb(var(--website-theme-color1))]">Plan Your Visit</a
+					>
 				</nav>
 			</div>
 		</div>

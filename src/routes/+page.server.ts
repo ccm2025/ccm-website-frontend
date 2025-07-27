@@ -6,9 +6,9 @@ import type { PageServerLoad } from './$types';
 
 interface MeetCard {
 	id: number;
-	name: string;
+	title: string;
 	image: StrapiImage;
-	link: string;
+	slug: string;
 }
 
 interface HomePageAttributes {
@@ -73,11 +73,11 @@ export const load: PageServerLoad = async () => {
 					title: pageData.meet_title,
 					cards: pageData.meet_cards.map((card) => ({
 						...card,
-						link: card.link || '#',
+						slug: card.slug || '#',
 						imageUrl: card.image?.url
 							? `${apiUrl}${card.image.url}`
 							: 'https://placehold.co/600x400?text=Meet+Card',
-						imageAlt: card.image?.alternativeText || card.name
+						imageAlt: card.image?.alternativeText || card.title
 					}))
 				},
 				conclusion: pageData.conclusion

@@ -28,15 +28,19 @@
 	<!-- Intro Section -->
 	<section class="bg-white py-16 md:py-24">
 		<div class="container mx-auto max-w-4xl px-4 text-center">
-			<h2 class="text-lg font-semibold text-yellow-600 md:text-xl">
+			<h2 class="text-lg font-semibold text-[rgb(var(--website-theme-color2))] md:text-xl">
 				{data.page.introductionSubtitle}
 			</h2>
-			<p class="mt-2 text-3xl font-bold tracking-wider text-green-800 md:text-4xl">
+			<p
+				class="mt-2 text-3xl font-bold tracking-wider text-[rgb(var(--website-theme-color1))] md:text-4xl"
+			>
 				{data.page.introductionTitle}
 			</p>
 			<div class="grid grid-cols-1 items-center gap-8 text-left md:grid-cols-3">
 				<div class="md:col-span-2">
-					<p class="text-lg font-semibold text-yellow-600">{data.page.introductionContent.title}</p>
+					<p class="text-lg font-semibold text-[rgb(var(--website-theme-color1))]">
+						{data.page.introductionContent.title}
+					</p>
 					<p class="mt-2 text-gray-600">{data.page.introductionContent.description}</p>
 				</div>
 				<div class="md:col-span-1">
@@ -51,7 +55,7 @@
 	</section>
 
 	<!-- Location Section -->
-	<section class="bg-green-800 text-white">
+	<section class="bg-[rgb(var(--website-theme-color1))] text-white">
 		<div class="grid grid-cols-1 md:grid-cols-2">
 			<div class="h-64 w-full md:h-auto">
 				<img
@@ -71,7 +75,9 @@
 	<section class="bg-gray-50 py-16 md:py-24">
 		<div class="container mx-auto px-4">
 			<div class="mx-auto max-w-4xl text-center">
-				<h2 class="text-3xl font-bold tracking-wider text-green-800 md:text-4xl">
+				<h2
+					class="text-3xl font-bold tracking-wider text-[rgb(var(--website-theme-color1))] md:text-4xl"
+				>
 					{data.page.scheduleTitle}
 				</h2>
 			</div>
@@ -86,7 +92,9 @@
 							/>
 						</div>
 						<div class="md:col-span-2">
-							<p class="text-lg font-semibold text-yellow-600">{item.title}</p>
+							<p class="text-lg font-semibold text-[rgb(var(--website-theme-color1))]">
+								{item.title}
+							</p>
 							<p class="mt-2 text-gray-600">{item.description}</p>
 						</div>
 					</div>
