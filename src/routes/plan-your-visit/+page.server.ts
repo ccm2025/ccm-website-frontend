@@ -54,15 +54,19 @@ export const load: PageServerLoad = async () => {
 		return {
 			page: {
 				heroTitle: pageData.hero_title,
-				heroImageUrl: pageData.hero_image?.url
-					? `${apiUrl}${pageData.hero_image.url}`
+				heroImageUrl: pageData.hero_image
+					? pageData.hero_image.url.startsWith('https')
+						? pageData.hero_image.url
+						: `${apiUrl}${pageData.hero_image.url}`
 					: 'https://placehold.co/600x400?text=Plan+Your+Visit',
 				introductionSubtitle: pageData.introduction_subtitle,
 				introductionTitle: pageData.introduction_title,
 				introductionContent: {
 					...pageData.introduction_content,
-					imageUrl: pageData.introduction_content.image?.url
-						? `${apiUrl}${pageData.introduction_content.image.url}`
+					imageUrl: pageData.introduction_content.image
+						? pageData.introduction_content.image.url.startsWith('https')
+							? pageData.introduction_content.image.url
+							: `${apiUrl}${pageData.introduction_content.image.url}`
 						: 'https://placehold.co/400x400?text=Introduction+Image',
 					imageAlt:
 						pageData.introduction_content.image?.alternativeText ||
@@ -71,15 +75,19 @@ export const load: PageServerLoad = async () => {
 				scheduleTitle: pageData.schedule_title,
 				scheduleItems: pageData.schedule_items.map((item) => ({
 					...item,
-					imageUrl: item.image?.url
-						? `${apiUrl}${item.image.url}`
+					imageUrl: item.image
+						? item.image.url.startsWith('https')
+							? item.image.url
+							: `${apiUrl}${item.image.url}`
 						: 'https://placehold.co/400x400?text=Schedule+Item',
 					imageAlt: item.image?.alternativeText || item.title
 				})),
 				locationTitle: pageData.location_title,
 				locationAddress: marked.parse(pageData.location_address),
-				locationMapImageUrl: pageData.location_map_image?.url
-					? `${apiUrl}${pageData.location_map_image.url}`
+				locationMapImageUrl: pageData.location_map_image
+					? pageData.location_map_image.url.startsWith('https')
+						? pageData.location_map_image.url
+						: `${apiUrl}${pageData.location_map_image.url}`
 					: 'https://placehold.co/600x400?text=Location+Map',
 				locationMapImageAlt: pageData.location_map_image?.alternativeText || 'Location Map'
 			}

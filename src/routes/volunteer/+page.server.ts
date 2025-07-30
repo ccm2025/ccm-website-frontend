@@ -40,8 +40,10 @@ export const load: PageServerLoad = async () => {
 		return {
 			page: {
 				heroTitle: pageData.hero_title,
-				heroImageUrl: pageData.hero_image?.url
-					? `${apiUrl}${pageData.hero_image.url}`
+				heroImageUrl: pageData.hero_image
+					? pageData.hero_image.url.startsWith('https')
+						? pageData.hero_image.url
+						: `${apiUrl}${pageData.hero_image.url}`
 					: 'https://placehold.co/1200x600?text=Volunteer+Background',
 				introductionSubtitle: pageData.introduction_subtitle,
 				introductionTitle: pageData.introduction_title,

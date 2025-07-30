@@ -19,7 +19,7 @@
 				alt={data.page.hero.backgroundImageAlt}
 				class="h-full w-full object-cover"
 			/>
-			<div class="absolute inset-0 bg-black/50"></div>
+			<div class="absolute inset-0 bg-black/20"></div>
 		</div>
 		<div class="relative z-10 px-4 text-left">
 			<h1 class="mb-8 text-4xl font-bold tracking-tight uppercase md:text-6xl">
@@ -91,7 +91,7 @@
 								alt={card.imageAlt}
 								class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
 							/>
-							<div class="absolute inset-0 bg-black/50"></div>
+							<div class="absolute inset-0 bg-black/30"></div>
 						</div>
 						<div
 							class="relative flex h-full flex-col items-center justify-center p-4 text-center text-white"

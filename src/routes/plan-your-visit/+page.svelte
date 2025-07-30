@@ -9,17 +9,17 @@
 
 <main>
 	<!-- Hero Section -->
-	<section class="relative flex h-80 items-center justify-center text-center text-white md:h-96">
+	<section class="relative flex h-64 items-center justify-center text-center text-white md:h-80">
 		<div class="absolute inset-0">
 			<img
 				src={data.page.heroImageUrl}
 				alt="Gathering background"
 				class="h-full w-full object-cover"
 			/>
-			<div class="absolute inset-0 bg-black/50"></div>
+			<div class="absolute inset-0 bg-black/20"></div>
 		</div>
 		<div class="relative z-10 px-4">
-			<h1 class="text-3xl font-bold tracking-tight uppercase md:text-4xl">
+			<h1 class="text-4xl font-bold tracking-tight uppercase md:text-6xl">
 				{data.page.heroTitle}
 			</h1>
 		</div>
@@ -36,12 +36,12 @@
 			>
 				{data.page.introductionTitle}
 			</p>
-			<div class="grid grid-cols-1 items-center gap-8 text-left md:grid-cols-3">
+			<div class="mt-4 grid grid-cols-1 items-center gap-8 text-left md:grid-cols-3">
 				<div class="md:col-span-2">
-					<p class="text-lg font-semibold text-[rgb(var(--website-theme-color1))]">
+					<p class="text-lg font-bold text-[rgb(var(--website-theme-color1))]">
 						{data.page.introductionContent.title}
 					</p>
-					<p class="mt-2 text-gray-600">{data.page.introductionContent.description}</p>
+					<p class="mt-2 text-gray-800">{data.page.introductionContent.description}</p>
 				</div>
 				<div class="md:col-span-1">
 					<img

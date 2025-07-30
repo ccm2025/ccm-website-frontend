@@ -18,7 +18,7 @@
 				alt="Freshman Zone background"
 				class="h-full w-full object-cover"
 			/>
-			<div class="absolute inset-0 bg-black/50"></div>
+			<div class="absolute inset-0 bg-black/20"></div>
 		</div>
 		<div class="relative z-10 px-4">
 			<h1 class="text-4xl font-bold tracking-tight uppercase md:text-6xl">

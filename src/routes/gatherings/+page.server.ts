@@ -76,8 +76,10 @@ export const load: PageServerLoad = async () => {
 				month: 'long',
 				day: 'numeric'
 			}),
-			imageUrl: event.image?.url
-				? `${apiUrl}${event.image.url}`
+			imageUrl: event.image
+				? event.image.url.startsWith('https')
+					? event.image.url
+					: `${apiUrl}${event.image.url}`
 				: 'https://placehold.co/600x400?text=Event',
 			imageAlt: event.image?.alternativeText || event.title
 		});
@@ -85,16 +87,20 @@ export const load: PageServerLoad = async () => {
 		return {
 			page: {
 				heroTitle: pageData.hero_title,
-				heroImageUrl: pageData.hero_image?.url
-					? `${apiUrl}${pageData.hero_image.url}`
+				heroImageUrl: pageData.hero_image
+					? pageData.hero_image.url.startsWith('https')
+						? pageData.hero_image.url
+						: `${apiUrl}${pageData.hero_image.url}`
 					: 'https://placehold.co/1200x600?text=Hero+Image',
 				heroImageAlt: pageData.hero_image?.alternativeText || 'Hero image',
 				categoriesSubtitle: pageData.categories_subtitle,
 				categoriesTitle: pageData.categories_title,
 				categories: pageData.categories?.map((category) => ({
 					...category,
-					imageUrl: category.image?.url
-						? `${apiUrl}${category.image.url}`
+					imageUrl: category.image
+						? category.image.url.startsWith('https')
+							? category.image.url
+							: `${apiUrl}${category.image.url}`
 						: 'https://placehold.co/600x400?text=Category',
 					imageAlt: category.image?.alternativeText || category.title
 				})),

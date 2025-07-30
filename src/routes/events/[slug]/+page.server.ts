@@ -37,8 +37,10 @@ export const load: PageServerLoad = async ({ params }) => {
 			return {
 				type: 'event',
 				title: eventData.title,
-				heroImageUrl: eventData.image?.url
-					? `${STRAPI_URL}${eventData.image.url}`
+				heroImageUrl: eventData.image
+					? eventData.image.url.startsWith('https')
+						? eventData.image.url
+						: `${STRAPI_URL}${eventData.image.url}`
 					: 'https://placehold.co/1200x600?text=Hero+Image',
 				heroImageAlt: eventData.image?.alternativeText || 'Event Hero Image',
 				content: eventData.content
