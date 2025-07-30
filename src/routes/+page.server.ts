@@ -59,8 +59,10 @@ export const load: PageServerLoad = async () => {
 					title: pageData.hero_title,
 					subtitle: pageData.hero_subtitle,
 					button_text: pageData.hero_button_text,
-					backgroundImageUrl: pageData.hero_background_image?.url
-						? `${apiUrl}${pageData.hero_background_image.url}`
+					backgroundImageUrl: pageData.hero_background_image
+						? pageData.hero_background_image.url.startsWith('http')
+							? pageData.hero_background_image.url
+							: `${apiUrl}${pageData.hero_background_image.url}`
 						: 'https://placehold.co/1200x600?text=Hero+Background',
 					backgroundImageAlt: pageData.hero_background_image?.alternativeText || 'Hero Background'
 				},
@@ -74,8 +76,10 @@ export const load: PageServerLoad = async () => {
 					cards: pageData.meet_cards.map((card) => ({
 						...card,
 						slug: card.slug || '#',
-						imageUrl: card.image?.url
-							? `${apiUrl}${card.image.url}`
+						imageUrl: card.image
+							? card.image.url.startsWith('http')
+								? card.image.url
+								: `${apiUrl}${card.image.url}`
 							: 'https://placehold.co/600x400?text=Meet+Card',
 						imageAlt: card.image?.alternativeText || card.title
 					}))

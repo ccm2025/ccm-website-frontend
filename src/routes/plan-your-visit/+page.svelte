@@ -1,4 +1,6 @@
 <script>
+	import StyledText from '$lib/components/StyledText.svelte';
+
 	/** @type {import('./$types').PageData} */
 	export let data;
 </script>
@@ -36,17 +38,14 @@
 			>
 				{data.page.introductionTitle}
 			</p>
-			<div class="mt-4 grid grid-cols-1 items-center gap-8 text-left md:grid-cols-3">
-				<div class="md:col-span-2">
-					<p class="text-lg font-bold text-[rgb(var(--website-theme-color1))]">
-						{data.page.introductionContent.title}
-					</p>
-					<p class="mt-2 text-gray-800">{data.page.introductionContent.description}</p>
+			<div class="mt-6 grid grid-cols-1 items-center gap-8 text-left md:grid-cols-5">
+				<div class="md:col-span-3">
+					<StyledText data={data.page.introductionContent.description} />
 				</div>
-				<div class="md:col-span-1">
+				<div class="md:col-span-2">
 					<img
 						src={data.page.introductionContent.imageUrl}
-						alt={data.page.introductionContent.title}
+						alt={data.page.introductionContent.imageAlt}
 						class="h-auto w-full rounded-lg object-cover shadow-md"
 					/>
 				</div>
@@ -65,8 +64,7 @@
 				/>
 			</div>
 			<div class="flex flex-col justify-center p-8 md:p-16">
-				<h2 class="text-3xl font-bold tracking-wider md:text-4xl">{data.page.locationTitle}</h2>
-				<p class="mt-1 text-xl md:text-2xl">{@html data.page.locationAddress}</p>
+				<StyledText data={data.page.locationText} gap={6} />
 			</div>
 		</div>
 	</section>
@@ -83,19 +81,16 @@
 			</div>
 			<div class="mx-auto mt-12 max-w-4xl space-y-12">
 				{#each data.page.scheduleItems as item, i (item.id)}
-					<div class="grid grid-cols-1 items-center gap-8 md:grid-cols-3">
-						<div class="md:col-span-1 {i % 2 !== 0 ? 'md:order-last' : ''}">
+					<div class="grid grid-cols-1 items-center gap-8 md:grid-cols-5">
+						<div class="md:col-span-2 {i % 2 !== 0 ? 'md:order-last' : ''}">
 							<img
 								src={item.imageUrl}
-								alt={item.title}
+								alt={item.imageAlt}
 								class="h-auto w-full rounded-lg object-cover shadow-md"
 							/>
 						</div>
-						<div class="md:col-span-2">
-							<p class="text-lg font-semibold text-[rgb(var(--website-theme-color1))]">
-								{item.title}
-							</p>
-							<p class="mt-2 text-gray-600">{item.description}</p>
+						<div class="md:col-span-3">
+							<StyledText data={item.description} />
 						</div>
 					</div>
 				{/each}

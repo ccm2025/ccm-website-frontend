@@ -1,14 +1,12 @@
 import { api, apiUrl } from '$lib';
-import type { StrapiImage, StrapiResponse } from '$lib/types';
+import type { StrapiImage, StrapiResponse, StyledTextProps } from '$lib/types';
 import { error } from '@sveltejs/kit';
 import axios from 'axios';
-import { marked } from 'marked';
 import type { PageServerLoad } from './$types';
 
 interface ScheduleItem {
 	id: number;
-	title: string;
-	description: string;
+	description: StyledTextProps[];
 	image: StrapiImage;
 }
 
@@ -20,8 +18,7 @@ interface PlanYourVisitPageAttributes {
 	introduction_content: ScheduleItem;
 	schedule_title: string;
 	schedule_items: ScheduleItem[];
-	location_title: string;
-	location_address: string;
+	location_text: StyledTextProps[];
 	location_map_image: StrapiImage;
 }
 
@@ -34,11 +31,18 @@ export const load: PageServerLoad = async () => {
 				populate: {
 					hero_image: true,
 					introduction_content: {
-						populate: 'image'
+						populate: {
+							image: true,
+							description: true
+						}
 					},
 					schedule_items: {
-						populate: 'image'
+						populate: {
+							image: true,
+							description: true
+						}
 					},
+					location_text: true,
 					location_map_image: true
 				},
 				locale: 'en'
@@ -68,9 +72,7 @@ export const load: PageServerLoad = async () => {
 							? pageData.introduction_content.image.url
 							: `${apiUrl}${pageData.introduction_content.image.url}`
 						: 'https://placehold.co/400x400?text=Introduction+Image',
-					imageAlt:
-						pageData.introduction_content.image?.alternativeText ||
-						pageData.introduction_content.title
+					imageAlt: pageData.introduction_content.image?.alternativeText || `Introduction Image`
 				},
 				scheduleTitle: pageData.schedule_title,
 				scheduleItems: pageData.schedule_items.map((item) => ({
@@ -80,10 +82,9 @@ export const load: PageServerLoad = async () => {
 							? item.image.url
 							: `${apiUrl}${item.image.url}`
 						: 'https://placehold.co/400x400?text=Schedule+Item',
-					imageAlt: item.image?.alternativeText || item.title
+					imageAlt: item.image?.alternativeText || `Schedule Item ${item.id}`
 				})),
-				locationTitle: pageData.location_title,
-				locationAddress: marked.parse(pageData.location_address),
+				locationText: pageData.location_text,
 				locationMapImageUrl: pageData.location_map_image
 					? pageData.location_map_image.url.startsWith('https')
 						? pageData.location_map_image.url
