@@ -16,7 +16,7 @@
 	<section class="relative flex h-64 items-center justify-center text-center text-white md:h-80">
 		<div class="absolute inset-0">
 			<img src={data.page.heroImageUrl} alt="Give background" class="h-full w-full object-cover" />
-			<div class="absolute inset-0 bg-black/50"></div>
+			<div class="absolute inset-0 bg-black/20"></div>
 		</div>
 		<div class="relative z-10 px-4">
 			<h1 class="text-4xl font-bold tracking-tight uppercase md:text-6xl">{data.page.heroTitle}</h1>

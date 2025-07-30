@@ -65,8 +65,10 @@ export const load: PageServerLoad = async () => {
 		return {
 			page: {
 				heroTitle: pageData.hero_title,
-				heroImageUrl: pageData.hero_image?.url
-					? `${apiUrl}${pageData.hero_image.url}`
+				heroImageUrl: pageData.hero_image
+					? pageData.hero_image.url.startsWith('https')
+						? pageData.hero_image.url
+						: `${apiUrl}${pageData.hero_image.url}`
 					: 'https://placehold.co/1200x600?text=Hero+Image',
 				heroImageAlt: pageData.hero_image?.alternativeText || 'Hero image',
 				introductionSubtitle: pageData.introduction_subtitle,
@@ -76,8 +78,10 @@ export const load: PageServerLoad = async () => {
 				historyTitle: pageData.history_title,
 				historySection: pageData.history_section?.map((story) => ({
 					...story,
-					imageUrl: story.image?.url
-						? `${apiUrl}${story.image.url}`
+					imageUrl: story.image
+						? story.image.url.startsWith('https')
+							? story.image.url
+							: `${apiUrl}${story.image.url}`
 						: 'https://placehold.co/1200x600?text=History+Image',
 					imageAlt: story.image?.alternativeText || 'History section image'
 				})),
@@ -85,8 +89,10 @@ export const load: PageServerLoad = async () => {
 				teamTitle: pageData.team_title,
 				teamSection: pageData.team_section?.map((member) => ({
 					...member,
-					avatarUrl: member.avatar?.url
-						? `${apiUrl}${member.avatar.url}`
+					avatarUrl: member.avatar
+						? member.avatar.url.startsWith('https')
+							? member.avatar.url
+							: `${apiUrl}${member.avatar.url}`
 						: 'https://placehold.co/600x600?text=Avatar',
 					avatarAlt: member.avatar?.alternativeText || member.name
 				}))

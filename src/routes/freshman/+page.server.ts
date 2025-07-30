@@ -48,15 +48,19 @@ export const load: PageServerLoad = async () => {
 		return {
 			page: {
 				heroTitle: pageData.hero_title,
-				heroImageUrl: pageData.hero_image?.url
-					? `${apiUrl}${pageData.hero_image.url}`
+				heroImageUrl: pageData.hero_image
+					? pageData.hero_image.url.startsWith('https')
+						? pageData.hero_image.url
+						: `${apiUrl}${pageData.hero_image.url}`
 					: 'https://placehold.co/600x400?text=Freshman',
 				infoSections: pageData.info_sections.map((section) => ({
 					...section,
 					buttonText: section.button_text,
 					buttonUrl: section.button_url,
-					imageUrl: section.image?.url
-						? `${apiUrl}${section.image.url}`
+					imageUrl: section.image
+						? section.image.url.startsWith('https')
+							? section.image.url
+							: `${apiUrl}${section.image.url}`
 						: 'https://placehold.co/400x400?text=InfoSection',
 					imageAlt: section.image?.alternativeText || section.title
 				}))

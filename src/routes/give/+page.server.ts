@@ -50,8 +50,10 @@ export const load: PageServerLoad = async () => {
 		return {
 			page: {
 				heroTitle: pageData.hero_title,
-				heroImageUrl: pageData.hero_image?.url
-					? `${apiUrl}${pageData.hero_image.url}`
+				heroImageUrl: pageData.hero_image
+					? pageData.hero_image.url.startsWith('https')
+						? pageData.hero_image.url
+						: `${apiUrl}${pageData.hero_image.url}`
 					: 'https://placehold.co/1200x600?text=Give+Background',
 				introductionSubtitle: pageData.introduction_subtitle,
 				introductionTitle: pageData.introduction_title,
@@ -63,7 +65,7 @@ export const load: PageServerLoad = async () => {
 				pdfLinks:
 					pageData.pdf_links?.map((link) => ({
 						title: link.title,
-						url: link.pdf.url
+						url: link.pdf.url.startsWith('https') ? link.pdf.url : `${apiUrl}${link.pdf.url}`
 					})) || []
 			}
 		};
