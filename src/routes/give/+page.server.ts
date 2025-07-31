@@ -1,4 +1,4 @@
-import { apiUrl, fetch } from '$lib';
+import { fetch, getMedia } from '$lib';
 import type { StrapiFile, StrapiImage, StyledTextProps } from '$lib/types';
 import type { PageServerLoad } from './$types';
 
@@ -40,19 +40,10 @@ export const load: PageServerLoad = async ({ platform, request }) => {
 		callback: (data): { page: GivePageAttributes } => ({
 			page: {
 				...data,
-				hero_image: {
-					url: data.hero_image
-						? data.hero_image.url.startsWith('https')
-							? data.hero_image.url
-							: `${apiUrl}${data.hero_image.url}`
-						: 'https://placehold.co/1200x600?text=Give+Background',
-					alt: data.hero_image?.alt || 'Give Hero Image'
-				},
+				hero_image: getMedia(data.hero_image, 'Hero image'),
 				pdf_links: data.pdf_links?.map((link) => ({
 					title: link.title,
-					pdf: {
-						url: link.pdf.url.startsWith('https') ? link.pdf.url : `${apiUrl}${link.pdf.url}`
-					}
+					pdf: getMedia(link.pdf, 'PDF file')
 				}))
 			}
 		})

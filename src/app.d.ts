@@ -7,10 +7,8 @@ declare global {
 		// interface PageData {}
 		// interface PageState {}
 		interface Platform {
-			env: {
-				caches?: {
-					default: Cache;
-				};
+			caches: {
+				default: Cache;
 			};
 			context: ExecutionContext;
 		}

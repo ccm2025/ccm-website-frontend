@@ -1,5 +1,5 @@
-import { api } from '$lib/server/strapi';
-import type { StrapiResponse } from '$lib/types';
+import { STRAPI_URL, api } from '$lib/server/strapi';
+import type { StrapiFile, StrapiImage, StrapiResponse } from '$lib/types';
 import { error } from '@sveltejs/kit';
 import axios from 'axios';
 
@@ -30,8 +30,8 @@ export async function fetch<ApiAttributes>({
 	params = {},
 	callback = (data: ApiAttributes) => ({ page: data })
 }: FetcherOptions<ApiAttributes>): Promise<FetcherResponse<ApiAttributes>> {
-	const cacheKey = request.url;
-	const cache = platform?.env?.caches?.default;
+	const cacheKey = request.url + endpoint + JSON.stringify(params);
+	const cache = platform?.caches.default;
 
 	if (cache) {
 		const cachedResponse = await cache.match(cacheKey);
@@ -71,4 +71,26 @@ export async function fetch<ApiAttributes>({
 		}
 		throw error(500, 'An unexpected error occurred.');
 	}
+}
+
+/**
+ * Gets the media URL from a Strapi image or file object.
+ * @param mediaObject - The media object from the Strapi API.
+ * @param altText - Optional alt text for the media.
+ * @returns The relative path pointing to the fallback path.
+ */
+export function getMedia(
+	mediaObject: StrapiImage | StrapiFile,
+	altText: string = ''
+): StrapiImage | StrapiFile {
+	const url = mediaObject
+		? mediaObject.url.startsWith('https')
+			? mediaObject.url
+			: `${STRAPI_URL}${mediaObject.url}`
+		: 'https://placehold.co/600x600?text=' + altText.replace(/\s+/g, '+');
+
+	return {
+		url: '/media?url=' + url,
+		alt: mediaObject?.alt || altText
+	};
 }

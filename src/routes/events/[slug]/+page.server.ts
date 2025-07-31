@@ -1,4 +1,4 @@
-import { apiUrl, fetch } from '$lib';
+import { fetch, getMedia } from '$lib';
 import type { StrapiImage, StyledTextProps } from '$lib/types';
 import type { PageServerLoad } from './$types';
 
@@ -33,14 +33,7 @@ export const load: PageServerLoad = async ({ platform, request, params }) => {
 			page: [
 				{
 					...data[0],
-					image: {
-						url: data[0].image
-							? data[0].image.url.startsWith('https')
-								? data[0].image.url
-								: `${apiUrl}${data[0].image.url}`
-							: 'https://placehold.co/1200x600?text=Hero+Image',
-						alt: data[0].image?.alt || 'Event Hero Image'
-					}
+					image: getMedia(data[0].image, 'Event image')
 				}
 			]
 		})
