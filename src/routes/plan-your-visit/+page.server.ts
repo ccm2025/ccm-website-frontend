@@ -20,8 +20,10 @@ interface PlanYourVisitPageAttributes {
 	location_map_image: StrapiImage;
 }
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({ platform, request }) => {
 	return fetch<PlanYourVisitPageAttributes>({
+		platform,
+		request,
 		endpoint: '/api/plan-your-visit-page',
 		params: {
 			populate: {

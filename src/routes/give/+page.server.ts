@@ -20,8 +20,10 @@ interface GivePageAttributes {
 	pdf_links?: PdfLink[];
 }
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({ platform, request }) => {
 	return fetch<GivePageAttributes>({
+		platform,
+		request,
 		endpoint: '/api/give-page',
 		params: {
 			populate: {

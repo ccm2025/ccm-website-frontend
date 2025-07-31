@@ -29,8 +29,10 @@ interface AboutPageAttributes {
 	team_section?: TeamMember[];
 }
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({ platform, request }) => {
 	return fetch<AboutPageAttributes>({
+		platform,
+		request,
 		endpoint: '/api/about-page',
 		params: {
 			locale: 'en',

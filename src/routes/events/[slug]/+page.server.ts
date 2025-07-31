@@ -10,10 +10,12 @@ interface Event {
 	content: StyledTextProps[];
 }
 
-export const load: PageServerLoad = async ({ params }) => {
+export const load: PageServerLoad = async ({ platform, request, params }) => {
 	const { slug } = params;
 
 	return fetch<Event[]>({
+		platform,
+		request,
 		endpoint: '/api/events',
 		params: {
 			filters: {

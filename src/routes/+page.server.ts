@@ -25,8 +25,10 @@ interface HomePageAttributes {
 	conclusion: StyledTextProps[];
 }
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({ platform, request }) => {
 	return fetch<HomePageAttributes>({
+		platform,
+		request,
 		endpoint: '/api/home-page',
 		params: {
 			populate: {
