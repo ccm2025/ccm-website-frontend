@@ -34,7 +34,7 @@
   // ================================================= -->
 	<header class="sticky top-0 z-50 border-b border-gray-200 bg-white/95 backdrop-blur-sm">
 		<div class="container mx-auto px-4">
-			<div class="h-25 flex items-center justify-between">
+			<div class="flex h-25 items-center justify-between">
 				<!-- Logo -->
 				<a href="/" class="flex items-center space-x-3">
 					<img src={logoImage} alt={data.page.website_title_en} class="h-30 w-30 rounded-full" />
@@ -100,7 +100,7 @@
 							class="h-10 w-auto rounded-full bg-white"
 						/>
 						<div>
-							<div class="text-lg font-bold leading-tight text-white">
+							<div class="text-lg leading-tight font-bold text-white">
 								{data.page.website_title_cn}
 							</div>
 							<div class="text-xs font-medium tracking-wider text-gray-200">
@@ -108,7 +108,7 @@
 							</div>
 						</div>
 					</a>
-					<div class="mb-6 mt-4 h-1 w-24 rounded bg-[rgb(var(--website-theme-color2))]"></div>
+					<div class="mt-4 mb-6 h-1 w-24 rounded bg-[rgb(var(--website-theme-color2))]"></div>
 					<div class="flex space-x-4">
 						<a
 							href={data.page.instagram_url || '/'}
@@ -201,7 +201,7 @@
 
 		<!-- 窄屏 (移动端) 菜单：从上方滑下 -->
 		<div
-			class="fixed left-0 right-0 top-0 z-50 transform bg-[rgb(var(--website-theme-color2))] shadow-lg transition-transform duration-300 ease-in-out md:hidden"
+			class="fixed top-0 right-0 left-0 z-50 transform bg-[rgb(var(--website-theme-color2))] shadow-lg transition-transform duration-300 ease-in-out md:hidden"
 			in:fly={{ y: '-100%', duration: 300 }}
 			out:fly={{ y: '-100%', duration: 300 }}
 		>
@@ -264,7 +264,7 @@
 
 		<!-- 宽屏 (桌面端) 菜单：从右侧滑入 -->
 		<div
-			class="fixed right-0 top-0 z-50 hidden h-full w-1/4 max-w-sm bg-[rgb(var(--website-theme-color2))] md:block"
+			class="fixed top-0 right-0 z-50 hidden h-full w-1/4 max-w-sm bg-[rgb(var(--website-theme-color2))] md:block"
 			in:fly={{ x: '100%', duration: 300 }}
 			out:fly={{ x: '100%', duration: 300 }}
 		>
