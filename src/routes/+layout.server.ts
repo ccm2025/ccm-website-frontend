@@ -1,5 +1,4 @@
-import { api } from '$lib';
-import type { StrapiResponse } from '$lib/types';
+import { fetch } from '$lib';
 import type { LayoutServerLoad } from './$types';
 
 interface GlobalAttributes {
@@ -12,38 +11,14 @@ interface GlobalAttributes {
 	youtube_url: string;
 }
 
-type GlobalResponse = StrapiResponse<GlobalAttributes>;
-
 export const load: LayoutServerLoad = async () => {
-	try {
-		const response = await api.get<GlobalResponse>('/api/global', {
-			params: {
-				locole: 'en'
-			}
-		});
-
-		const globalData = response.data.data;
-
-		if (!globalData) {
-			console.error('Global data not found.');
-			return { global: null };
-		}
-
-		return {
-			global: {
-				websiteTitleCn: globalData.website_title_cn,
-				websiteTitleEn: globalData.website_title_en,
-				contactTitle: globalData.contact_title,
-				address: globalData.address,
-				email: globalData.email,
-				socialLinks: {
-					instagram: globalData.instagram_url || '',
-					youtube: globalData.youtube_url || ''
-				}
-			}
-		};
-	} catch (e) {
-		console.error('Failed to fetch global data:', e);
-		return { global: null };
-	}
+	return fetch<GlobalAttributes>({
+		endpoint: '/api/global',
+		params: {
+			locale: 'en'
+		},
+		callback: (data) => ({
+			page: data
+		})
+	});
 };

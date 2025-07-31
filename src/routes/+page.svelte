@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-	<title>{data.page.hero.title}</title>
+	<title>{data.page.hero_title}</title>
 </svelte:head>
 
 <main>
@@ -15,23 +15,23 @@
 	>
 		<div class="absolute inset-0">
 			<img
-				src={data.page.hero.backgroundImageUrl}
-				alt={data.page.hero.backgroundImageAlt}
+				src={data.page.hero_background_image.url}
+				alt={data.page.hero_background_image.alt}
 				class="h-full w-full object-cover"
 			/>
 			<div class="absolute inset-0 bg-black/20"></div>
 		</div>
 		<div class="relative z-10 px-4 text-left">
 			<h1 class="mb-8 text-4xl font-bold tracking-tight uppercase md:text-6xl">
-				{data.page.hero.title}
+				{data.page.hero_title}
 			</h1>
-			<StyledText data={data.page.hero.subtitle} as="h2" />
+			<StyledText data={data.page.hero_subtitle} as="h2" />
 			<a
-				class="mt-14 inline-block rounded-full border-2 border-white px-8 py-3 text-lg font-semibold transition-all duration-300 hover:bg-white hover:text-green-700"
+				class="mt-14 inline-block rounded-full border-2 border-white px-8 py-3 text-lg font-semibold transition-all duration-300 hover:bg-white hover:text-[rgb(var(--website-theme-color2))]"
 				href="/plan-your-visit"
-				aria-label={data.page.hero.button_text}
+				aria-label={data.page.hero_button_text}
 			>
-				{data.page.hero.button_text}
+				{data.page.hero_button_text}
 			</a>
 		</div>
 	</section>
@@ -39,22 +39,22 @@
 	<!-- Intro Section Part 1 -->
 	<section class="bg-white py-16 md:py-20">
 		<div class="container mx-auto max-w-4xl px-4 text-center">
-			<StyledText data={data.page.intro.part1} as="p" gap={10} />
+			<StyledText data={data.page.introduction_part1} as="p" gap={10} />
 		</div>
 	</section>
 
 	<!-- Video Section -->
-	{#if data.page.intro.videoUrl}
+	{#if data.page.introduction_video_url}
 		<section class="bg-[rgb(var(--website-theme-color1))] py-16 md:py-20">
 			<div class="container mx-auto px-4">
 				<div
 					class="mx-auto max-w-4xl rounded-lg border border-gray-700 bg-gray-900/80 p-3 shadow-2xl backdrop-blur-sm md:p-4"
 				>
-					<div class="aspect-w-16 aspect-h-9 overflow-hidden rounded-md bg-[#1a3a2a]">
+					<div class="aspect-w-16 aspect-h-9 overflow-hidden rounded-md bg-black/80">
 						<iframe
 							loading="lazy"
 							class="aspect-video w-full"
-							src={data.page.intro.videoUrl}
+							src={data.page.introduction_video_url}
 							title="YouTube video player"
 							frameborder="0"
 							allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -69,7 +69,7 @@
 	<!-- Intro Section Part 2 -->
 	<section class="bg-white py-16 md:py-20">
 		<div class="container mx-auto max-w-5xl px-4 text-center">
-			<StyledText data={data.page.intro.part2} as="p" gap={12} />
+			<StyledText data={data.page.introduction_part2} as="p" gap={12} />
 		</div>
 	</section>
 
@@ -77,18 +77,18 @@
 	<section class="bg-white py-16 md:py-20">
 		<div class="container mx-auto px-4">
 			<h2 class="text-center text-3xl font-bold tracking-wider md:text-4xl">
-				{data.page.meet.title}
+				{data.page.meet_title}
 			</h2>
 			<div class="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
-				{#each data.page.meet.cards as card (card.id)}
+				{#each data.page.meet_cards as card (card.id)}
 					<a
 						href={`/${card.slug}`}
 						class="group relative block h-64 overflow-hidden rounded-lg shadow-lg"
 					>
 						<div class="absolute inset-0">
 							<img
-								src={card.imageUrl}
-								alt={card.imageAlt}
+								src={card.image.url}
+								alt={card.image.alt}
 								class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
 							/>
 							<div class="absolute inset-0 bg-black/30"></div>
