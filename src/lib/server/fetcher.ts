@@ -25,7 +25,7 @@ interface FetcherResponse<T> {
 export async function fetch<ApiAttributes>({
 	platform,
 	request,
-	cacheSeconds = 3600 * 12, // Default cache duration of 12 hours
+	cacheSeconds = 3600 * 72, // Default cache duration of 72 hours
 	endpoint,
 	params = {},
 	callback = (data: ApiAttributes) => ({ page: data })
