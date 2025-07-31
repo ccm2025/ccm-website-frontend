@@ -83,14 +83,10 @@ export function getMedia(
 	mediaObject: StrapiImage | StrapiFile,
 	altText: string = ''
 ): StrapiImage | StrapiFile {
-	const url = mediaObject
-		? mediaObject.url.startsWith('https')
-			? mediaObject.url
-			: `${STRAPI_URL}${mediaObject.url}`
-		: 'https://placehold.co/600x600?text=' + altText.replace(/\s+/g, '+');
+	const url = new URL(mediaObject?.url ?? '', STRAPI_URL);
 
 	return {
-		url: '/media?url=' + url,
+		url: '/media' + url.pathname,
 		alt: mediaObject?.alt || altText
 	};
 }
