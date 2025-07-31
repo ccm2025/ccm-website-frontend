@@ -32,7 +32,7 @@ interface GatheringsPageAttributes {
 	past_events_empty_text: string;
 }
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({ platform, request }) => {
 	const today = new Date().toISOString();
 
 	const callbackEvents = (events: Event[]) => ({
@@ -81,6 +81,8 @@ export const load: PageServerLoad = async () => {
 
 	const [pageRes, upcomingEventsRes, pastEventsRes] = await Promise.all([
 		fetch<GatheringsPageAttributes>({
+			platform,
+			request,
 			endpoint: '/api/gatherings-page',
 			params: {
 				locale: 'en',
@@ -89,6 +91,8 @@ export const load: PageServerLoad = async () => {
 			callback: callbackGatheringsPage
 		}),
 		fetch<Event[]>({
+			platform,
+			request,
 			endpoint: '/api/events',
 			params: {
 				locale: 'en',
@@ -99,6 +103,8 @@ export const load: PageServerLoad = async () => {
 			callback: callbackEvents
 		}),
 		fetch<Event[]>({
+			platform,
+			request,
 			endpoint: '/api/events',
 			params: {
 				locale: 'en',

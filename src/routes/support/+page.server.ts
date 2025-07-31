@@ -18,8 +18,10 @@ interface SupportPageAttributes {
 	info_sections: InfoSection[];
 }
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({ platform, request }) => {
 	return fetch<SupportPageAttributes>({
+		platform,
+		request,
 		endpoint: '/api/support-page',
 		params: {
 			populate: {

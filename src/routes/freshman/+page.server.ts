@@ -18,8 +18,10 @@ interface FreshmanPageAttributes {
 	info_sections: InfoSection[];
 }
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({ platform, request }) => {
 	return fetch<FreshmanPageAttributes>({
+		platform,
+		request,
 		endpoint: '/api/freshman-page',
 		params: {
 			locale: 'en',

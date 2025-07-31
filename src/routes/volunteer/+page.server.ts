@@ -14,8 +14,10 @@ interface VolunteerPageAttributes {
 	volunteer_content: StyledTextProps[];
 }
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async ({ platform, request }) => {
 	return fetch<VolunteerPageAttributes>({
+		platform,
+		request,
 		endpoint: '/api/volunteer-page',
 		params: {
 			populate: {
