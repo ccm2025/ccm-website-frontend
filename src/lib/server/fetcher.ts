@@ -1,4 +1,4 @@
-import { STRAPI_URL, api } from '$lib/server/strapi';
+import { STRAPI_MEDIA_URL, api } from '$lib/server/strapi';
 import type { StrapiFile, StrapiImage, StrapiResponse } from '$lib/types';
 import { error } from '@sveltejs/kit';
 import axios from 'axios';
@@ -83,7 +83,7 @@ export function getMedia(
 	mediaObject: StrapiImage | StrapiFile,
 	altText: string = ''
 ): StrapiImage | StrapiFile {
-	const url = new URL(mediaObject?.url ?? '', STRAPI_URL);
+	const url = new URL(mediaObject?.url ?? '', STRAPI_MEDIA_URL);
 
 	return {
 		url: '/media' + url.pathname,
