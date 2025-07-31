@@ -1,4 +1,4 @@
-import { apiUrl, fetch } from '$lib';
+import { fetch, getMedia } from '$lib';
 import type { StrapiImage, StyledTextProps } from '$lib/types';
 import type { PageServerLoad } from './$types';
 
@@ -43,38 +43,17 @@ export const load: PageServerLoad = async ({ platform, request }) => {
 				month: 'long',
 				day: 'numeric'
 			}),
-			image: {
-				url: event.image
-					? event.image.url.startsWith('https')
-						? event.image.url
-						: `${apiUrl}${event.image.url}`
-					: 'https://placehold.co/600x400?text=Event',
-				alt: event.image?.alt || event.title
-			}
+			image: getMedia(event.image, 'Event image')
 		}))
 	});
 
 	const callbackGatheringsPage = (data: GatheringsPageAttributes) => ({
 		page: {
 			...data,
-			hero_image: {
-				url: data.hero_image
-					? data.hero_image.url.startsWith('https')
-						? data.hero_image.url
-						: `${apiUrl}${data.hero_image.url}`
-					: 'https://placehold.co/1200x600?text=Hero+Image',
-				alt: data.hero_image?.alt || data.hero_title
-			},
+			hero_image: getMedia(data.hero_image, 'Hero image'),
 			categories: data.categories?.map((category) => ({
 				...category,
-				image: {
-					url: category.image
-						? category.image.url.startsWith('https')
-							? category.image.url
-							: `${apiUrl}${category.image.url}`
-						: 'https://placehold.co/600x400?text=Category',
-					alt: category.image?.alt || category.title
-				}
+				image: getMedia(category.image, 'Category image')
 			}))
 		}
 	});

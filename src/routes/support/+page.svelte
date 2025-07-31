@@ -30,7 +30,7 @@
 	<!-- Info Sections -->
 	<div class="bg-white">
 		{#each data.page.info_sections as section, i (section.id)}
-			<section class="py-8 md:py-12">
+			<section class="py-8 md:py-10">
 				<div class="container mx-auto px-4">
 					<div class="grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-16">
 						<div class="w-full" class:md:order-last={i % 2 !== 0}>

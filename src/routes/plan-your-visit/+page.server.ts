@@ -1,4 +1,4 @@
-import { apiUrl, fetch } from '$lib';
+import { fetch, getMedia } from '$lib';
 import type { StrapiImage, StyledTextProps } from '$lib/types';
 import type { PageServerLoad } from './$types';
 
@@ -48,44 +48,16 @@ export const load: PageServerLoad = async ({ platform, request }) => {
 		callback: (data) => ({
 			page: {
 				...data,
-				hero_image: {
-					url: data.hero_image
-						? data.hero_image.url.startsWith('https')
-							? data.hero_image.url
-							: `${apiUrl}${data.hero_image.url}`
-						: 'https://placehold.co/600x400?text=Plan+Your+Visit',
-					alt: data.hero_image?.alt || 'Plan Your Visit Hero Image'
-				},
+				hero_image: getMedia(data.hero_image, 'Hero image'),
 				introduction_content: {
 					...data.introduction_content,
-					image: {
-						url: data.introduction_content.image
-							? data.introduction_content.image.url.startsWith('https')
-								? data.introduction_content.image.url
-								: `${apiUrl}${data.introduction_content.image.url}`
-							: 'https://placehold.co/400x400?text=Introduction+Image',
-						alt: data.introduction_content.image?.alt || `Introduction Image`
-					}
+					image: getMedia(data.introduction_content.image, 'Introduction image')
 				},
 				schedule_items: data.schedule_items.map((item) => ({
 					...item,
-					image: {
-						url: item.image
-							? item.image.url.startsWith('https')
-								? item.image.url
-								: `${apiUrl}${item.image.url}`
-							: 'https://placehold.co/400x400?text=Schedule+Item',
-						alt: item.image?.alt || `Schedule Item ${item.id}`
-					}
+					image: getMedia(item.image, 'Schedule item image')
 				})),
-				location_map_image: {
-					url: data.location_map_image
-						? data.location_map_image.url.startsWith('https')
-							? data.location_map_image.url
-							: `${apiUrl}${data.location_map_image.url}`
-						: 'https://placehold.co/600x400?text=Location+Map',
-					alt: data.location_map_image?.alt || 'Location Map'
-				}
+				location_map_image: getMedia(data.location_map_image, 'Location map image')
 			}
 		})
 	});

@@ -34,9 +34,9 @@
 </script>
 
 {#if data && data.length > 0}
-	<div class={'space-y-' + gap}>
+	<div>
 		{#each data as line, i (i)}
-			<svelte:element this={as} class={getClasses(line)}>
+			<svelte:element this={as} class={getClasses(line) + (i > 0 ? ` mt-${gap}` : '')}>
 				{line.text}
 			</svelte:element>
 		{/each}
