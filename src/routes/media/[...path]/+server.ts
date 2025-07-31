@@ -1,4 +1,4 @@
-import { STRAPI_URL } from '$lib/server/strapi';
+import { STRAPI_MEDIA_URL } from '$lib/server/strapi';
 import { error } from '@sveltejs/kit';
 import type { RequestHandler } from '../$types';
 
@@ -9,7 +9,7 @@ export const GET: RequestHandler = async ({ platform, params }) => {
 		return Response.redirect('https://placehold.co/600x600?text=No+media', 302);
 	}
 
-	const url = new URL(path, STRAPI_URL);
+	const url = new URL(path, STRAPI_MEDIA_URL);
 	const cache = platform?.caches.default;
 
 	if (cache) {
