@@ -8,19 +8,23 @@
 </script>
 
 <svelte:head>
-	<title>{data.title}</title>
+	<title>{data.page[0].title}</title>
 </svelte:head>
 
 <main>
 	<!-- Hero Section -->
 	<section class="relative flex h-64 items-center justify-center text-center text-white md:h-80">
 		<div class="absolute inset-0">
-			<img src={data.heroImageUrl} alt={data.heroImageAlt} class="h-full w-full object-cover" />
+			<img
+				src={data.page[0].image.url}
+				alt={data.page[0].image.alt}
+				class="h-full w-full object-cover"
+			/>
 			<div class="absolute inset-0 bg-black/20"></div>
 		</div>
 		<div class="relative z-10 px-4">
 			<h1 class="text-4xl font-bold tracking-tight uppercase md:text-6xl">
-				{data.title}
+				{data.page[0].title}
 			</h1>
 		</div>
 	</section>
@@ -42,10 +46,10 @@
 			<!-- Main Content -->
 			<div class="mb-8 text-center">
 				<h2 class="text-2xl font-bold tracking-tight uppercase md:text-4xl">
-					{data.title}
+					{data.page[0].title}
 				</h2>
 			</div>
-			<StyledText data={data.content} />
+			<StyledText data={data.page[0].content} />
 		</div>
 	</section>
 </main>

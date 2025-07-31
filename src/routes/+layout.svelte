@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	/** @type {import('./$types').PageData} */
 	export let data;
 	// =================================================
@@ -38,15 +38,15 @@
 			<div class="flex h-25 items-center justify-between">
 				<!-- Logo -->
 				<a href="/" class="flex items-center space-x-3">
-					<img src={logoImage} alt="Logo" class="h-30 w-30 rounded-full" />
+					<img src={logoImage} alt={data.page.website_title_en} class="h-30 w-30 rounded-full" />
 					<div>
 						<div
 							class="text-2xl font-medium tracking-wider text-[rgb(var(--website-theme-color1))]"
 						>
-							{data.global?.websiteTitleCn}
+							{data.page.website_title_cn}
 						</div>
 						<div class="text-xs font-medium tracking-wider text-[rgb(var(--website-theme-color1))]">
-							{data.global?.websiteTitleEn}
+							{data.page.website_title_en}
 						</div>
 					</div>
 				</a>
@@ -97,22 +97,22 @@
 					<a href="/" class="flex items-center space-x-3">
 						<img
 							src={logoImage}
-							alt={data.global?.websiteTitleEn}
+							alt={data.page.website_title_en}
 							class="h-10 w-auto rounded-full bg-white"
 						/>
 						<div>
 							<div class="text-lg leading-tight font-bold text-white">
-								{data.global?.websiteTitleCn}
+								{data.page.website_title_cn}
 							</div>
 							<div class="text-xs font-medium tracking-wider text-gray-200">
-								{data.global?.websiteTitleEn}
+								{data.page.website_title_en}
 							</div>
 						</div>
 					</a>
 					<div class="mt-4 mb-6 h-1 w-24 rounded bg-[rgb(var(--website-theme-color2))]"></div>
 					<div class="flex space-x-4">
 						<a
-							href={data.global?.socialLinks.instagram || '/'}
+							href={data.page.instagram_url || '/'}
 							aria-label="Instagram"
 							class="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-yellow-400 via-red-500 to-purple-600 text-white transition-opacity hover:opacity-90"
 							><svg
@@ -131,7 +131,7 @@
 							></a
 						>
 						<a
-							href={data.global?.socialLinks.youtube || '/'}
+							href={data.page.youtube_url || '/'}
 							aria-label="YouTube"
 							class="flex h-12 w-12 items-center justify-center rounded-full bg-red-600 text-white transition-opacity hover:opacity-90"
 							><svg
@@ -148,10 +148,10 @@
 					</div>
 				</div>
 				<div>
-					<h3 class="mb-4 text-xl font-bold text-white">{data.global?.contactTitle}</h3>
+					<h3 class="mb-4 text-xl font-bold text-white">{data.page.contact_title}</h3>
 					<div class="space-y-2 text-gray-300">
-						<p>{data.global?.address}</p>
-						<p>{data.global?.email}</p>
+						<p>{data.page.address}</p>
+						<p>{data.page.email}</p>
 					</div>
 				</div>
 				<div>

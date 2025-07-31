@@ -1,7 +1,5 @@
-import { api, STRAPI_URL } from '$lib/server/strapi';
+import { apiUrl, fetch } from '$lib';
 import type { StrapiImage, StyledTextProps } from '$lib/types';
-import { error } from '@sveltejs/kit';
-import axios from 'axios';
 import type { PageServerLoad } from './$types';
 
 interface Event {
@@ -13,48 +11,38 @@ interface Event {
 }
 
 export const load: PageServerLoad = async ({ params }) => {
-	try {
-		const { slug } = params;
+	const { slug } = params;
 
-		const response = await api.get<{ data: Event[] }>('/api/events', {
-			params: {
-				filters: {
-					slug: {
-						$eq: slug
-					}
-				},
-				populate: {
-					image: true,
-					content: true
-				},
-				locale: 'en'
-			}
-		});
-
-		if (response.data.data.length > 0) {
-			const eventData = response.data.data[0];
-
+	return fetch<Event[]>({
+		endpoint: '/api/events',
+		params: {
+			filters: {
+				slug: {
+					$eq: slug
+				}
+			},
+			populate: {
+				image: true,
+				content: true
+			},
+			locale: 'en'
+		},
+		callback: (data) => {
 			return {
-				type: 'event',
-				title: eventData.title,
-				heroImageUrl: eventData.image
-					? eventData.image.url.startsWith('https')
-						? eventData.image.url
-						: `${STRAPI_URL}${eventData.image.url}`
-					: 'https://placehold.co/1200x600?text=Hero+Image',
-				heroImageAlt: eventData.image?.alternativeText || 'Event Hero Image',
-				content: eventData.content
+				page: [
+					{
+						...data[0],
+						image: {
+							url: data[0].image
+								? data[0].image.url.startsWith('https')
+									? data[0].image.url
+									: `${apiUrl}${data[0].image.url}`
+								: 'https://placehold.co/1200x600?text=Hero+Image',
+							alt: data[0].image?.alt || 'Event Hero Image'
+						}
+					}
+				]
 			};
 		}
-
-		throw error(404, `Event with slug "${slug}" not found.`);
-	} catch (e) {
-		console.error('Error fetching:', e);
-		if (axios.isAxiosError(e)) {
-			const status = e.response?.status || 500;
-			const message = e.response?.data?.error?.message || 'Failed to load page data.';
-			throw error(status, message);
-		}
-		throw error(500, 'An unexpected error occurred.');
-	}
+	});
 };

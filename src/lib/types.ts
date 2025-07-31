@@ -1,15 +1,15 @@
 export interface StrapiImage {
 	url: string;
-	alternativeText?: string;
+	alt?: string;
 }
 
 export interface StrapiFile {
 	url: string;
-	alternativeText?: string;
+	alt?: string;
 }
 
 export interface StrapiResponse<T> {
-	data: (T & { publishedAt: string }) | null;
+	data: T | null;
 	meta?: object;
 }
 

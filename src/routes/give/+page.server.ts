@@ -1,7 +1,5 @@
-import { api, apiUrl } from '$lib';
-import type { StrapiFile, StrapiImage, StrapiResponse, StyledTextProps } from '$lib/types';
-import { error } from '@sveltejs/kit';
-import axios from 'axios';
+import { apiUrl, fetch } from '$lib';
+import type { StrapiFile, StrapiImage, StyledTextProps } from '$lib/types';
 import type { PageServerLoad } from './$types';
 
 interface PdfLink {
@@ -22,60 +20,41 @@ interface GivePageAttributes {
 	pdf_links?: PdfLink[];
 }
 
-type GivePageResponse = StrapiResponse<GivePageAttributes>;
-
 export const load: PageServerLoad = async () => {
-	try {
-		const response = await api.get<GivePageResponse>('/api/give-page', {
-			params: {
-				populate: {
-					hero_image: true,
-					introduction_content: true,
-					zelle_content: true,
-					check_content: true,
-					pdf_links: {
-						populate: 'pdf'
-					}
-				},
-				locale: 'en'
-			}
-		});
-
-		const pageData = response.data.data;
-
-		if (!pageData) {
-			throw error(404, 'Give page data not found.');
-		}
-
-		return {
-			page: {
-				heroTitle: pageData.hero_title,
-				heroImageUrl: pageData.hero_image
-					? pageData.hero_image.url.startsWith('https')
-						? pageData.hero_image.url
-						: `${apiUrl}${pageData.hero_image.url}`
-					: 'https://placehold.co/1200x600?text=Give+Background',
-				introductionSubtitle: pageData.introduction_subtitle,
-				introductionTitle: pageData.introduction_title,
-				introductionContent: pageData.introduction_content,
-				zelleTitle: pageData.zelle_title,
-				zelleContent: pageData.zelle_content,
-				checkTitle: pageData.check_title,
-				checkContent: pageData.check_content,
-				pdfLinks:
-					pageData.pdf_links?.map((link) => ({
+	return fetch<GivePageAttributes>({
+		endpoint: '/api/give-page',
+		params: {
+			populate: {
+				hero_image: true,
+				introduction_content: true,
+				zelle_content: true,
+				check_content: true,
+				pdf_links: {
+					populate: 'pdf'
+				}
+			},
+			locale: 'en'
+		},
+		callback: (data): { page: GivePageAttributes } => {
+			return {
+				page: {
+					...data,
+					hero_image: {
+						url: data.hero_image
+							? data.hero_image.url.startsWith('https')
+								? data.hero_image.url
+								: `${apiUrl}${data.hero_image.url}`
+							: 'https://placehold.co/1200x600?text=Give+Background',
+						alt: data.hero_image?.alt || 'Give Hero Image'
+					},
+					pdf_links: data.pdf_links?.map((link) => ({
 						title: link.title,
-						url: link.pdf.url.startsWith('https') ? link.pdf.url : `${apiUrl}${link.pdf.url}`
-					})) || []
-			}
-		};
-	} catch (e) {
-		console.error('Error fetching:', e);
-		if (axios.isAxiosError(e)) {
-			const status = e.response?.status || 500;
-			const message = e.response?.data?.error?.message || 'Failed to load page data.';
-			throw error(status, message);
+						pdf: {
+							url: link.pdf.url.startsWith('https') ? link.pdf.url : `${apiUrl}${link.pdf.url}`
+						}
+					}))
+				}
+			};
 		}
-		throw error(500, 'An unexpected error occurred.');
-	}
+	});
 };
