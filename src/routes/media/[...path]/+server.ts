@@ -26,6 +26,8 @@ export const GET: RequestHandler = async ({ platform, params }) => {
 			throw error(response.status, `Failed to fetch media: ${response.statusText}`);
 		}
 
+		const responseClone = response.clone();
+
 		if (cache) {
 			const newHeaders: Headers = new Headers(response.headers);
 			newHeaders.set('Cache-Control', 'public, s-maxage=604800');
@@ -39,7 +41,7 @@ export const GET: RequestHandler = async ({ platform, params }) => {
 			platform.context.waitUntil(cache.put(url, responseToCache));
 		}
 
-		return response;
+		return responseClone;
 	} catch (e) {
 		console.error(`Failed to proxy media request for ${url.href}:`, e);
 		return new Response('Media not found', {
