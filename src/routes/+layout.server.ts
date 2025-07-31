@@ -17,10 +17,8 @@ export const load: LayoutServerLoad = async () => {
 		params: {
 			locale: 'en'
 		},
-		callback: (data) => {
-			return {
-				page: data
-			};
-		}
+		callback: (data) => ({
+			page: data
+		})
 	});
 };

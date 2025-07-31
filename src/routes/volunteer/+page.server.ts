@@ -25,20 +25,18 @@ export const load: PageServerLoad = async () => {
 			},
 			locale: 'en'
 		},
-		callback: (data) => {
-			return {
-				page: {
-					...data,
-					hero_image: {
-						url: data.hero_image
-							? data.hero_image.url.startsWith('https')
-								? data.hero_image.url
-								: `${apiUrl}${data.hero_image.url}`
-							: 'https://placehold.co/1200x600?text=Volunteer+Background',
-						alt: data.hero_image?.alt || 'Volunteer Hero Image'
-					}
+		callback: (data) => ({
+			page: {
+				...data,
+				hero_image: {
+					url: data.hero_image
+						? data.hero_image.url.startsWith('https')
+							? data.hero_image.url
+							: `${apiUrl}${data.hero_image.url}`
+						: 'https://placehold.co/1200x600?text=Volunteer+Background',
+					alt: data.hero_image?.alt || 'Volunteer Hero Image'
 				}
-			};
-		}
+			}
+		})
 	});
 };

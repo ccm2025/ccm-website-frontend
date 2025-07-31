@@ -27,22 +27,20 @@ export const load: PageServerLoad = async ({ params }) => {
 			},
 			locale: 'en'
 		},
-		callback: (data) => {
-			return {
-				page: [
-					{
-						...data[0],
-						image: {
-							url: data[0].image
-								? data[0].image.url.startsWith('https')
-									? data[0].image.url
-									: `${apiUrl}${data[0].image.url}`
-								: 'https://placehold.co/1200x600?text=Hero+Image',
-							alt: data[0].image?.alt || 'Event Hero Image'
-						}
+		callback: (data) => ({
+			page: [
+				{
+					...data[0],
+					image: {
+						url: data[0].image
+							? data[0].image.url.startsWith('https')
+								? data[0].image.url
+								: `${apiUrl}${data[0].image.url}`
+							: 'https://placehold.co/1200x600?text=Hero+Image',
+						alt: data[0].image?.alt || 'Event Hero Image'
 					}
-				]
-			};
-		}
+				}
+			]
+		})
 	});
 };

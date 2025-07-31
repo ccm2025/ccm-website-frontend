@@ -35,26 +35,24 @@ export const load: PageServerLoad = async () => {
 			},
 			locale: 'en'
 		},
-		callback: (data): { page: GivePageAttributes } => {
-			return {
-				page: {
-					...data,
-					hero_image: {
-						url: data.hero_image
-							? data.hero_image.url.startsWith('https')
-								? data.hero_image.url
-								: `${apiUrl}${data.hero_image.url}`
-							: 'https://placehold.co/1200x600?text=Give+Background',
-						alt: data.hero_image?.alt || 'Give Hero Image'
-					},
-					pdf_links: data.pdf_links?.map((link) => ({
-						title: link.title,
-						pdf: {
-							url: link.pdf.url.startsWith('https') ? link.pdf.url : `${apiUrl}${link.pdf.url}`
-						}
-					}))
-				}
-			};
-		}
+		callback: (data): { page: GivePageAttributes } => ({
+			page: {
+				...data,
+				hero_image: {
+					url: data.hero_image
+						? data.hero_image.url.startsWith('https')
+							? data.hero_image.url
+							: `${apiUrl}${data.hero_image.url}`
+						: 'https://placehold.co/1200x600?text=Give+Background',
+					alt: data.hero_image?.alt || 'Give Hero Image'
+				},
+				pdf_links: data.pdf_links?.map((link) => ({
+					title: link.title,
+					pdf: {
+						url: link.pdf.url.startsWith('https') ? link.pdf.url : `${apiUrl}${link.pdf.url}`
+					}
+				}))
+			}
+		})
 	});
 };

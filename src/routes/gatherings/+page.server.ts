@@ -35,53 +35,49 @@ interface GatheringsPageAttributes {
 export const load: PageServerLoad = async () => {
 	const today = new Date().toISOString();
 
-	const callbackEvents = (events: Event[]) => {
-		return {
-			page: events.map((event) => ({
-				...event,
-				date: new Date(event.date).toLocaleDateString('en-US', {
-					year: 'numeric',
-					month: 'long',
-					day: 'numeric'
-				}),
+	const callbackEvents = (events: Event[]) => ({
+		page: events.map((event) => ({
+			...event,
+			date: new Date(event.date).toLocaleDateString('en-US', {
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric'
+			}),
+			image: {
+				url: event.image
+					? event.image.url.startsWith('https')
+						? event.image.url
+						: `${apiUrl}${event.image.url}`
+					: 'https://placehold.co/600x400?text=Event',
+				alt: event.image?.alt || event.title
+			}
+		}))
+	});
+
+	const callbackGatheringsPage = (data: GatheringsPageAttributes) => ({
+		page: {
+			...data,
+			hero_image: {
+				url: data.hero_image
+					? data.hero_image.url.startsWith('https')
+						? data.hero_image.url
+						: `${apiUrl}${data.hero_image.url}`
+					: 'https://placehold.co/1200x600?text=Hero+Image',
+				alt: data.hero_image?.alt || data.hero_title
+			},
+			categories: data.categories?.map((category) => ({
+				...category,
 				image: {
-					url: event.image
-						? event.image.url.startsWith('https')
-							? event.image.url
-							: `${apiUrl}${event.image.url}`
-						: 'https://placehold.co/600x400?text=Event',
-					alt: event.image?.alt || event.title
+					url: category.image
+						? category.image.url.startsWith('https')
+							? category.image.url
+							: `${apiUrl}${category.image.url}`
+						: 'https://placehold.co/600x400?text=Category',
+					alt: category.image?.alt || category.title
 				}
 			}))
-		};
-	};
-
-	const callbackGatheringsPage = (data: GatheringsPageAttributes) => {
-		return {
-			page: {
-				...data,
-				hero_image: {
-					url: data.hero_image
-						? data.hero_image.url.startsWith('https')
-							? data.hero_image.url
-							: `${apiUrl}${data.hero_image.url}`
-						: 'https://placehold.co/1200x600?text=Hero+Image',
-					alt: data.hero_image?.alt || data.hero_title
-				},
-				categories: data.categories?.map((category) => ({
-					...category,
-					image: {
-						url: category.image
-							? category.image.url.startsWith('https')
-								? category.image.url
-								: `${apiUrl}${category.image.url}`
-							: 'https://placehold.co/600x400?text=Category',
-						alt: category.image?.alt || category.title
-					}
-				}))
-			}
-		};
-	};
+		}
+	});
 
 	const [pageRes, upcomingEventsRes, pastEventsRes] = await Promise.all([
 		fetch<GatheringsPageAttributes>({
