@@ -38,7 +38,7 @@
 
 	<!-- Intro Section Part 1 -->
 	<section class="bg-white py-16 md:py-20">
-		<div class="container mx-auto max-w-4xl text-center">
+		<div class="container mx-auto max-w-5xl text-center">
 			<StyledText data={data.page.introduction_part1} as="p" gap={16} />
 		</div>
 	</section>
