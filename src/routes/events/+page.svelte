@@ -1,4 +1,6 @@
 <script>
+	import StyledText from '$lib/components/StyledText.svelte';
+
 	/** @type {import('./$types').PageData} */
 	export let data;
 </script>
@@ -68,12 +70,12 @@
 		<div class="container mx-auto px-4">
 			<div class="mx-auto max-w-4xl text-center">
 				<h2 class="text-lg font-semibold text-[rgb(var(--website-theme-color2))] md:text-xl">
-					{data.page.events_subtitle}
+					{data.page.upcoming_events_subtitle}
 				</h2>
 				<p
 					class="mt-2 text-3xl font-bold tracking-wider text-[rgb(var(--website-theme-color1))] md:text-4xl"
 				>
-					{data.page.events_title}
+					{data.page.upcoming_events_title}
 				</p>
 			</div>
 
@@ -86,8 +88,8 @@
 							>
 								<div class="md:col-span-1">
 									<img
-										src={event.image.url}
-										alt={event.image.alt}
+										src={event.content_media.url}
+										alt={event.content_media.alt}
 										class="h-auto w-full rounded-lg object-cover shadow-md"
 									/>
 								</div>
@@ -95,16 +97,17 @@
 									<h3 class="text-2xl font-bold text-[rgb(var(--website-theme-color1))]">
 										{event.title}
 									</h3>
-									<p class="mt-2 font-semibold text-[rgb(var(--website-theme-color2))]">
+									<p class="mt-2 mb-4 font-semibold text-[rgb(var(--website-theme-color2))]">
 										{event.date}
 									</p>
+									<StyledText data={event.content.slice(0, 2)} />
 								</div>
 							</div>
 						</a>
 					{/each}
 				</div>
 			{:else}
-				<p class="mt-12 text-center text-3xl">{data.page.events_empty_text}</p>
+				<p class="mt-12 text-center text-3xl">{data.page.upcoming_events_empty_text}</p>
 			{/if}
 		</div>
 	</section>
@@ -132,14 +135,14 @@
 						>
 							<div class="absolute inset-0">
 								<img
-									src={event.image.url}
-									alt={event.image.alt}
+									src={event.content_media.url}
+									alt={event.content_media.alt}
 									class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
 								/>
 								<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
 							</div>
-							<div class="relative flex h-full flex-col items-start justify-end p-4 text-white">
-								<h3 class="text-xl font-bold text-[rgb(var(--website-theme-color1))]">
+							<div class="relative flex h-full flex-col items-start justify-end p-4">
+								<h3 class="text-xl font-bold text-[rgb(var(--website-theme-color2))]">
 									{event.title}
 								</h3>
 								<p class="text-sm text-[rgb(var(--website-theme-color2))]">{event.date}</p>

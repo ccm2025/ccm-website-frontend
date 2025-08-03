@@ -1,5 +1,5 @@
 import { fetch, getMedia } from '$lib';
-import type { StrapiImage, StyledTextProps } from '$lib/types';
+import type { StrapiMedia, StyledTextProps } from '$lib/types';
 import type { PageServerLoad } from './$types';
 
 interface InfoSection {
@@ -7,14 +7,14 @@ interface InfoSection {
 	subtitle: string;
 	title: string;
 	content: StyledTextProps[];
-	image: StrapiImage;
+	image: StrapiMedia;
 	button_text?: string;
 	button_url?: string;
 }
 
 interface SupportPageAttributes {
 	hero_title: string;
-	hero_image: StrapiImage;
+	hero_image: StrapiMedia;
 	info_sections: InfoSection[];
 }
 

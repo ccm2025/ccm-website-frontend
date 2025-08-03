@@ -1,11 +1,11 @@
 import { fetch, getMedia } from '$lib';
-import type { StrapiImage, StyledTextProps } from '$lib/types';
+import type { StrapiMedia, StyledTextProps } from '$lib/types';
 import type { PageServerLoad } from './$types';
 
 interface MeetCard {
 	id: number;
 	title: string;
-	image: StrapiImage;
+	image: StrapiMedia;
 	slug: string;
 }
 
@@ -13,7 +13,7 @@ interface HomePageAttributes {
 	hero_title: string;
 	hero_subtitle: StyledTextProps[];
 	hero_button_text: string;
-	hero_background_image: StrapiImage;
+	hero_background_image: StrapiMedia;
 
 	introduction_part1: StyledTextProps[];
 	introduction_video_url: string;

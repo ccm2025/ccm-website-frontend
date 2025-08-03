@@ -16,8 +16,8 @@
 	<section class="relative flex h-64 items-center justify-center text-center text-white md:h-80">
 		<div class="absolute inset-0">
 			<img
-				src={data.page[0].image.url}
-				alt={data.page[0].image.alt}
+				src={data.page[0].hero_image.url}
+				alt={data.page[0].hero_image.alt}
 				class="h-full w-full object-cover"
 			/>
 			<div class="absolute inset-0 bg-black/20"></div>
@@ -35,11 +35,11 @@
 			<!-- Back Button -->
 			<div class="mb-8">
 				<a
-					href="/gatherings"
+					href="/events"
 					class="inline-flex items-center gap-2 rounded-lg bg-[rgb(var(--website-theme-color1))] px-4 py-2 font-semibold text-white transition-colors duration-300 hover:bg-[rgb(var(--website-theme-color2))]"
 				>
 					<ArrowLeft size={20} />
-					Back to Gatherings
+					Back to Events
 				</a>
 			</div>
 
@@ -49,7 +49,14 @@
 					{data.page[0].title}
 				</h2>
 			</div>
+
 			<StyledText data={data.page[0].content} />
+
+			<img
+				src={data.page[0].content_media.url}
+				alt={data.page[0].content_media.alt}
+				class="mt-8 w-full rounded-lg shadow-md"
+			/>
 		</div>
 	</section>
 </main>

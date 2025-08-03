@@ -1,5 +1,5 @@
 import { STRAPI_MEDIA_URL, api } from '$lib/server/strapi';
-import type { StrapiFile, StrapiImage, StrapiResponse } from '$lib/types';
+import type { StrapiMedia, StrapiResponse } from '$lib/types';
 import { error } from '@sveltejs/kit';
 import axios from 'axios';
 
@@ -25,7 +25,7 @@ interface FetcherResponse<T> {
 export async function fetch<ApiAttributes>({
 	platform,
 	request,
-	cacheSeconds = 3600 * 72, // Default cache duration of 72 hours
+	cacheSeconds = 60,
 	endpoint,
 	params = {},
 	callback = (data: ApiAttributes) => ({ page: data })
@@ -79,10 +79,7 @@ export async function fetch<ApiAttributes>({
  * @param altText - Optional alt text for the media.
  * @returns The relative path pointing to the fallback path.
  */
-export function getMedia(
-	mediaObject: StrapiImage | StrapiFile,
-	altText: string = ''
-): StrapiImage | StrapiFile {
+export function getMedia(mediaObject: StrapiMedia, altText: string = ''): StrapiMedia {
 	const url = new URL(mediaObject?.url ?? '', STRAPI_MEDIA_URL);
 
 	return {

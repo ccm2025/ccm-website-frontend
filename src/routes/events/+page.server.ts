@@ -1,32 +1,33 @@
 import { fetch, getMedia } from '$lib';
-import type { StrapiImage, StyledTextProps } from '$lib/types';
-import type { PageServerLoad } from './$types';
+import type { StrapiMedia, StyledTextProps } from '$lib/types';
+import type { PageServerLoad } from '../events/$types';
+
+export interface Event {
+	id: number;
+	title: string;
+	hero_image: StrapiMedia;
+	date: string;
+	slug: string;
+	content: StyledTextProps[];
+	content_media: StrapiMedia;
+}
 
 interface Category {
 	id: number;
 	title: string;
-	image: StrapiImage;
+	image: StrapiMedia;
 	slug: string;
-}
-
-interface Event {
-	id: number;
-	title: string;
-	date: string;
-	slug: string;
-	content: StyledTextProps[];
-	image: StrapiImage;
 }
 
 interface GatheringsPageAttributes {
 	hero_title: string;
-	hero_image: StrapiImage;
+	hero_image: StrapiMedia;
 	categories_subtitle: string;
 	categories_title: string;
 	categories: Category[];
-	events_subtitle: string;
-	events_title: string;
-	events_empty_text: string;
+	upcoming_events_subtitle: string;
+	upcoming_events_title: string;
+	upcoming_events_empty_text: string;
 	past_events_subtitle: string;
 	past_events_title: string;
 	past_events_empty_text: string;
@@ -43,11 +44,12 @@ export const load: PageServerLoad = async ({ platform, request }) => {
 				month: 'long',
 				day: 'numeric'
 			}),
-			image: getMedia(event.image, 'Event image')
+			hero_image: getMedia(event.hero_image, 'Event hero image'),
+			content_media: getMedia(event.content_media, 'Event content media')
 		}))
 	});
 
-	const callbackGatheringsPage = (data: GatheringsPageAttributes) => ({
+	const callbackEventsPage = (data: GatheringsPageAttributes) => ({
 		page: {
 			...data,
 			hero_image: getMedia(data.hero_image, 'Hero image'),
@@ -62,12 +64,12 @@ export const load: PageServerLoad = async ({ platform, request }) => {
 		fetch<GatheringsPageAttributes>({
 			platform,
 			request,
-			endpoint: '/api/gatherings-page',
+			endpoint: '/api/events-page',
 			params: {
 				locale: 'en',
 				populate: { hero_image: true, categories: { populate: { image: true } } }
 			},
-			callback: callbackGatheringsPage
+			callback: callbackEventsPage
 		}),
 		fetch<Event[]>({
 			platform,
@@ -75,7 +77,7 @@ export const load: PageServerLoad = async ({ platform, request }) => {
 			endpoint: '/api/events',
 			params: {
 				locale: 'en',
-				populate: { image: true },
+				populate: { content_media: true, content: true },
 				sort: 'date:asc',
 				filters: { date: { $gte: today } }
 			},
@@ -87,7 +89,7 @@ export const load: PageServerLoad = async ({ platform, request }) => {
 			endpoint: '/api/events',
 			params: {
 				locale: 'en',
-				populate: { image: true },
+				populate: { content_media: true },
 				sort: 'date:desc',
 				filters: { date: { $lt: today } }
 			},

@@ -1,10 +1,10 @@
 import { fetch, getMedia } from '$lib';
-import type { StrapiImage, StyledTextProps } from '$lib/types';
+import type { StrapiMedia, StyledTextProps } from '$lib/types';
 import type { PageServerLoad } from './$types';
 
 interface VolunteerPageAttributes {
 	hero_title: string;
-	hero_image: StrapiImage;
+	hero_image: StrapiMedia;
 	introduction_subtitle: string;
 	introduction_title: string;
 	introduction_content: StyledTextProps[];
