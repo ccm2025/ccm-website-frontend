@@ -1,9 +1,4 @@
-export interface StrapiImage {
-	url: string;
-	alt?: string;
-}
-
-export interface StrapiFile {
+export interface StrapiMedia {
 	url: string;
 	alt?: string;
 }

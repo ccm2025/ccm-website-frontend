@@ -5,10 +5,12 @@
 	// All shared components and styles
 	// =================================================
 	import '../app.css';
-	import { ChevronRight, Globe, Menu, X } from 'lucide-svelte';
+	import { Menu, X } from 'lucide-svelte';
 	import { fly } from 'svelte/transition';
 	import logoImage from '$lib/assets/logo.jpg';
 	import { isMenuOpen, toggleMenu } from '$lib/stores/SideMenu';
+	import NavList from '$lib/components/NavList.svelte';
+	import LangButton from '$lib/components/LangButton.svelte';
 </script>
 
 <svelte:head>
@@ -52,13 +54,10 @@
 
 				<!-- Navigation -->
 				<nav class="hidden items-center space-x-16 md:flex">
-					<button
-						class="flex items-center space-x-1 rounded-full border-2 border-[rgb(var(--website-theme-color1))] px-2 py-2 font-medium text-[rgb(var(--website-theme-color1))] transition-colors duration-300 hover:bg-[rgb(var(--website-theme-color1)/0.9)] hover:text-white"
-					>
-						<Globe size="22" />
-						<span>English</span>
-						<ChevronRight size="22" />
-					</button>
+					<LangButton
+						btnClass="flex items-center space-x-1 rounded-full border-2 border-[rgb(var(--website-theme-color1))] px-2 py-2 font-medium text-[rgb(var(--website-theme-color1))] transition-colors duration-300 hover:bg-[rgb(var(--website-theme-color1))] hover:text-white"
+					/>
+
 					<button
 						class="flex items-center space-x-2 text-2xl font-bold text-[rgb(var(--website-theme-color1))] transition-colors duration-300 hover:text-[rgb(var(--website-theme-color1)/0.8)]"
 						on:click={toggleMenu}
@@ -160,8 +159,7 @@
 						<a href="/about" class="block text-gray-300 hover:text-white hover:underline"
 							>About Us</a
 						>
-						<a href="/gatherings" class="block text-gray-300 hover:text-white hover:underline"
-							>Gatherings</a
+						<a href="/events" class="block text-gray-300 hover:text-white hover:underline">Events</a
 						>
 						<a href="/freshman" class="block text-gray-300 hover:text-white hover:underline"
 							>Freshman Zone</a
@@ -209,55 +207,15 @@
 				<div class="flex items-center justify-end">
 					<button on:click={toggleMenu} class="p-2"><X size="46" /></button>
 				</div>
-				<button
-					class="flex items-center space-x-1 rounded-full border-2 border-white px-2 py-2 font-medium text-white transition-colors duration-300 hover:bg-[rgb(var(--website-theme-color1))] hover:text-white"
-				>
-					<Globe size="22" />
-					<span>English</span>
-					<ChevronRight size="22" />
-				</button>
+
+				<LangButton
+					btnClass="flex items-center space-x-1 rounded-full border-2 border-white px-2 py-2 font-medium text-white transition-colors duration-300 hover:bg-white hover:text-[rgba(var(--website-theme-color2))]"
+				/>
 
 				<hr class="my-5" />
 
 				<nav class="flex flex-col space-y-4 text-2xl text-white">
-					<a href="/" on:click={toggleMenu} class="hover:text-[rgb(var(--website-theme-color1))]"
-						>Home</a
-					>
-					<a
-						href="/about"
-						on:click={toggleMenu}
-						class="hover:text-[rgb(var(--website-theme-color1))]">About Us</a
-					>
-					<a
-						href="/gatherings"
-						on:click={toggleMenu}
-						class="hover:text-[rgb(var(--website-theme-color1))]">Gatherings</a
-					>
-					<a
-						href="/freshman"
-						on:click={toggleMenu}
-						class="hover:text-[rgb(var(--website-theme-color1))]">Freshman Zone</a
-					>
-					<a
-						href="/support"
-						on:click={toggleMenu}
-						class="hover:text-[rgb(var(--website-theme-color1))]">Support</a
-					>
-					<a
-						href="/give"
-						on:click={toggleMenu}
-						class="hover:text-[rgb(var(--website-theme-color1))]">Give</a
-					>
-					<a
-						href="/volunteer"
-						on:click={toggleMenu}
-						class="hover:text-[rgb(var(--website-theme-color1))]">Volunteer</a
-					>
-					<a
-						href="/plan-your-visit"
-						on:click={toggleMenu}
-						class="hover:text-[rgb(var(--website-theme-color1))]">Plan Your Visit</a
-					>
+					<NavList />
 				</nav>
 			</div>
 		</div>
@@ -273,44 +231,7 @@
 					<button on:click={toggleMenu} class="p-2"><X size="46" /></button>
 				</div>
 				<nav class="flex flex-col space-y-4 text-2xl text-white">
-					<a href="/" on:click={toggleMenu} class="hover:text-[rgb(var(--website-theme-color1))]"
-						>Home</a
-					>
-					<a
-						href="/about"
-						on:click={toggleMenu}
-						class="hover:text-[rgb(var(--website-theme-color1))]">About Us</a
-					>
-					<a
-						href="/gatherings"
-						on:click={toggleMenu}
-						class="hover:text-[rgb(var(--website-theme-color1))]">Gatherings</a
-					>
-					<a
-						href="/freshman"
-						on:click={toggleMenu}
-						class="hover:text-[rgb(var(--website-theme-color1))]">Freshman Zone</a
-					>
-					<a
-						href="/support"
-						on:click={toggleMenu}
-						class="hover:text-[rgb(var(--website-theme-color1))]">Support</a
-					>
-					<a
-						href="/give"
-						on:click={toggleMenu}
-						class="hover:text-[rgb(var(--website-theme-color1))]">Give</a
-					>
-					<a
-						href="/volunteer"
-						on:click={toggleMenu}
-						class="hover:text-[rgb(var(--website-theme-color1))]">Volunteer</a
-					>
-					<a
-						href="/plan-your-visit"
-						on:click={toggleMenu}
-						class="hover:text-[rgb(var(--website-theme-color1))]">Plan Your Visit</a
-					>
+					<NavList />
 				</nav>
 			</div>
 		</div>

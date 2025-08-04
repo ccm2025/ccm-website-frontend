@@ -57,11 +57,13 @@
 	<section class="bg-[rgb(var(--website-theme-color1))] text-white">
 		<div class="grid grid-cols-1 md:grid-cols-2">
 			<div class="h-64 w-full md:h-auto">
-				<img
-					src={data.page.location_map_image.url}
-					alt={data.page.location_map_image.alt}
-					class="h-full w-full object-cover"
-				/>
+				<iframe
+					src={data.page.location_map_link}
+					style="border:0;width:100%;aspect-ratio:1;"
+					loading="lazy"
+					referrerpolicy="no-referrer-when-downgrade"
+					title="Location Map"
+				></iframe>
 			</div>
 			<div class="flex flex-col justify-center p-8 md:p-16">
 				<StyledText data={data.page.location_text} gap={6} />

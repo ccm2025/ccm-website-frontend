@@ -1,23 +1,23 @@
 import { fetch, getMedia } from '$lib';
-import type { StrapiImage, StyledTextProps } from '$lib/types';
+import type { StrapiMedia, StyledTextProps } from '$lib/types';
 import type { PageServerLoad } from './$types';
 
 interface ScheduleItem {
 	id: number;
 	description: StyledTextProps[];
-	image: StrapiImage;
+	image: StrapiMedia;
 }
 
 interface PlanYourVisitPageAttributes {
 	hero_title: string;
-	hero_image: StrapiImage;
+	hero_image: StrapiMedia;
 	introduction_subtitle: string;
 	introduction_title: string;
 	introduction_content: ScheduleItem;
 	schedule_title: string;
 	schedule_items: ScheduleItem[];
 	location_text: StyledTextProps[];
-	location_map_image: StrapiImage;
+	location_map_link: string;
 }
 
 export const load: PageServerLoad = async ({ platform, request }) => {
@@ -40,8 +40,7 @@ export const load: PageServerLoad = async ({ platform, request }) => {
 						description: true
 					}
 				},
-				location_text: true,
-				location_map_image: true
+				location_text: true
 			},
 			locale: 'en'
 		},
@@ -56,8 +55,7 @@ export const load: PageServerLoad = async ({ platform, request }) => {
 				schedule_items: data.schedule_items.map((item) => ({
 					...item,
 					image: getMedia(item.image, 'Schedule item image')
-				})),
-				location_map_image: getMedia(data.location_map_image, 'Location map image')
+				}))
 			}
 		})
 	});

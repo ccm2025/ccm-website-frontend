@@ -1,14 +1,6 @@
 import { fetch, getMedia } from '$lib';
-import type { StrapiImage, StyledTextProps } from '$lib/types';
+import type { Event } from '../+page.server';
 import type { PageServerLoad } from './$types';
-
-interface Event {
-	id: number;
-	title: string;
-	date: string;
-	image: StrapiImage;
-	content: StyledTextProps[];
-}
 
 export const load: PageServerLoad = async ({ platform, request, params }) => {
 	const { slug } = params;
@@ -24,8 +16,9 @@ export const load: PageServerLoad = async ({ platform, request, params }) => {
 				}
 			},
 			populate: {
-				image: true,
-				content: true
+				content: true,
+				hero_image: true,
+				content_media: true
 			},
 			locale: 'en'
 		},
@@ -33,7 +26,8 @@ export const load: PageServerLoad = async ({ platform, request, params }) => {
 			page: [
 				{
 					...data[0],
-					image: getMedia(data[0].image, 'Event image')
+					hero_image: getMedia(data[0].hero_image, 'Event image'),
+					content_media: getMedia(data[0].content_media, 'Event content media')
 				}
 			]
 		})
