@@ -14,18 +14,18 @@ interface VolunteerPageAttributes {
 	volunteer_content: StyledTextProps[];
 }
 
-export const load: PageServerLoad = async ({ platform, request }) => {
+export const load: PageServerLoad = async ({ platform, request, cookies }) => {
 	return fetch<VolunteerPageAttributes>({
 		platform,
 		request,
 		endpoint: '/api/volunteer-page',
 		params: {
+			locale: cookies.get('locale'),
 			populate: {
 				hero_image: true,
 				introduction_content: true,
 				volunteer_content: true
-			},
-			locale: 'en'
+			}
 		},
 		callback: (data) => ({
 			page: {

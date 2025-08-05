@@ -1,5 +1,6 @@
 <script>
 	import StyledText from '$lib/components/StyledText.svelte';
+	import { locale } from '$lib/stores/Locale';
 
 	/** @type {import('./$types').PageData} */
 	export let data;
@@ -68,12 +69,14 @@
 		</div>
 	</section>
 
-	{#if data.page.pdf_links && data.page.pdf_links.length > 0}
+	{#if data.page.pdf_links && data.page.pdf_links.length > 2}
 		<section class="bg-gray-50 py-16 pb-16 md:pb-20">
 			<div class="container mx-auto max-w-6xl px-4">
 				<div class="aspect-video overflow-hidden rounded-lg shadow-lg md:aspect-[17/11]">
 					<iframe
-						src={data.page.pdf_links[0].pdf.url}
+						src={$locale === 'zh-Hans'
+							? data.page.pdf_links[0].pdf.url
+							: data.page.pdf_links[2].pdf.url}
 						title="Featured PDF"
 						class="h-full w-full border-0"
 					></iframe>
