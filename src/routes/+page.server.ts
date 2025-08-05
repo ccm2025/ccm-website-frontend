@@ -25,12 +25,13 @@ interface HomePageAttributes {
 	conclusion: StyledTextProps[];
 }
 
-export const load: PageServerLoad = async ({ platform, request }) => {
+export const load: PageServerLoad = async ({ platform, request, cookies }) => {
 	return fetch<HomePageAttributes>({
 		platform,
 		request,
 		endpoint: '/api/home-page',
 		params: {
+			locale: cookies.get('locale'),
 			populate: {
 				hero_subtitle: true,
 				hero_background_image: true,
@@ -40,8 +41,7 @@ export const load: PageServerLoad = async ({ platform, request }) => {
 				meet_cards: {
 					populate: 'image'
 				}
-			},
-			locale: 'en'
+			}
 		},
 		callback: (data) => ({
 			page: {

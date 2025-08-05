@@ -2,7 +2,7 @@ import { fetch, getMedia } from '$lib';
 import type { Event } from '../+page.server';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ platform, request, params }) => {
+export const load: PageServerLoad = async ({ platform, request, params, cookies }) => {
 	const { slug } = params;
 
 	return fetch<Event[]>({
@@ -10,6 +10,7 @@ export const load: PageServerLoad = async ({ platform, request, params }) => {
 		request,
 		endpoint: '/api/events',
 		params: {
+			locale: cookies.get('locale'),
 			filters: {
 				slug: {
 					$eq: slug
@@ -19,8 +20,7 @@ export const load: PageServerLoad = async ({ platform, request, params }) => {
 				content: true,
 				hero_image: true,
 				content_media: true
-			},
-			locale: 'en'
+			}
 		},
 		callback: (data) => ({
 			page: [

@@ -20,12 +20,13 @@ interface PlanYourVisitPageAttributes {
 	location_map_link: string;
 }
 
-export const load: PageServerLoad = async ({ platform, request }) => {
+export const load: PageServerLoad = async ({ platform, request, cookies }) => {
 	return fetch<PlanYourVisitPageAttributes>({
 		platform,
 		request,
 		endpoint: '/api/plan-your-visit-page',
 		params: {
+			locale: cookies.get('locale'),
 			populate: {
 				hero_image: true,
 				introduction_content: {
@@ -41,8 +42,7 @@ export const load: PageServerLoad = async ({ platform, request }) => {
 					}
 				},
 				location_text: true
-			},
-			locale: 'en'
+			}
 		},
 		callback: (data) => ({
 			page: {

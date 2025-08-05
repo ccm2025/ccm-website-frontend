@@ -29,13 +29,13 @@ interface AboutPageAttributes {
 	team_section?: TeamMember[];
 }
 
-export const load: PageServerLoad = async ({ platform, request }) => {
+export const load: PageServerLoad = async ({ platform, request, cookies }) => {
 	return fetch<AboutPageAttributes>({
 		platform,
 		request,
 		endpoint: '/api/about-page',
 		params: {
-			locale: 'en',
+			locale: cookies.get('locale'),
 			populate: {
 				hero_image: true,
 				introduction_content: true,

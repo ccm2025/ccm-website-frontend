@@ -33,7 +33,7 @@ interface GatheringsPageAttributes {
 	past_events_empty_text: string;
 }
 
-export const load: PageServerLoad = async ({ platform, request }) => {
+export const load: PageServerLoad = async ({ platform, request, cookies }) => {
 	const today = new Date().toISOString();
 
 	const callbackEvents = (events: Event[]) => ({
@@ -66,7 +66,7 @@ export const load: PageServerLoad = async ({ platform, request }) => {
 			request,
 			endpoint: '/api/events-page',
 			params: {
-				locale: 'en',
+				locale: cookies.get('locale'),
 				populate: { hero_image: true, categories: { populate: { image: true } } }
 			},
 			callback: callbackEventsPage
@@ -76,10 +76,10 @@ export const load: PageServerLoad = async ({ platform, request }) => {
 			request,
 			endpoint: '/api/events',
 			params: {
-				locale: 'en',
+				locale: cookies.get('locale'),
 				populate: { content_media: true, content: true },
 				sort: 'date:asc',
-				filters: { date: { $gte: today } }
+				filters: { date: { $gte: today }, slug: { $ne: 'gospel-activities' } }
 			},
 			callback: callbackEvents
 		}),
@@ -88,10 +88,10 @@ export const load: PageServerLoad = async ({ platform, request }) => {
 			request,
 			endpoint: '/api/events',
 			params: {
-				locale: 'en',
+				locale: cookies.get('locale'),
 				populate: { content_media: true },
 				sort: 'date:desc',
-				filters: { date: { $lt: today } }
+				filters: { date: { $lt: today }, slug: { $ne: 'gospel-activities' } }
 			},
 			callback: callbackEvents
 		})

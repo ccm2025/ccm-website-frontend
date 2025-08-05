@@ -18,12 +18,13 @@ interface SupportPageAttributes {
 	info_sections: InfoSection[];
 }
 
-export const load: PageServerLoad = async ({ platform, request }) => {
+export const load: PageServerLoad = async ({ platform, request, cookies }) => {
 	return fetch<SupportPageAttributes>({
 		platform,
 		request,
 		endpoint: '/api/support-page',
 		params: {
+			locale: cookies.get('locale'),
 			populate: {
 				hero_image: true,
 				info_sections: {
@@ -32,8 +33,7 @@ export const load: PageServerLoad = async ({ platform, request }) => {
 						content: true
 					}
 				}
-			},
-			locale: 'en'
+			}
 		},
 		callback: (data) => ({
 			page: {

@@ -11,13 +11,13 @@ interface GlobalAttributes {
 	youtube_url: string;
 }
 
-export const load: LayoutServerLoad = async ({ platform, request }) => {
+export const load: LayoutServerLoad = async ({ platform, request, cookies }) => {
 	return fetch<GlobalAttributes>({
 		platform,
 		request,
 		endpoint: '/api/global',
 		params: {
-			locale: 'en'
+			locale: cookies.get('locale')
 		},
 		callback: (data) => ({
 			page: data
