@@ -79,6 +79,8 @@
 							: data.page.pdf_links[2].pdf.url}
 						title="Featured PDF"
 						class="h-full w-full border-0"
+						loading="lazy"
+						referrerpolicy="no-referrer-when-downgrade"
 					></iframe>
 				</div>
 			</div>

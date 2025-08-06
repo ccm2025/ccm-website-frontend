@@ -26,22 +26,22 @@ export const GET: RequestHandler = async ({ platform, params }) => {
 			throw error(response.status, `Failed to fetch media: ${response.statusText}`);
 		}
 
-		const responseClone = response.clone();
+		const newHeaders: Headers = new Headers(response.headers);
+		newHeaders.set('Cache-Control', 'public, s-maxage=604800');
+		newHeaders.set('Content-Disposition', `inline; filename="${path.split('/').pop()}"`);
+
+		const newResponse = new Response(response.body, {
+			status: response.status,
+			statusText: response.statusText,
+			headers: newHeaders
+		});
 
 		if (cache) {
-			const newHeaders: Headers = new Headers(response.headers);
-			newHeaders.set('Cache-Control', 'public, s-maxage=604800');
-
-			const responseToCache = new Response(response.body, {
-				status: response.status,
-				statusText: response.statusText,
-				headers: newHeaders
-			});
-
-			platform.context.waitUntil(cache.put(url, responseToCache));
+			const responseClone = newResponse.clone();
+			platform.context.waitUntil(cache.put(url, responseClone));
 		}
 
-		return responseClone;
+		return newResponse;
 	} catch (e) {
 		console.error(`Failed to proxy media request for ${url.href}:`, e);
 		return new Response('Media not found', {
