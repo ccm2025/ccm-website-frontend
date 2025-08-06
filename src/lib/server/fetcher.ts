@@ -25,7 +25,7 @@ interface FetcherResponse<T> {
 export async function fetch<ApiAttributes>({
 	platform,
 	request,
-	cacheSeconds = 1,
+	cacheSeconds = 3600 * 24,
 	endpoint,
 	params = {},
 	callback = (data: ApiAttributes) => ({ page: data })

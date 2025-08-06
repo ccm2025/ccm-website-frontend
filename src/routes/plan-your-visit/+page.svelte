@@ -56,7 +56,7 @@
 	<!-- Location Section -->
 	<section class="bg-[rgb(var(--website-theme-color1))] text-white">
 		<div class="grid grid-cols-1 md:grid-cols-2">
-			<div class="h-64 w-full md:h-auto">
+			<div class="h-auto w-full">
 				<iframe
 					src={data.page.location_map_link}
 					style="border:0;width:100%;aspect-ratio:1;"
