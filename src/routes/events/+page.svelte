@@ -88,8 +88,8 @@
 							>
 								<div class="md:col-span-1">
 									<img
-										src={event.content_media.url}
-										alt={event.content_media.alt}
+										src={event.content_image.url}
+										alt={event.content_image.alt}
 										class="h-auto w-full rounded-lg object-cover shadow-md"
 									/>
 								</div>
@@ -135,8 +135,8 @@
 						>
 							<div class="absolute inset-0">
 								<img
-									src={event.content_media.url}
-									alt={event.content_media.alt}
+									src={event.content_image.url}
+									alt={event.content_image.alt}
 									class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
 								/>
 								<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>

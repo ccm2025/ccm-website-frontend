@@ -19,7 +19,7 @@ export const load: PageServerLoad = async ({ platform, request, params, cookies 
 			populate: {
 				content: true,
 				hero_image: true,
-				content_media: true
+				content_image: true
 			}
 		},
 		callback: (data) => ({
@@ -27,7 +27,7 @@ export const load: PageServerLoad = async ({ platform, request, params, cookies 
 				{
 					...data[0],
 					hero_image: getMedia(data[0].hero_image, 'Event image'),
-					content_media: getMedia(data[0].content_media, 'Event content media')
+					content_image: getMedia(data[0].content_image, 'Event content image')
 				}
 			]
 		})

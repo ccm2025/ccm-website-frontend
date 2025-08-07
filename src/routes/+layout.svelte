@@ -153,32 +153,23 @@
 					</div>
 				</div>
 				<div>
-					<h3 class="mb-4 text-xl font-bold text-white">Navigation</h3>
+					<h3 class="mb-4 text-xl font-bold text-white">{data.page.nav_title}</h3>
 					<nav class="space-y-2">
-						<a href="/" class="block text-gray-300 hover:text-white hover:underline">Home</a>
-						<a href="/about" class="block text-gray-300 hover:text-white hover:underline"
-							>About Us</a
-						>
-						<a href="/events" class="block text-gray-300 hover:text-white hover:underline">Events</a
-						>
-						<a href="/freshman" class="block text-gray-300 hover:text-white hover:underline"
-							>Freshman Zone</a
-						>
+						{#each data.page.nav.slice(0, 4) as item}
+							<a href={item.slug} class="block text-gray-300 hover:text-white hover:underline"
+								>{item.text}</a
+							>
+						{/each}
 					</nav>
 				</div>
 				<div>
-					<h3 class="mb-4 text-xl font-bold text-white">Get Involved</h3>
+					<h3 class="mb-4 text-xl font-bold text-white">{data.page.involve_title}</h3>
 					<nav class="space-y-2">
-						<a href="/plan-your-visit" class="block text-gray-300 hover:text-white hover:underline"
-							>Plan Your Visit</a
-						>
-						<a href="/give" class="block text-gray-300 hover:text-white hover:underline">Give</a>
-						<a href="/volunteer" class="block text-gray-300 hover:text-white hover:underline"
-							>Volunteer</a
-						>
-						<a href="/support" class="block text-gray-300 hover:text-white hover:underline"
-							>Support</a
-						>
+						{#each data.page.nav.slice(4, 8) as item}
+							<a href={item.slug} class="block text-gray-300 hover:text-white hover:underline"
+								>{item.text}</a
+							>
+						{/each}
 					</nav>
 				</div>
 			</div>
@@ -215,7 +206,7 @@
 				<hr class="my-5" />
 
 				<nav class="flex flex-col space-y-4 text-2xl text-white">
-					<NavList />
+					<NavList data={data.page.nav} />
 				</nav>
 			</div>
 		</div>
@@ -231,7 +222,7 @@
 					<button on:click={toggleMenu} class="p-2"><X size="46" /></button>
 				</div>
 				<nav class="flex flex-col space-y-4 text-2xl text-white">
-					<NavList />
+					<NavList data={data.page.nav} />
 				</nav>
 			</div>
 		</div>
