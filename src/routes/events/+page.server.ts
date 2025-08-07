@@ -9,7 +9,8 @@ export interface Event {
 	date: string;
 	slug: string;
 	content: StyledTextProps[];
-	content_media: StrapiMedia;
+	content_image: StrapiMedia;
+	content_video_url: string;
 }
 
 interface Category {
@@ -45,7 +46,7 @@ export const load: PageServerLoad = async ({ platform, request, cookies }) => {
 				day: 'numeric'
 			}),
 			hero_image: getMedia(event.hero_image, 'Event hero image'),
-			content_media: getMedia(event.content_media, 'Event content media')
+			content_image: getMedia(event.content_image, 'Event content image')
 		}))
 	});
 
@@ -77,7 +78,7 @@ export const load: PageServerLoad = async ({ platform, request, cookies }) => {
 			endpoint: '/api/events',
 			params: {
 				locale: cookies.get('locale'),
-				populate: { content_media: true, content: true },
+				populate: { hero_image: true, content: true, content_image: true },
 				sort: 'date:asc',
 				filters: { date: { $gte: today }, slug: { $ne: 'gospel-activities' } }
 			},
@@ -89,7 +90,7 @@ export const load: PageServerLoad = async ({ platform, request, cookies }) => {
 			endpoint: '/api/events',
 			params: {
 				locale: cookies.get('locale'),
-				populate: { content_media: true },
+				populate: { hero_image: true, content_image: true },
 				sort: 'date:desc',
 				filters: { date: { $lt: today }, slug: { $ne: 'gospel-activities' } }
 			},

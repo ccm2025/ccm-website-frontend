@@ -38,7 +38,7 @@
 
 	<!-- Intro Section Part 1 -->
 	<section class="bg-white py-16 md:py-20">
-		<div class="container mx-auto max-w-5xl text-center">
+		<div class="container mx-auto max-w-6xl text-center">
 			<StyledText data={data.page.introduction_part1} as="p" gap={16} />
 		</div>
 	</section>
@@ -68,7 +68,7 @@
 
 	<!-- Intro Section Part 2 -->
 	<section class="bg-white py-16 md:py-20">
-		<div class="container mx-auto max-w-5xl px-4 text-center">
+		<div class="container mx-auto max-w-6xl px-4 text-center">
 			<StyledText data={data.page.introduction_part2} as="p" gap={12} />
 		</div>
 	</section>

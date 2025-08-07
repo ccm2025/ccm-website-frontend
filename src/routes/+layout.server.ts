@@ -1,6 +1,11 @@
 import { fetch } from '$lib';
 import type { LayoutServerLoad } from './$types';
 
+interface NavItem {
+	text: string;
+	slug: string;
+}
+
 interface GlobalAttributes {
 	website_title_cn: string;
 	website_title_en: string;
@@ -9,6 +14,9 @@ interface GlobalAttributes {
 	email: string;
 	instagram_url: string;
 	youtube_url: string;
+	nav_title: string;
+	involve_title: string;
+	nav: NavItem[];
 }
 
 export const load: LayoutServerLoad = async ({ platform, request, cookies }) => {
@@ -17,7 +25,10 @@ export const load: LayoutServerLoad = async ({ platform, request, cookies }) => 
 		request,
 		endpoint: '/api/global',
 		params: {
-			locale: cookies.get('locale')
+			locale: cookies.get('locale'),
+			populate: {
+				nav: true
+			}
 		},
 		callback: (data) => ({
 			page: data

@@ -52,11 +52,26 @@
 
 			<StyledText data={data.page[0].content} />
 
-			<img
-				src={data.page[0].content_media.url}
-				alt={data.page[0].content_media.alt}
-				class="mt-8 w-full rounded-lg shadow-md"
-			/>
+			<!-- Content Image -->
+			{#if !data.page[0].content_image.url.endsWith('media/')}
+				<img
+					src={data.page[0].content_image.url}
+					alt={data.page[0].content_image.alt}
+					class="mt-8 w-full rounded-lg shadow-md"
+				/>
+			{/if}
+
+			<!-- Content Video Url -->
+			{#if data.page[0].content_video_url}
+				<iframe
+					src={data.page[0].content_video_url}
+					title="Event Video"
+					class="mt-8 w-full rounded-lg shadow-md"
+					frameborder="0"
+					allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowfullscreen
+				></iframe>
+			{/if}
 		</div>
 	</section>
 </main>

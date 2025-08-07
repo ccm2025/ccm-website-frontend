@@ -29,7 +29,7 @@
 
 	<!-- Introduction Section -->
 	<section class="bg-white py-16 md:py-20">
-		<div class="container mx-auto max-w-4xl px-4 text-center">
+		<div class="container mx-auto max-w-5xl px-4 text-center">
 			<h2 class="text-lg font-semibold text-[rgb(var(--website-theme-color2))] md:text-xl">
 				{data.page.introduction_subtitle}
 			</h2>
