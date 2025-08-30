@@ -2,6 +2,7 @@
 	/** @type {import('./$types').PageData} */
 	export let data;
 	import StyledText from '$lib/components/StyledText.svelte';
+	import { locale } from '$lib/stores/Locale';
 </script>
 
 <svelte:head>
@@ -28,7 +29,7 @@
 			<StyledText data={data.page.hero_subtitle} as="h2" />
 			<a
 				class="mt-14 inline-block rounded-full border-2 border-white px-8 py-3 text-lg font-semibold transition-all duration-300 hover:bg-white hover:text-[rgb(var(--website-theme-color2))]"
-				href="/plan-your-visit"
+				href={`/${$locale}/plan-your-visit`}
 				aria-label={data.page.hero_button_text}
 			>
 				{data.page.hero_button_text}
@@ -82,7 +83,7 @@
 			<div class="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
 				{#each data.page.meet_cards as card (card.id)}
 					<a
-						href={`/${card.slug}`}
+						href={`/${$locale}/${card.slug}`}
 						class="group relative block h-64 overflow-hidden rounded-lg shadow-lg"
 					>
 						<div class="absolute inset-0">

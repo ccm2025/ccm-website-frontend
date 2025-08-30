@@ -1,5 +1,6 @@
 <script>
 	import StyledText from '$lib/components/StyledText.svelte';
+	import { locale } from '$lib/stores/Locale';
 
 	/** @type {import('./$types').PageData} */
 	export let data;
@@ -35,7 +36,7 @@
 			<!-- Back Button -->
 			<div class="mb-8">
 				<a
-					href="/events"
+					href={`/${$locale}/events`}
 					class="inline-flex items-center gap-2 rounded-lg bg-[rgb(var(--website-theme-color1))] px-4 py-2 font-semibold text-white transition-colors duration-300 hover:bg-[rgb(var(--website-theme-color2))]"
 				>
 					<ArrowLeft size={20} />
@@ -66,7 +67,7 @@
 				<iframe
 					src={data.page[0].content_video_url}
 					title="Event Video"
-					class="mt-8 w-full rounded-lg shadow-md"
+					class="mt-8 aspect-video w-full rounded-lg shadow-md"
 					frameborder="0"
 					allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 					allowfullscreen
