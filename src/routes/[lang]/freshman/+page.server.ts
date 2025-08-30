@@ -18,13 +18,14 @@ interface FreshmanPageAttributes {
 	info_sections: InfoSection[];
 }
 
-export const load: PageServerLoad = async ({ platform, request, cookies }) => {
+export const load: PageServerLoad = async ({ platform, request, params }) => {
+	const { lang } = params;
 	return fetch<FreshmanPageAttributes>({
 		platform,
 		request,
 		endpoint: '/api/freshman-page',
 		params: {
-			locale: cookies.get('locale'),
+			locale: lang,
 			populate: {
 				hero_image: true,
 				info_sections: {

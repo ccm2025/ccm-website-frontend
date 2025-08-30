@@ -20,13 +20,14 @@ interface GivePageAttributes {
 	pdf_links?: PdfLink[];
 }
 
-export const load: PageServerLoad = async ({ platform, request, cookies }) => {
+export const load: PageServerLoad = async ({ platform, request, params }) => {
+	const { lang } = params;
 	return fetch<GivePageAttributes>({
 		platform,
 		request,
 		endpoint: '/api/give-page',
 		params: {
-			locale: cookies.get('locale'),
+			locale: lang,
 			populate: {
 				hero_image: true,
 				introduction_content: true,

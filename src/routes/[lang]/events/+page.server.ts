@@ -1,6 +1,6 @@
 import { fetch, getMedia } from '$lib';
 import type { StrapiMedia, StyledTextProps } from '$lib/types';
-import type { PageServerLoad } from '../events/$types';
+import type { PageServerLoad } from './$types';
 
 export interface Event {
 	id: number;
@@ -34,9 +34,9 @@ interface GatheringsPageAttributes {
 	past_events_empty_text: string;
 }
 
-export const load: PageServerLoad = async ({ platform, request, cookies }) => {
+export const load: PageServerLoad = async ({ platform, request, params }) => {
 	const today = new Date().toISOString();
-
+	const { lang } = params;
 	const callbackEvents = (events: Event[]) => ({
 		page: events.map((event) => ({
 			...event,
@@ -67,7 +67,7 @@ export const load: PageServerLoad = async ({ platform, request, cookies }) => {
 			request,
 			endpoint: '/api/events-page',
 			params: {
-				locale: cookies.get('locale'),
+				locale: lang,
 				populate: { hero_image: true, categories: { populate: { image: true } } }
 			},
 			callback: callbackEventsPage
@@ -77,7 +77,7 @@ export const load: PageServerLoad = async ({ platform, request, cookies }) => {
 			request,
 			endpoint: '/api/events',
 			params: {
-				locale: cookies.get('locale'),
+				locale: lang,
 				populate: { hero_image: true, content: true, content_image: true },
 				sort: 'date:asc',
 				filters: { date: { $gte: today }, slug: { $ne: 'gospel-activities' } }
@@ -89,7 +89,7 @@ export const load: PageServerLoad = async ({ platform, request, cookies }) => {
 			request,
 			endpoint: '/api/events',
 			params: {
-				locale: cookies.get('locale'),
+				locale: lang,
 				populate: { hero_image: true, content_image: true },
 				sort: 'date:desc',
 				filters: { date: { $lt: today }, slug: { $ne: 'gospel-activities' } }
