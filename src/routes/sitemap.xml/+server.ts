@@ -15,15 +15,11 @@ const basePaths = [
 ];
 
 export const GET: RequestHandler = async () => {
-	const sitemap = `<?xml version="1.0" encoding="UTF-8" ?>
-    <urlset
-      xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xhtml="https://www.w3.org/1999/xhtml"
-    >
-      ${basePaths
-				.map((path) => {
-					const cleanPath = path === '/' ? '' : path;
-					return `
+	const sitemap = `<?xml version="1.0" encoding="UTF-8" ?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+	${basePaths
+		.map((path) => {
+			const cleanPath = path === '/' ? '' : path;
+			return `
         <url>
           <loc>${siteUrl}/en${cleanPath}</loc>
           <lastmod>${new Date().toISOString()}</lastmod>
@@ -41,8 +37,8 @@ export const GET: RequestHandler = async () => {
 						.join('')}
         </url>
       `;
-				})
-				.join('')}
+		})
+		.join('')}
     </urlset>`;
 
 	return new Response(sitemap, {
