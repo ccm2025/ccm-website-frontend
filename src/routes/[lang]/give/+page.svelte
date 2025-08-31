@@ -1,6 +1,7 @@
 <script>
 	import StyledText from '$lib/components/StyledText.svelte';
-	import { locale } from '$lib/stores/Locale';
+	import { page } from '$app/state';
+	$: lang = page.params.lang;
 
 	/** @type {import('./$types').PageData} */
 	export let data;
@@ -74,7 +75,7 @@
 			<div class="container mx-auto max-w-6xl px-4">
 				<div class="aspect-video overflow-hidden rounded-lg shadow-lg md:aspect-[17/11]">
 					<iframe
-						src={$locale === 'zh-Hans'
+						src={lang === 'zh-Hans'
 							? data.page.pdf_links[0].pdf.url
 							: data.page.pdf_links[2].pdf.url}
 						title="Featured PDF"

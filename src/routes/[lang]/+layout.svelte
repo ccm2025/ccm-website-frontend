@@ -1,6 +1,12 @@
 <script lang="ts">
 	/** @type {import('./$types').PageData} */
 	export let data;
+
+	import { page } from '$app/state';
+	$: lang = page.params.lang;
+	$: path = page.url.pathname.replace(/^\/(en|zh-Hans)/, '') || '/';
+	$: canonicalBase = 'https://graceccm.org';
+
 	// =================================================
 	// All shared components and styles
 	// =================================================
@@ -10,8 +16,17 @@
 	import { isMenuOpen, toggleMenu } from '$lib/stores/SideMenu';
 	import NavList from '$lib/components/NavList.svelte';
 	import LangButton from '$lib/components/LangButton.svelte';
-	import { locale } from '$lib/stores/Locale';
 </script>
+
+<svelte:head>
+	<!-- Canonical URL -->
+	<link rel="canonical" href="{canonicalBase}/{lang}{path}" />
+
+	<!-- Hreflang tags -->
+	<link rel="alternate" href="{canonicalBase}/en{path}" hreflang="en" />
+	<link rel="alternate" href="{canonicalBase}/zh-Hans{path}" hreflang="zh-Hans" />
+	<link rel="alternate" href="{canonicalBase}/{lang}{path}" hreflang="x-default" />
+</svelte:head>
 
 <div class="min-h-screen bg-white text-gray-800">
 	<!-- =================================================
@@ -21,7 +36,7 @@
 		<div class="container mx-auto px-4">
 			<div class="flex h-25 items-center justify-between">
 				<!-- Logo -->
-				<a href={`/${$locale}`} class="flex items-center space-x-3">
+				<a href={`/${lang}`} class="flex items-center space-x-3">
 					<img src={logoImage} alt={data.page.website_title_en} class="h-30 w-30 rounded-full" />
 					<div>
 						<div
@@ -74,7 +89,7 @@
 		<div class="container mx-auto px-4 py-16">
 			<div class="grid grid-cols-1 gap-12 text-center md:grid-cols-2 md:text-left lg:grid-cols-4">
 				<div class="flex flex-col items-center md:items-start">
-					<a href={`/${$locale}`} class="flex items-center space-x-3">
+					<a href={`/${lang}`} class="flex items-center space-x-3">
 						<img
 							src={logoImage}
 							alt={data.page.website_title_en}
@@ -139,7 +154,7 @@
 					<nav class="space-y-2">
 						{#each data.page.nav.slice(0, 4) as item}
 							<a
-								href={`/${$locale}/${item.slug[0] === '/' ? item.slug.slice(1) : item.slug}`}
+								href={`/${lang}/${item.slug[0] === '/' ? item.slug.slice(1) : item.slug}`}
 								class="block text-gray-300 hover:text-white hover:underline">{item.text}</a
 							>
 						{/each}
@@ -150,7 +165,7 @@
 					<nav class="space-y-2">
 						{#each data.page.nav.slice(4, 8) as item}
 							<a
-								href={`/${$locale}/${item.slug[0] === '/' ? item.slug.slice(1) : item.slug}`}
+								href={`/${lang}/${item.slug[0] === '/' ? item.slug.slice(1) : item.slug}`}
 								class="block text-gray-300 hover:text-white hover:underline">{item.text}</a
 							>
 						{/each}

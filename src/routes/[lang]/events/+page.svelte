@@ -1,9 +1,11 @@
 <script>
 	import StyledText from '$lib/components/StyledText.svelte';
-	import { locale } from '$lib/stores/Locale';
 
 	/** @type {import('./$types').PageData} */
 	export let data;
+
+	import { page } from '$app/state';
+	$: lang = page.params.lang;
 </script>
 
 <svelte:head>
@@ -45,7 +47,7 @@
 			<div class="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
 				{#each data.page.categories as category (category.id)}
 					<a
-						href={`/${$locale}/events/${category.slug}`}
+						href={`/${lang}/events/${category.slug}`}
 						class="group block overflow-hidden rounded-lg bg-gray-50 shadow-md transition-shadow duration-300 hover:shadow-xl"
 					>
 						<div class="h-48 overflow-hidden">
@@ -83,7 +85,7 @@
 			{#if data.page.upcoming_events.length > 0}
 				<div class="mx-auto mt-12 grid max-w-4xl grid-cols-1 gap-6">
 					{#each data.page.upcoming_events as event (event.id)}
-						<a href={`/${$locale}/events/${event.slug}`}>
+						<a href={`/${lang}/events/${event.slug}`}>
 							<div
 								class="grid transform grid-cols-1 items-start gap-8 transition-transform duration-200 hover:scale-105 md:grid-cols-3"
 							>
@@ -131,7 +133,7 @@
 				<div class="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
 					{#each data.page.past_events as event (event.id)}
 						<a
-							href={`/${$locale}/events/${event.slug}`}
+							href={`/${lang}/events/${event.slug}`}
 							class="group relative block h-56 overflow-hidden rounded-lg shadow-lg"
 						>
 							<div class="absolute inset-0">

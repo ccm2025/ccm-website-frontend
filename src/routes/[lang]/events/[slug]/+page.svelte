@@ -1,9 +1,11 @@
 <script>
 	import StyledText from '$lib/components/StyledText.svelte';
-	import { locale } from '$lib/stores/Locale';
 
 	/** @type {import('./$types').PageData} */
 	export let data;
+
+	import { page } from '$app/state';
+	$: lang = page.params.lang;
 
 	import { ArrowLeft } from 'lucide-svelte';
 </script>
@@ -36,7 +38,7 @@
 			<!-- Back Button -->
 			<div class="mb-8">
 				<a
-					href={`/${$locale}/events`}
+					href={`/${lang}/events`}
 					class="inline-flex items-center gap-2 rounded-lg bg-[rgb(var(--website-theme-color1))] px-4 py-2 font-semibold text-white transition-colors duration-300 hover:bg-[rgb(var(--website-theme-color2))]"
 				>
 					<ArrowLeft size={20} />
