@@ -77,7 +77,7 @@
 					<iframe
 						src={lang === 'zh-Hans'
 							? data.page.pdf_links[0].pdf.url
-							: data.page.pdf_links[2].pdf.url}
+							: data.page.pdf_links[1].pdf.url}
 						title="Featured PDF"
 						class="h-full w-full border-0"
 						loading="lazy"

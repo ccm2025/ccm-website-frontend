@@ -80,7 +80,7 @@ export const load: PageServerLoad = async ({ platform, request, params }) => {
 				locale: lang,
 				populate: { hero_image: true, content: true, content_image: true },
 				sort: 'date:asc',
-				filters: { date: { $gte: today }, slug: { $ne: 'gospel-activities' } }
+				filters: { date: { $gte: today }, slug: { $ne: 'outreach-events' } }
 			},
 			callback: callbackEvents
 		}),
@@ -92,7 +92,7 @@ export const load: PageServerLoad = async ({ platform, request, params }) => {
 				locale: lang,
 				populate: { hero_image: true, content_image: true },
 				sort: 'date:desc',
-				filters: { date: { $lt: today }, slug: { $ne: 'gospel-activities' } }
+				filters: { date: { $lt: today }, slug: { $ne: 'outreach-events' } }
 			},
 			callback: callbackEvents
 		})
