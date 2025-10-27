@@ -1,6 +1,5 @@
 import { STRAPI_MEDIA_URL } from '$lib/server/strapi';
-import { error } from '@sveltejs/kit';
-import type { RequestHandler } from '../$types';
+import { error, type RequestHandler } from '@sveltejs/kit';
 
 export const GET: RequestHandler = async ({ platform, params }) => {
 	const { path } = params as { path: string };

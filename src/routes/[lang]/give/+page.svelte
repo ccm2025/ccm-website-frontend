@@ -7,6 +7,7 @@
 	export let data;
 
 	import { Download } from 'lucide-svelte';
+	import DonationForm from '$lib/components/DonationForm.svelte';
 </script>
 
 <svelte:head>
@@ -65,6 +66,9 @@
 						</h3>
 						<StyledText data={data.page.check_content} />
 					</div>
+				</div>
+				<div class="space-y-10">
+					<DonationForm />
 				</div>
 			</div>
 		</div>
