@@ -83,7 +83,7 @@ export function getMedia(mediaObject: StrapiMedia, altText: string = ''): Strapi
 	const url = new URL(mediaObject?.url ?? '', STRAPI_MEDIA_URL);
 
 	return {
-		url: '/media' + url.pathname,
+		url: '/api/media' + url.pathname,
 		alt: mediaObject?.alt || altText
 	};
 }
