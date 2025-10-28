@@ -83,7 +83,20 @@ export const POST: RequestHandler = async ({ request }) => {
 			}
 		});
 
-		const data = response.data;
+		const rawData = response.data;
+		let data = rawData;
+
+		if (typeof rawData === 'string') {
+			// strip BOM and trim whitespace
+			data = rawData.replace(/^\uFEFF/, '').trim();
+
+			try {
+				data = JSON.parse(data);
+			} catch (err) {
+				console.warn('Authorize.Net response is not valid JSON after BOM removal:', err);
+				return json({ error: 'Invalid response from payment gateway.' }, { status: 500 });
+			}
+		}
 
 		if (data?.messages?.resultCode === 'Ok') {
 			const token = data?.token;
