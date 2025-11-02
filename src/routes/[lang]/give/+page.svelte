@@ -77,7 +77,7 @@
 	{#if data.page.pdf_links && data.page.pdf_links.length > 2}
 		<section class="bg-gray-50 py-16 pb-16 md:pb-20">
 			<div class="container mx-auto max-w-6xl px-4">
-				<div class="aspect-video overflow-hidden rounded-lg shadow-lg md:aspect-[17/11]">
+				<div class="aspect-video overflow-hidden rounded-lg shadow-lg md:aspect-17/11">
 					<iframe
 						src={lang === 'zh-Hans'
 							? data.page.pdf_links[0].pdf.url

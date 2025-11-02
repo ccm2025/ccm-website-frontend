@@ -32,7 +32,7 @@ export const POST: RequestHandler = async ({ request }) => {
 								AUTHNET_RETURN_URL +
 								'/' +
 								lang +
-								'/give", "urlText": "Continue", "cancelUrl": "' +
+								'/thank-you", "urlText": "Continue", "cancelUrl": "' +
 								AUTHNET_RETURN_URL +
 								'/' +
 								lang +
