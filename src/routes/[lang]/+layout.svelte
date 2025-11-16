@@ -86,7 +86,7 @@
   // Shared Footer
   // ================================================= -->
 	<footer class="bg-[rgb(var(--website-theme-color1))] text-gray-200">
-		<div class="container mx-auto px-4 py-16">
+		<div class="container mx-auto px-4 py-14">
 			<div class="grid grid-cols-1 gap-12 text-center md:grid-cols-2 md:text-left lg:grid-cols-4">
 				<div class="flex flex-col items-center md:items-start">
 					<a href={`/${lang}`} class="flex items-center space-x-3">
@@ -109,7 +109,7 @@
 						<a
 							href={data.page.instagram_url || '/'}
 							aria-label="Instagram"
-							class="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-yellow-400 via-red-500 to-purple-600 text-white transition-opacity hover:opacity-90"
+							class="flex h-12 w-12 items-center justify-center rounded-full bg-linear-to-br from-yellow-400 via-red-500 to-purple-600 text-white transition-opacity hover:opacity-90"
 							><svg
 								xmlns="http://www.w3.org/2000/svg"
 								width="24"
@@ -171,6 +171,18 @@
 						{/each}
 					</nav>
 				</div>
+			</div>
+		</div>
+		<!-- small powered-by line at bottom-right -->
+		<div class="container mx-auto px-4">
+			<div class="text-right text-xs text-gray-200/80">
+				Powered by
+				<a
+					href="https://strapi.link/nfp"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="ml-1 inline-block underline hover:text-white">Strapi</a
+				>
 			</div>
 		</div>
 	</footer>
