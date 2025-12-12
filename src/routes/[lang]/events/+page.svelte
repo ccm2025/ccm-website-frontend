@@ -30,44 +30,6 @@
 		</div>
 	</section>
 
-	<!-- Categories Section -->
-	<section class="bg-white py-16 md:py-20">
-		<div class="container mx-auto px-4">
-			<div class="mx-auto max-w-4xl text-center">
-				<h2 class="text-lg font-semibold text-[rgb(var(--website-theme-color2))] md:text-xl">
-					{data.page.categories_subtitle}
-				</h2>
-				<p
-					class="mt-2 text-3xl font-bold tracking-wide text-[rgb(var(--website-theme-color1))] md:text-4xl"
-				>
-					{data.page.categories_title}
-				</p>
-			</div>
-
-			<div class="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-				{#each data.page.categories as category (category.id)}
-					<a
-						href={`/${lang}/events/${category.slug}`}
-						class="group block overflow-hidden rounded-lg bg-gray-50 shadow-md transition-shadow duration-300 hover:shadow-xl"
-					>
-						<div class="h-48 overflow-hidden">
-							<img
-								src={category.image.url}
-								alt={category.image.alt}
-								class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-							/>
-						</div>
-						<div class="p-6">
-							<h3 class="text-xl font-bold text-[rgb(var(--website-theme-color1))]">
-								{category.title}
-							</h3>
-						</div>
-					</a>
-				{/each}
-			</div>
-		</div>
-	</section>
-
 	<!-- Upcoming Events Section -->
 	<section class="bg-gray-50 py-16 md:py-20">
 		<div class="container mx-auto px-4">
@@ -142,7 +104,7 @@
 									alt={event.content_image.alt}
 									class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
 								/>
-								<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+								<div class="absolute inset-0 bg-linear-to-t from-black/70 to-transparent"></div>
 							</div>
 							<div class="relative flex h-full flex-col items-start justify-end p-4">
 								<h3 class="text-xl font-bold text-[rgb(var(--website-theme-color2))]">
