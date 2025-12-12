@@ -2,7 +2,7 @@ import { fetch, getMedia } from '$lib';
 import type { InfoSection, StrapiMedia } from '$lib/types';
 import type { PageServerLoad } from './$types';
 
-interface SupportPageAttributes {
+interface MinistryPageAttributes {
 	hero_title: string;
 	hero_image: StrapiMedia;
 	info_sections: InfoSection[];
@@ -10,10 +10,10 @@ interface SupportPageAttributes {
 
 export const load: PageServerLoad = async ({ platform, request, params }) => {
 	const { lang } = params;
-	return fetch<SupportPageAttributes>({
+	return fetch<MinistryPageAttributes>({
 		platform,
 		request,
-		endpoint: '/api/support-page',
+		endpoint: '/api/ministry-page',
 		params: {
 			locale: lang,
 			populate: {
