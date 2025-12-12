@@ -1,16 +1,6 @@
 import { fetch, getMedia } from '$lib';
-import type { StrapiMedia, StyledTextProps } from '$lib/types';
+import type { InfoSection, StrapiMedia } from '$lib/types';
 import type { PageServerLoad } from './$types';
-
-interface InfoSection {
-	id: number;
-	subtitle: string;
-	title: string;
-	content: StyledTextProps[];
-	image: StrapiMedia;
-	button_text?: string;
-	button_url?: string;
-}
 
 interface FreshmanPageAttributes {
 	hero_title: string;
