@@ -14,3 +14,13 @@ export interface StyledTextProps {
 	color?: 'Default' | 'Website-Theme-Color1' | 'Website-Theme-Color2';
 	font_style?: 'Normal' | 'Italic' | 'Bold' | 'Underline';
 }
+
+export interface InfoSection {
+	id: number;
+	subtitle?: string;
+	title: string;
+	content: StyledTextProps[];
+	image: StrapiMedia;
+	button_text?: string;
+	button_url?: string;
+}

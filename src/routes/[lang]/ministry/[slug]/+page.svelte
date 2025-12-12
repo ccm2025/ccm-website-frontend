@@ -38,7 +38,7 @@
 			<!-- Back Button -->
 			<div class="mb-8">
 				<a
-					href={`/${lang}/events`}
+					href={`/${lang}/ministry`}
 					class="inline-flex items-center gap-2 rounded-lg bg-[rgb(var(--website-theme-color1))] px-4 py-2 font-semibold text-white transition-colors duration-300 hover:bg-[rgb(var(--website-theme-color2))]"
 				>
 					<ArrowLeft size={20} />
@@ -68,17 +68,6 @@
 				/>
 			{/if}
 
-			<!-- Content Video Url -->
-			{#if data.page[0].content_video_url}
-				<iframe
-					src={data.page[0].content_video_url}
-					title="Event Video"
-					class="mt-8 aspect-video w-full rounded-lg shadow-md"
-					frameborder="0"
-					allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-					allowfullscreen
-				></iframe>
-			{/if}
 		</div>
 	</section>
 </main>

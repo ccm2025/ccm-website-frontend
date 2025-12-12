@@ -55,7 +55,8 @@ export async function fetch<ApiAttributes>({
 			const cacheResponse = new Response(JSON.stringify(finalData), {
 				headers: {
 					'Content-Type': 'application/json',
-					'Cache-Control': `s-maxage=${cacheSeconds}`
+					'Cache-Control': `public, max-age=${cacheSeconds}, s-maxage=${cacheSeconds}`,
+					'CDN-Cache-Control': `public, max-age=${cacheSeconds}`
 				}
 			});
 			platform.context.waitUntil(cache.put(cacheKey, cacheResponse));

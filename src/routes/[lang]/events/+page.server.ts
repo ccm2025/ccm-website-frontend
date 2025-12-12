@@ -13,19 +13,9 @@ export interface Event {
 	content_video_url: string;
 }
 
-interface Category {
-	id: number;
-	title: string;
-	image: StrapiMedia;
-	slug: string;
-}
-
 interface GatheringsPageAttributes {
 	hero_title: string;
 	hero_image: StrapiMedia;
-	categories_subtitle: string;
-	categories_title: string;
-	categories: Category[];
 	upcoming_events_subtitle: string;
 	upcoming_events_title: string;
 	upcoming_events_empty_text: string;
@@ -53,11 +43,7 @@ export const load: PageServerLoad = async ({ platform, request, params }) => {
 	const callbackEventsPage = (data: GatheringsPageAttributes) => ({
 		page: {
 			...data,
-			hero_image: getMedia(data.hero_image, 'Hero image'),
-			categories: data.categories?.map((category) => ({
-				...category,
-				image: getMedia(category.image, 'Category image')
-			}))
+			hero_image: getMedia(data.hero_image, 'Hero image')
 		}
 	});
 
@@ -68,7 +54,7 @@ export const load: PageServerLoad = async ({ platform, request, params }) => {
 			endpoint: '/api/events-page',
 			params: {
 				locale: lang,
-				populate: { hero_image: true, categories: { populate: { image: true } } }
+				populate: { hero_image: true }
 			},
 			callback: callbackEventsPage
 		}),
