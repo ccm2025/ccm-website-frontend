@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const AUTHNET_API_LOGIN_ID = env.PRIVATE_AUTHNET_API_LOGIN_ID;
 const AUTHNET_TRANSACTION_KEY = env.PRIVATE_AUTHNET_TRANSACTION_KEY;
-const AUTHNET_RETURN_URL = env.PRIVATE_AUTHNET_RETURN_URL;
+const AUTHNET_RETURN_URL = env.PRIVATE_SITE_URL;
 const AUTHNET_ENDPOINT = 'https://api.authorize.net/xml/v1/request.api';
 // Use 'https://apitest.authorize.net/xml/v1/request.api' for sandbox testing
 // Use 'https://api.authorize.net/xml/v1/request.api' for production

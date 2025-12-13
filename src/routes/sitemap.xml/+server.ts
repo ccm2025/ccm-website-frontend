@@ -1,7 +1,8 @@
+import { env } from '$env/dynamic/private';
 import { ALLOWED_LANGS } from '$lib/types';
 import type { RequestHandler } from '@sveltejs/kit';
 
-const siteUrl = 'https://graceccm.org';
+const siteUrl = env.PRIVATE_SITE_URL;
 
 const basePaths = [
 	'/',
