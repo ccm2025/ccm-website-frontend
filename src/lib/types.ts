@@ -24,3 +24,6 @@ export interface InfoSection {
 	button_text?: string;
 	button_url?: string;
 }
+
+export const ALLOWED_LANGS = ['en', 'zh-Hans'] as const;
+export type AllowedLang = (typeof ALLOWED_LANGS)[number];

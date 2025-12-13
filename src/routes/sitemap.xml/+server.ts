@@ -1,7 +1,7 @@
+import { ALLOWED_LANGS } from '$lib/types';
 import type { RequestHandler } from '@sveltejs/kit';
 
 const siteUrl = 'https://graceccm.org';
-const supportedLangs = ['en', 'zh-Hans'];
 
 const basePaths = [
 	'/',
@@ -24,17 +24,15 @@ export const GET: RequestHandler = async () => {
           <loc>${siteUrl}/en${cleanPath}</loc>
           <lastmod>${new Date().toISOString()}</lastmod>
           
-          ${supportedLangs
-						.map(
-							(lang) => `
+          ${ALLOWED_LANGS.map(
+						(lang) => `
             <xhtml:link
               rel="alternate"
               hreflang="${lang}"
               href="${siteUrl}/${lang}${cleanPath}"
             />
           `
-						)
-						.join('')}
+					).join('')}
         </url>
       `;
 		})

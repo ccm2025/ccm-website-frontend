@@ -1,8 +1,7 @@
 import { fetch } from '$lib';
+import { ALLOWED_LANGS, type AllowedLang } from '$lib/types';
 import { redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
-
-const allowedLangs = ['en', 'zh-Hans'];
 
 interface NavItem {
 	text: string;
@@ -24,8 +23,8 @@ interface GlobalAttributes {
 
 export const load: LayoutServerLoad = async ({ platform, request, params, url }) => {
 	const { lang } = params;
-	if (!allowedLangs.includes(lang)) {
-		throw redirect(307, `/zh-Hans${url.pathname.replace(/^\/[^/]+/, '')}${url.search}`);
+	if (!ALLOWED_LANGS.includes(lang as AllowedLang)) {
+		throw redirect(307, `/en${url.pathname.replace(/^\/[^/]+/, '')}${url.search}`);
 	}
 
 	return fetch<GlobalAttributes>({
