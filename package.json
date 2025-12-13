@@ -1,7 +1,7 @@
 {
 	"name": "ccm-website-frontend",
 	"private": true,
-	"version": "0.4.13",
+	"version": "0.4.14",
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
@@ -21,10 +21,10 @@
 		"@sveltejs/kit": "^2.49.2",
 		"@sveltejs/vite-plugin-svelte": "^5.1.1",
 		"@tailwindcss/typography": "^0.5.19",
-		"@tailwindcss/vite": "^4.1.17",
+		"@tailwindcss/vite": "^4.1.18",
 		"@vitejs/plugin-basic-ssl": "^2.1.0",
 		"autoprefixer": "^10.4.22",
-		"eslint": "^9.39.1",
+		"eslint": "^9.39.2",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-svelte": "^3.13.1",
 		"globals": "^16.5.0",
@@ -32,13 +32,13 @@
 		"prettier-plugin-organize-imports": "^4.3.0",
 		"prettier-plugin-svelte": "^3.4.0",
 		"prettier-plugin-tailwindcss": "^0.6.14",
-		"svelte": "^5.45.8",
+		"svelte": "^5.46.0",
 		"svelte-check": "^4.3.4",
 		"tailwindcss": "^4.1.11",
 		"typescript": "^5.9.3",
 		"typescript-eslint": "^8.49.0",
 		"vite": "^6.4.1",
-		"wrangler": "^4.53.0"
+		"wrangler": "^4.54.0"
 	},
 	"dependencies": {
 		"authorizenet": "^1.0.10",
