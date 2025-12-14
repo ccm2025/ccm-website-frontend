@@ -4,10 +4,6 @@ import { error } from '@sveltejs/kit';
 import axios from 'axios';
 
 interface FetcherOptions<T> {
-	platform: App.Platform | undefined;
-	request: Request;
-	cacheSeconds?: number;
-
 	endpoint: string;
 	params?: object;
 	callback?: (data: T) => FetcherResponse<T>;
@@ -18,28 +14,15 @@ interface FetcherResponse<T> {
 }
 
 /**
- * A generic data fetching function with caching capabilities
- * @param options Includes platform, request, endpoint, params, mapper function, and cache duration
+ * A generic data fetching function
+ * @param options Includes endpoint, params, and optional mapper function
  * @returns Returns the final data processed by the mapping function
  */
 export async function fetch<ApiAttributes>({
-	platform,
-	request,
-	cacheSeconds = 3600 * 24,
 	endpoint,
 	params = {},
 	callback = (data: ApiAttributes) => ({ page: data })
 }: FetcherOptions<ApiAttributes>): Promise<FetcherResponse<ApiAttributes>> {
-	const cacheKey = request.url + endpoint + JSON.stringify(params);
-	const cache = platform?.caches.default;
-
-	if (cache) {
-		const cachedResponse = await cache.match(cacheKey);
-		if (cachedResponse) {
-			return await cachedResponse.json();
-		}
-	}
-
 	try {
 		const response = await api.get<StrapiResponse<ApiAttributes>>(endpoint, { params: params });
 
@@ -49,20 +32,7 @@ export async function fetch<ApiAttributes>({
 			throw error(404, `Data not found: ${endpoint}`);
 		}
 
-		const finalData = callback(pageData);
-
-		if (cache) {
-			const cacheResponse = new Response(JSON.stringify(finalData), {
-				headers: {
-					'Content-Type': 'application/json',
-					'Cache-Control': `public, max-age=${cacheSeconds}, s-maxage=${cacheSeconds}`,
-					'CDN-Cache-Control': `public, max-age=${cacheSeconds}`
-				}
-			});
-			platform.context.waitUntil(cache.put(cacheKey, cacheResponse));
-		}
-
-		return finalData;
+		return callback(pageData);
 	} catch (e) {
 		console.error('Error fetching:', e);
 		if (axios.isAxiosError(e)) {

@@ -21,15 +21,13 @@ interface GlobalAttributes {
 	nav: NavItem[];
 }
 
-export const load: LayoutServerLoad = async ({ platform, request, params, url }) => {
+export const load: LayoutServerLoad = async ({ params, url }) => {
 	const { lang } = params;
 	if (!ALLOWED_LANGS.includes(lang as AllowedLang)) {
 		throw redirect(307, `/en${url.pathname.replace(/^\/[^/]+/, '')}${url.search}`);
 	}
 
 	return fetch<GlobalAttributes>({
-		platform,
-		request,
 		endpoint: '/api/global',
 		params: {
 			locale: lang,

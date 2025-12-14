@@ -8,11 +8,9 @@ interface SupportPageAttributes {
 	info_sections: InfoSection[];
 }
 
-export const load: PageServerLoad = async ({ platform, request, params }) => {
+export const load: PageServerLoad = async ({ params }) => {
 	const { lang } = params;
 	return fetch<SupportPageAttributes>({
-		platform,
-		request,
 		endpoint: '/api/support-page',
 		params: {
 			locale: lang,

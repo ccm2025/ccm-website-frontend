@@ -20,11 +20,9 @@ interface PlanYourVisitPageAttributes {
 	location_map_link: string;
 }
 
-export const load: PageServerLoad = async ({ platform, request, params }) => {
+export const load: PageServerLoad = async ({ params }) => {
 	const { lang } = params;
 	return fetch<PlanYourVisitPageAttributes>({
-		platform,
-		request,
 		endpoint: '/api/plan-your-visit-page',
 		params: {
 			locale: lang,

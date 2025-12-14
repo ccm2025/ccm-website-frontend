@@ -8,11 +8,9 @@ interface MinistryPageAttributes {
 	info_sections: InfoSection[];
 }
 
-export const load: PageServerLoad = async ({ platform, request, params }) => {
+export const load: PageServerLoad = async ({ params }) => {
 	const { lang } = params;
 	return fetch<MinistryPageAttributes>({
-		platform,
-		request,
 		endpoint: '/api/ministry-page',
 		params: {
 			locale: lang,

@@ -9,11 +9,9 @@ interface ThankYouPageAttributes {
 	contents: StyledTextProps[];
 }
 
-export const load: PageServerLoad = async ({ platform, request, params }) => {
+export const load: PageServerLoad = async ({ params }) => {
 	const { lang } = params;
 	return fetch<ThankYouPageAttributes>({
-		platform,
-		request,
 		endpoint: '/api/thank-you-page',
 		params: {
 			locale: lang,
