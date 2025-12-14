@@ -1,7 +1,7 @@
 {
 	"name": "ccm-website-frontend",
 	"private": true,
-	"version": "0.4.15",
+	"version": "0.4.16",
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
@@ -23,7 +23,7 @@
 		"@tailwindcss/typography": "^0.5.19",
 		"@tailwindcss/vite": "^4.1.18",
 		"@vitejs/plugin-basic-ssl": "^2.1.0",
-		"autoprefixer": "^10.4.22",
+		"autoprefixer": "^10.4.23",
 		"eslint": "^9.39.2",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-svelte": "^3.13.1",
