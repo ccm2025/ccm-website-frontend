@@ -54,6 +54,10 @@ function validateMediaPath(path: string): { isValid: boolean; sanitizedPath: str
 export const GET: RequestHandler = async ({ params, request }) => {
 	const { path } = params as { path: string };
 
+	if (!path) {
+		return new Response('No media found', { status: 400 });
+	}
+
 	const { isValid, sanitizedPath } = validateMediaPath(path);
 
 	if (!isValid || !sanitizedPath) {
