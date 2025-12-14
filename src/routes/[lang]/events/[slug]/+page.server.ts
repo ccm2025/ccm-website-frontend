@@ -2,11 +2,9 @@ import { fetch, getMedia } from '$lib';
 import type { Event } from '../+page.server';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ platform, request, params }) => {
+export const load: PageServerLoad = async ({ params }) => {
 	const { lang, slug } = params;
 	return fetch<Event[]>({
-		platform,
-		request,
 		endpoint: '/api/events',
 		params: {
 			locale: lang,

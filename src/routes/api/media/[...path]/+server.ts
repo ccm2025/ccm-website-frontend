@@ -51,8 +51,12 @@ function validateMediaPath(path: string): { isValid: boolean; sanitizedPath: str
 	return { isValid: true, sanitizedPath };
 }
 
-export const GET: RequestHandler = async ({ platform, params, request }) => {
+export const GET: RequestHandler = async ({ params, request }) => {
 	const { path } = params as { path: string };
+
+	if (!path) {
+		return new Response('No media found', { status: 400 });
+	}
 
 	const { isValid, sanitizedPath } = validateMediaPath(path);
 
@@ -80,25 +84,6 @@ export const GET: RequestHandler = async ({ platform, params, request }) => {
 	} catch (e) {
 		console.error('Failed to construct media URL:', e);
 		return new Response('Invalid media URL', { status: 400 });
-	}
-
-	const cache = platform?.caches?.default;
-	const cacheKey = new Request(mediaUrl.href, {
-		method: 'GET',
-		headers: new Headers()
-	});
-
-	if (cache) {
-		const cachedResponse = await cache.match(cacheKey);
-		if (cachedResponse) {
-			const headers = new Headers(cachedResponse.headers);
-			headers.set('X-Cache-Status', 'HIT');
-			return new Response(cachedResponse.body, {
-				status: cachedResponse.status,
-				statusText: cachedResponse.statusText,
-				headers
-			});
-		}
 	}
 
 	try {
@@ -129,7 +114,6 @@ export const GET: RequestHandler = async ({ platform, params, request }) => {
 		const newHeaders = new Headers(response.headers);
 		newHeaders.set('Cache-Control', 'public, max-age=604800, immutable');
 		newHeaders.set('X-Content-Type-Options', 'nosniff'); // Prevent MIME type sniffing
-		newHeaders.set('X-Cache-Status', 'MISS');
 
 		// Prevent path traversal in filename
 		const filename = sanitizedPath.split('/').pop() || 'media';
@@ -140,11 +124,6 @@ export const GET: RequestHandler = async ({ platform, params, request }) => {
 			statusText: response.statusText,
 			headers: newHeaders
 		});
-
-		if (cache) {
-			const responseClone = newResponse.clone();
-			platform.context.waitUntil(cache.put(cacheKey, responseClone));
-		}
 
 		return newResponse;
 	} catch (e) {

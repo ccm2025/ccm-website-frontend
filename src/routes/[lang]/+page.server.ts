@@ -25,11 +25,9 @@ interface HomePageAttributes {
 	conclusion: StyledTextProps[];
 }
 
-export const load: PageServerLoad = async ({ platform, request, params }) => {
+export const load: PageServerLoad = async ({ params }) => {
 	const { lang } = params;
 	return fetch<HomePageAttributes>({
-		platform,
-		request,
 		endpoint: '/api/home-page',
 		params: {
 			locale: lang,

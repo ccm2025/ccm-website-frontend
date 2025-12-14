@@ -11,11 +11,9 @@ interface Ministry {
 	content_image: StrapiMedia;
 }
 
-export const load: PageServerLoad = async ({ platform, request, params }) => {
+export const load: PageServerLoad = async ({ params }) => {
 	const { lang, slug } = params;
 	return fetch<Ministry[]>({
-		platform,
-		request,
 		endpoint: '/api/ministries',
 		params: {
 			locale: lang,
